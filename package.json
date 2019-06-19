@@ -6,9 +6,9 @@
     "homepage": "https://chenguolin.github.io",
     "repository": {
         "type": "git",
-        "url": "https://github.com/chenguolin/chenguolin.github.io"
+        "url": "https://github.com/chenguolin/blog.io"
     },
-    "bugs": "https://github.com/chenguolin/chenguolin.github.io/issues",
+    "bugs": "https://github.com/chenguolin/blog/issues",
     "devDependencies": {
         "grunt": "~0.4.5",
         "grunt-contrib-less": "~0.11.4",

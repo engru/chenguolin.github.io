@@ -10,8 +10,7 @@ email: cgl1079743846@gmail.com
 description: "贫僧法号玄苦: ①写过Golang、C++、Python、Java、Ruby ②熟悉Linux、K8s、Docker ③会写一些前端 ④了解一些搜索引擎、大数据、区块链方面知识"
 keyword: "佛曰：万发缘生，皆系缘分"
 url: "https://chenguolin.github.io"          # your host, for absolute URL
-baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/chenguolin/chenguolin.github.io.git" # you code repository
+github_repo: "https://github.com/chenguolin/blog.git" # you code repository
 
 # Sidebar settings
 # 侧边栏
