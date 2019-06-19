@@ -6,7 +6,7 @@
     "homepage": "https://chenguolin.github.io",
     "repository": {
         "type": "git",
-        "url": "https://github.com/chenguolin/blog.io"
+        "url": "https://github.com/chenguolin/blog"
     },
     "bugs": "https://github.com/chenguolin/blog/issues",
     "devDependencies": {
