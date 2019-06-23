@@ -22,7 +22,7 @@ tags:         #标签
 7. 启动kafka生产者  
    $ kafka-console-producer --topic [topic-name]  --broker-listlocalhost:9092
 8. 启动kafka消费者  
-   $ 新版Kafka：kafka-console-consumer --bootstrap-server localhost:9092 --topic [topic-name]
+   $ 新版Kafka：kafka-console-consumer --bootstrap-server localhost:9092 --topic [topic-name]  
    $ 老版Kafka：kafka-console-consumer --zookeeper localhost:9092 --topic [topic-name]
 9. 创建新的Topic  
    $ kafka-topics.sh --create --topic live_sdk_pull_stream -zookeeper 192.168.129.212:2181,192.168.129.213:2181,192.168.129.222:2181,192.168.129.223:2181 --partitions 3 --replication-factor 2
