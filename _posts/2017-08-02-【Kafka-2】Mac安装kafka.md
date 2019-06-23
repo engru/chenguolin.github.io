@@ -25,6 +25,6 @@ tags:         #标签
    $ 新版Kafka：kafka-console-consumer --bootstrap-server localhost:9092 --topic [topic-name]  
    $ 老版Kafka：kafka-console-consumer --zookeeper localhost:9092 --topic [topic-name]
 9. 创建新的Topic  
-   $ kafka-topics.sh --create --topic live_sdk_pull_stream -zookeeper 192.168.129.212:2181,192.168.129.213:2181,192.168.129.222:2181,192.168.129.223:2181 --partitions 3 --replication-factor 2
+   $ kafka-topics.sh --create --topic live_sdk_pull_stream -zookeeper 192.168.129.212:2181,192.168.129.213:2181,192.168.129.222:2181,192.168.129.223:2181 --partitions 3 --replication-factor 2
 10. 列出所有的Topic  
    $ kafka-topics --list --zookeeper localhost:2181
