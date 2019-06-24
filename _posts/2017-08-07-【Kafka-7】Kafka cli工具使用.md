@@ -36,7 +36,7 @@ Available Commands:
 Use "kafkactl <command> --help" for more information about a given command.
 ```
 
-# kafkactl list
+# 二. kafkactl list
 ```
 $ kafkactl list --help
 Usage:
@@ -59,7 +59,7 @@ Examples:
 Use "kafkactl list --help" for more information about a given command.
 ```
 
-## kafkactl list topics
+## ① kafkactl list topics
 $ ./kafkactl list topics -brokers 127.0.0.1:9092
 ```
 1. __consumer_offsets
@@ -76,13 +76,13 @@ $ ./kafkactl list topics -brokers 127.0.0.1:9092
 ...
 ```
 
-## kafkactl list consumer-groups
+## ② kafkactl list consumer-groups
 $ ./kafkactl list consumer-groups -brokers 127.0.0.1:9092
 ```
 1. kafka_topic_test_group
 ```
 
-# kafkactl describe
+# 三. kafkactl describe
 ```
 $ kafkactl describe --help
 Usage:
@@ -107,7 +107,7 @@ Examples:
 Use "kafkactl describe --help" for more information about a given command.
 ```
 
-## kafkactl describe topic
+## ① kafkactl describe topic
 $ ./kafkactl describe topic -topic kafka_topic_test -brokers 127.0.0.1:9092
 ```
 partition-0: oldOffset=[224927], newOffset=[231090], replicas=[1], leader=[1], isr=[[1]], offlineReplicas=[[]]
@@ -122,7 +122,7 @@ partition-8: oldOffset=[225200], newOffset=[231321], replicas=[1], leader=[1], i
 partition-9: oldOffset=[225516], newOffset=[231634], replicas=[1], leader=[1], isr=[[1]], offlineReplicas=[[]]
 ```
 
-## kafkactl describe consumer-group
+## ② kafkactl describe consumer-group
 $ ./kafkactl describe consumer-group -group kafka_topic_test_group -brokers 127.0.0.1:9092
 ```
 State:  Stable
@@ -137,7 +137,7 @@ Members:
   logstash-0-62e51f07-8d39-4a7f-9c77-7d82587b2f51: ClientHost=[/192.168.130.111], ClientID=[logstash-0]
 ```
 
-# kafkactl create
+# 四. kafkactl create
 ```
 $ ./kafkactl create --help
 Usage:
@@ -170,15 +170,15 @@ Examples:
 Use "kafkactl create --help" for more information about a given command.
 ```
 
-## kafkactl create topic
-$ ./kafkactl create topic -topic kafka_topic_test -partition 3 -replica 1 -brokers 127.0.0.1:9092
+## ① kafkactl create topic
+$ ./kafkactl create topic -topic kafka_topic_test -partition 3 -replica 1 -brokers 127.0.0.1:9092  
   Successfully ~
 
-## kafkactl create partition
-$ ./kafkactl create partition -topic kafka_topic_test -totalPartition 6 -brokers 127.0.0.1:9092
+## ② kafkactl create partition
+$ ./kafkactl create partition -topic kafka_topic_test -totalPartition 6 -brokers 127.0.0.1:9092  
   Successfully ~
 
-# kafkactl delete
+# 五. kafkactl delete
 ```
 $ ./kafkactl delete --help
 Usage:
@@ -204,15 +204,15 @@ Examples:
 Use "kafkactl delete --help" for more information about a given command.
 ```
 
-## kafkactl delete topic
+## ① kafkactl delete topic
 $ ./kafkactl delete topic -topic kafka_topic_test -brokers 127.0.0.1:9092
   Successfully ~
 
-## kafkactl delete message
-$ ./kafkactl delete message -topic kafka_topic_test -partition 0 -endOffset 2 -brokers 127.0.0.1:9092
+## ② kafkactl delete message
+$ ./kafkactl delete message -topic kafka_topic_test -partition 0 -endOffset 2 -brokers 127.0.0.1:9092  
   Successfully ~
 
-# kafkactl consume
+# 七. kafkactl consume
 ```
 $ ./kafkactl consume --help
 Usage:
@@ -247,7 +247,7 @@ $ ./kafkactl consume -topic kafka_topic_test -group kafka_topic_test_group -part
 ...
 ```
 
-# kafkactl producer
+# 八. kafkactl producer
 ```
 $ ./kafkactl producer --help
 Usage:
@@ -266,6 +266,6 @@ Examples:
 Use "kafkactl producer --help" for more information about a given command.
 ```
 
-$ ./kafkactl producer -topic kafka_topic_test -group -key key -message "write by chenguolin 20190624" -brokers 127.0.0.1:9092
+$ ./kafkactl producer -topic kafka_topic_test -group -key key -message "write by chenguolin 20190624" -brokers 127.0.0.1:9092  
   Successfully write 2 partition [0] offset [0] ~
 
