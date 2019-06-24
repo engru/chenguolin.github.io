@@ -27,11 +27,11 @@ Usage:
 Available Commands:
   help		  help about any command.
   list		  list topics, consumer groups.
-  describe	describe topic, consumer group.
+  describe	  describe topic, consumer group.
   create	  create topic, partition.
   delete	  delete topic, messages.
   consume	  consume from kafka topic.
-  producer	write message 2 kafka topic.
+  producer	  write message 2 kafka topic.
 
 Use "kafkactl <command> --help" for more information about a given command.
 ```
@@ -95,7 +95,7 @@ Available Sub Commands:
 Options:
   -topic		  topic name.
   -group		  consumer group name.
-  -brokers		kafka brokers address.
+  -brokers		  kafka brokers address.
 
 Examples:
   # Describe a topic.
