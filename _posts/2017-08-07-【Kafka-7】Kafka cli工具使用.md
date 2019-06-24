@@ -60,7 +60,7 @@ Use "kafkactl list --help" for more information about a given command.
 ```
 
 ## ① kafkactl list topics
-$ ./kafkactl list topics -brokers 127.0.0.1:9092
+`$ ./kafkactl list topics -brokers 127.0.0.1:9092`
 ```
 1. __consumer_offsets
 2. ethereum_block_transaction
@@ -77,7 +77,7 @@ $ ./kafkactl list topics -brokers 127.0.0.1:9092
 ```
 
 ## ② kafkactl list consumer-groups
-$ ./kafkactl list consumer-groups -brokers 127.0.0.1:9092
+`$ ./kafkactl list consumer-groups -brokers 127.0.0.1:9092`
 ```
 1. kafka_topic_test_group
 ```
