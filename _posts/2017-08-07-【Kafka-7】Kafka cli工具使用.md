@@ -7,7 +7,7 @@ tags:         #标签
 ---
 
 # 一. 简介
-`kafkactl`是一个使用Golang开发的kafka命令行工具，用于管控kafka集群。例如 `查询topic列表`、`创建topic`、`消费topic`、`生成数据` 等等。  
+`kafkactl`是一个使用Golang开发的kafka命令行工具，用于管控kafka集群。例如 `查询topic列表`、`创建topic`、`删除topic`、`新增partition`、`消费topic`、`生产数据` 等等。  
 项目源码在 [go-kafka tools](https://github.com/chenguolin/golang/tree/master/go-kafka/tools) 欢迎交流学习~
 
 要求: kafka server版本 >= v0.10.0.x，某些命令需要更高版本（例如create topic需要v0.10.1.x）
