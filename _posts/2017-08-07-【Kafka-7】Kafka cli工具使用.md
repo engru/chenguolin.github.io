@@ -108,7 +108,7 @@ Use "kafkactl describe --help" for more information about a given command.
 ```
 
 ## ① kafkactl describe topic
-$ ./kafkactl describe topic -topic kafka_topic_test -brokers 127.0.0.1:9092
+`$ ./kafkactl describe topic -topic kafka_topic_test -brokers 127.0.0.1:9092`
 ```
 partition-0: oldOffset=[224927], newOffset=[231090], replicas=[1], leader=[1], isr=[[1]], offlineReplicas=[[]]
 partition-1: oldOffset=[224612], newOffset=[230733], replicas=[1], leader=[1], isr=[[1]], offlineReplicas=[[]]
@@ -123,7 +123,7 @@ partition-9: oldOffset=[225516], newOffset=[231634], replicas=[1], leader=[1], i
 ```
 
 ## ② kafkactl describe consumer-group
-$ ./kafkactl describe consumer-group -group kafka_topic_test_group -brokers 127.0.0.1:9092
+`$ ./kafkactl describe consumer-group -group kafka_topic_test_group -brokers 127.0.0.1:9092`
 ```
 State:  Stable
 Protocol:  range
@@ -171,12 +171,12 @@ Use "kafkactl create --help" for more information about a given command.
 ```
 
 ## ① kafkactl create topic
-$ ./kafkactl create topic -topic kafka_topic_test -partition 3 -replica 1 -brokers 127.0.0.1:9092  
-  Successfully ~
+`$ ./kafkactl create topic -topic kafka_topic_test -partition 3 -replica 1 -brokers 127.0.0.1:9092`  
+   Successfully ~
 
 ## ② kafkactl create partition
-$ ./kafkactl create partition -topic kafka_topic_test -totalPartition 6 -brokers 127.0.0.1:9092  
-  Successfully ~
+`$ ./kafkactl create partition -topic kafka_topic_test -totalPartition 6 -brokers 127.0.0.1:9092`  
+   Successfully ~
 
 # 五. kafkactl delete
 ```
@@ -205,12 +205,12 @@ Use "kafkactl delete --help" for more information about a given command.
 ```
 
 ## ① kafkactl delete topic
-$ ./kafkactl delete topic -topic kafka_topic_test -brokers 127.0.0.1:9092
-  Successfully ~
+`$ ./kafkactl delete topic -topic kafka_topic_test -brokers 127.0.0.1:9092`  
+   Successfully ~
 
 ## ② kafkactl delete message
-$ ./kafkactl delete message -topic kafka_topic_test -partition 0 -endOffset 2 -brokers 127.0.0.1:9092  
-  Successfully ~
+`$ ./kafkactl delete message -topic kafka_topic_test -partition 0 -endOffset 2 -brokers 127.0.0.1:9092`  
+   Successfully ~
 
 # 七. kafkactl consume
 ```
@@ -241,7 +241,7 @@ Examples:
 Use "kafkactl consume --help" for more information about a given command.
 ```
   
-$ ./kafkactl consume -topic kafka_topic_test -group kafka_topic_test_group -partition 1 -start newest -brokers 127.0.0.1:9092
+`$ ./kafkactl consume -topic kafka_topic_test -group kafka_topic_test_group -partition 1 -start newest -brokers 127.0.0.1:9092`
 ```
 {"offset":231805, "key":, "message":{"log":{"category":"access","@timestamp":"2019-06-24T18:39:05+0800","remote_addr":"120.12.32.147",,"request":"GET /unread/get.json?uid=1999999999 HTTP/1.0","status":"200","first_byte_commit_time":"7","request_time":"0.007","http_x_real_ip":"230.61.192.190","http_x_forwarded_for":"230.61.192.190","content_length":"-","sent_http_content_length":"-","body_bytes_sent":"33","http_cdn":"-"},"stream":"stdout","time":"2019-06-24T10:39:05.028588606Z","k8s":{"container_id":"7c42deb58da2","container_name":"test-write-feed-pre","host":"bjxd-k8sn-1-20","ns":"k8s-log","pod_ip":"120.22.210.122","labels":{"meta-track":"pre","meta-svc":"pre"}}}}
 ...
@@ -266,6 +266,6 @@ Examples:
 Use "kafkactl producer --help" for more information about a given command.
 ```
 
-$ ./kafkactl producer -topic kafka_topic_test -group -key key -message "write by chenguolin 20190624" -brokers 127.0.0.1:9092  
+`$ ./kafkactl producer -topic kafka_topic_test -group -key key -message "write by chenguolin 20190624" -brokers 127.0.0.1:9092`  
   Successfully write 2 partition [0] offset [0] ~
 
