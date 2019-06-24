@@ -144,8 +144,8 @@ Usage:
   kafakctl create <sub-command> ...
 
 Available Sub Commands:
-  topic        create new topic, require kafka server >= v0.10.1.0.
-  partition    cincrease topic partition, require kafka server >= v1.0.0.0.
+  topic        create new topic, require kafka server version >= v0.10.1.0.
+  partition    cincrease topic partition, require kafka server version >= v1.0.0.0.
 
 Options:
   -topic             topic name.
