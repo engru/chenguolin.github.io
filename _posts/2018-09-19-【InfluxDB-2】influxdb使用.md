@@ -53,6 +53,10 @@ Date: Tue, 26 Dec 2017 08:51:11 GM
 1. GET [http://localhost:8086/](http://localhost:8086/ping)query
 2. HEAD [http://localhost:8086/](http://localhost:8086/ping)query
 
+Query参数说明：
+![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-query-args.png?raw=true)
+
+
 1. 使用SELECT查询数据  
    $ curl -G '[http://localhost:8086/query?db=mydb](http://localhost:8086/query?db=mydb)' --data-urlencode 'q=SELECT * FROM "mymeas”'  
    {"results":[{"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2016-05-20T21:30:00Z",12,"1",null],["2016-05-20T21:30:20Z",11,"2",null],["2016-05-20T21:30:40Z",18,null,"1"],["2016-05-20T21:31:00Z",19,null,"3"]]}]}]}
@@ -65,14 +69,11 @@ Date: Tue, 26 Dec 2017 08:51:11 GM
    $ curl -XPOST '[http://localhost:8086/query](http://localhost:8086/query)' --data-urlencode 'q=CREATE DATABASE "mydb”'  
    {"results":[{}]}
 
-Query参数说明：
-![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-query-args.png?raw=true)
-
-1. 使用http认证来创建数据库  
+4. 使用http认证来创建数据库  
 $ curl -XPOST '[http://localhost:8086/query?u=myusername&p=mypassword](http://localhost:8086/query?u=myusername&p=mypassword)' --data-urlencode 'q=CREATE DATABASE "mydb"'  
    {"results":[{}]}
 
-2. 使用基础认证来创建数据库  
+5. 使用基础认证来创建数据库  
 $ curl -XPOST -u myusername:mypassword '[http://localhost:8086/query](http://localhost:8086/query)' --data-urlencode 'q=CREATE DATABASE "mydb”'  
    {"results":[{}]}
 
