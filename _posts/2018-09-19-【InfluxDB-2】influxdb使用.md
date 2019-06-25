@@ -36,8 +36,7 @@ InfluxDB API提供了较简单的方式用于数据库交互。该API使用了HT
 1. GET [http://localhost:8086/ping](http://localhost:8086/ping)
 2. HEAD [http://localhost:8086/ping](http://localhost:8086/ping)
 
-获取InfluxDB版本信息  
-$ curl -sl -I [http://localhost:8086/ping](http://localhost:8086/ping)
+获取InfluxDB版本信息: $ curl -sl -I [http://localhost:8086/ping](http://localhost:8086/ping)
 ```
 HTTP/1.1 204 No Content
 Content-Type: application/json
@@ -53,9 +52,7 @@ Date: Tue, 26 Dec 2017 08:51:11 GM
 1. GET [http://localhost:8086/](http://localhost:8086/ping)query
 2. HEAD [http://localhost:8086/](http://localhost:8086/ping)query
 
-Query参数说明：
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-query-args.png?raw=true)
-
 
 1. 使用SELECT查询数据  
    $ curl -G '[http://localhost:8086/query?db=mydb](http://localhost:8086/query?db=mydb)' --data-urlencode 'q=SELECT * FROM "mymeas”'  
@@ -82,7 +79,6 @@ $ curl -XPOST -u myusername:mypassword '[http://localhost:8086/query](http://loc
 
 定义：POST [http://localhost:8086/write](http://localhost:8086/write)
 
-write参数说明  
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-write-args.png?raw=true) 
 
 数据请求体：--data-binary '< Data in Line Protocol format >'
@@ -105,14 +101,13 @@ $ curl -i -XPOST "[http://localhost:8086/write?db=mydb](http://localhost:8086/wr
 
 6. 通过导入文件的形式，写入多个points。需要使用@来指定文件  
 $ curl -i -XPOST "[http://localhost:8086/write?db=mydb](http://localhost:8086/write?db=mydb)" --data-binary @data.txt
-
-文件内容如下
-```
-mymeas,mytag1=1 value=21 1463689680000000000
-mymeas,mytag1=1 value=34 1463689690000000000
-mymeas,mytag2=8 value=78 1463689700000000000    
-mymeas,mytag3=9 value=89 1463689710000000000
-```
+  文件内容如下  
+  ```
+  mymeas,mytag1=1 value=21 1463689680000000000
+  mymeas,mytag1=1 value=34 1463689690000000000
+  mymeas,mytag2=8 value=78 1463689700000000000    
+  mymeas,mytag3=9 value=89 1463689710000000000
+  ```
 
 响应的状态码  
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-http-code.png?raw=true)
