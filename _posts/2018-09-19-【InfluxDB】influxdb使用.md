@@ -37,10 +37,9 @@ InfluxDB API提供了较简单的方式用于数据库交互。该API使用了HT
 1. GET [http://localhost:8086/ping](http://localhost:8086/ping)
 2. HEAD [http://localhost:8086/ping](http://localhost:8086/ping)
 
+获取InfluxDB版本信息  
+$ curl -sl -I [http://localhost:8086/ping](http://localhost:8086/ping)
 ```
-示例：
-获取InfluxDB版本信息：
-$curl -sl -I [http://localhost:8086/ping](http://localhost:8086/ping)
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: ebe357b8-ea19-11e7-8001-000000000000
@@ -57,64 +56,61 @@ Date: Tue, 26 Dec 2017 08:51:11 GM
 
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-query.png?raw=true)
 
-```
-示例：
-1). 使用SELECT查询数据：
-     $ curl -G '[http://localhost:8086/query?db=mydb](http://localhost:8086/query?db=mydb)' --data-urlencode 'q=SELECT * FROM "mymeas”'
-        {"results":[{"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2016-05-20T21:30:00Z",12,"1",null],["2016-05-20T21:30:20Z",11,"2",null],["2016-05-20T21:30:40Z",18,null,"1"],["2016-05-20T21:31:00Z",19,null,"3"]]}]}]}
+1. 使用SELECT查询数据  
+   $ curl -G '[http://localhost:8086/query?db=mydb](http://localhost:8086/query?db=mydb)' --data-urlencode 'q=SELECT * FROM "mymeas”'  
+   {"results":[{"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2016-05-20T21:30:00Z",12,"1",null],["2016-05-20T21:30:20Z",11,"2",null],["2016-05-20T21:30:40Z",18,null,"1"],["2016-05-20T21:31:00Z",19,null,"3"]]}]}]}
 
-2). 使用INTO字段
-     $ curl -XPOST '[http://localhost:8086/query?db=mydb](http://localhost:8086/query?db=mydb)' --data-urlencode 'q=SELECT * INTO "newmeas" FROM "mymeas”'
-     {"results":[{"series":[{"name":"result","columns":["time","written"],"values":[["1970-01-01T00:00:00Z",4]]}]}]}
+2. 使用INTO字段  
+   $ curl -XPOST '[http://localhost:8086/query?db=mydb](http://localhost:8086/query?db=mydb)' --data-urlencode 'q=SELECT * INTO "newmeas" FROM "mymeas”'  
+   {"results":[{"series":[{"name":"result","columns":["time","written"],"values":[["1970-01-01T00:00:00Z",4]]}]}]}
 
-3). 创建数据库
-      $ curl -XPOST '[http://localhost:8086/query](http://localhost:8086/query)' --data-urlencode 'q=CREATE DATABASE "mydb”'
-      {"results":[{}]}
-```
+3. 创建数据库  
+   $ curl -XPOST '[http://localhost:8086/query](http://localhost:8086/query)' --data-urlencode 'q=CREATE DATABASE "mydb”'  
+   {"results":[{}]}
 
 ## ④ Query参数说明：
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-query-args.png?raw=true)
 
-```
-示例1：使用http认证来创建数据库：
-$ curl -XPOST '[http://localhost:8086/query?u=myusername&p=mypassword](http://localhost:8086/query?u=myusername&p=mypassword)' --data-urlencode 'q=CREATE DATABASE "mydb"'
+1. 使用http认证来创建数据库  
+$ curl -XPOST '[http://localhost:8086/query?u=myusername&p=mypassword](http://localhost:8086/query?u=myusername&p=mypassword)' --data-urlencode 'q=CREATE DATABASE "mydb"'  
    {"results":[{}]}
 
-示例2：使用基础认证来创建数据库：
-$ curl -XPOST -u myusername:mypassword '[http://localhost:8086/query](http://localhost:8086/query)' --data-urlencode 'q=CREATE DATABASE "mydb”'
+2. 使用基础认证来创建数据库  
+$ curl -XPOST -u myusername:mypassword '[http://localhost:8086/query](http://localhost:8086/query)' --data-urlencode 'q=CREATE DATABASE "mydb”'  
    {"results":[{}]}
-```
+
 
 ## ⑤ /write
 /wirte只支持POST的HTTP请求，使用该Endpoint可以写数据到已存在的数据库中。
 
 定义：POST [http://localhost:8086/write](http://localhost:8086/write)
+
 write参数说明  
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-write-args.png?raw=true) 
 
-```
-示例1：使用秒级的时间戳，将一个point写入数据库mydb
-$ curl -i -XPOST "[http://localhost:8086/write?db=mydb&precision=s](http://localhost:8086/write?db=mydb&precision=s)" --data-binary 'mymeas,mytag=1myfield=90 1463683075'
-
-示例2：将一个point写入数据库mydb，并指定RP为myrp
-$ curl -i -XPOST "[http://localhost:8086/write?db=mydb&rp=myrp](http://localhost:8086/write?db=mydb&rp=myrp)" --data-binary 'mymeas,mytag=1 myfield=90'
-
-示例3：使用HTTP认证的方式，将一个point写入数据库mydb
-$ curl -i -XPOST "[http://localhost:8086/write?db=mydb&u=myusername&p=mypassword](http://localhost:8086/write?db=mydb&u=myusername&p=mypassword)" --data-binary 'mymeas,mytag=1 myfield=91'
-
-示例4：使用基础认证的方式，将一个point写入数据库mydb
-$ curl -i -XPOST -u myusername:mypassword "[http://localhost:8086/write?db=mydb](http://localhost:8086/write?db=mydb)" --data-binary 'mymeas,mytag=1 myfield=91'
-
 数据请求体：--data-binary '< Data in Line Protocol format >'
 
-示例1：写多个points到数据库中,需要使用新的一行
-$ curl -i -XPOST "[http://localhost:8086/write?db=mydb](http://localhost:8086/write?db=mydb)" --data-binary 'mymeas,mytag=3 myfield=89
-    mymeas,mytag=2 myfield=34 1463689152000000000'
+1. 使用秒级的时间戳，将一个point写入数据库mydb  
+$ curl -i -XPOST "[http://localhost:8086/write?db=mydb&precision=s](http://localhost:8086/write?db=mydb&precision=s)" --data-binary 'mymeas,mytag=1myfield=90 1463683075'
 
-示例2：通过导入文件的形式，写入多个points。需要使用@来指定文件
+2. 将一个point写入数据库mydb，并指定RP为myrp  
+$ curl -i -XPOST "[http://localhost:8086/write?db=mydb&rp=myrp](http://localhost:8086/write?db=mydb&rp=myrp)" --data-binary 'mymeas,mytag=1 myfield=90'
+
+3. 使用HTTP认证的方式，将一个point写入数据库mydb  
+$ curl -i -XPOST "[http://localhost:8086/write?db=mydb&u=myusername&p=mypassword](http://localhost:8086/write?db=mydb&u=myusername&p=mypassword)" --data-binary 'mymeas,mytag=1 myfield=91'
+
+4. 使用基础认证的方式，将一个point写入数据库mydb  
+$ curl -i -XPOST -u myusername:mypassword "[http://localhost:8086/write?db=mydb](http://localhost:8086/write?db=mydb)" --data-binary 'mymeas,mytag=1 myfield=91'
+
+5. 写多个points到数据库中,需要使用新的一行  
+$ curl -i -XPOST "[http://localhost:8086/write?db=mydb](http://localhost:8086/write?db=mydb)" --data-binary 'mymeas,mytag=3 myfield=89  
+  mymeas,mytag=2 myfield=34 1463689152000000000'
+
+6. 通过导入文件的形式，写入多个points。需要使用@来指定文件  
 $ curl -i -XPOST "[http://localhost:8086/write?db=mydb](http://localhost:8086/write?db=mydb)" --data-binary @data.txt
 
 文件内容如下
+```
 mymeas,mytag1=1 value=21 1463689680000000000
 mymeas,mytag1=1 value=34 1463689690000000000
 mymeas,mytag2=8 value=78 1463689700000000000    
