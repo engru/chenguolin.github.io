@@ -27,10 +27,9 @@ tags:         #标签
 # 四. API
 InfluxDB API提供了较简单的方式用于数据库交互。该API使用了HTTP的方式，并以JSON格式进行返回。
 
-## ① 支持的Endpoints
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-endpoint.png?raw=true)
 
-## ② /ping
+## ① /ping
 `/ping` 支持GET和HEAD，都可用于获取指定信息。
 
 定义：
@@ -47,14 +46,12 @@ X-Influxdb-Version: v1.3.6
 Date: Tue, 26 Dec 2017 08:51:11 GM
 ```
 
-## ③ /query
+## ② /query
 `/query` 支持GET和POST的HTTP请求。可用于查询数据和管理数据库、rp、users。
 
 定义：
 1. GET [http://localhost:8086/](http://localhost:8086/ping)query
 2. HEAD [http://localhost:8086/](http://localhost:8086/ping)query
-
-![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-query.png?raw=true)
 
 1. 使用SELECT查询数据  
    $ curl -G '[http://localhost:8086/query?db=mydb](http://localhost:8086/query?db=mydb)' --data-urlencode 'q=SELECT * FROM "mymeas”'  
@@ -68,7 +65,7 @@ Date: Tue, 26 Dec 2017 08:51:11 GM
    $ curl -XPOST '[http://localhost:8086/query](http://localhost:8086/query)' --data-urlencode 'q=CREATE DATABASE "mydb”'  
    {"results":[{}]}
 
-## ④ Query参数说明：
+Query参数说明：
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-query-args.png?raw=true)
 
 1. 使用http认证来创建数据库  
@@ -79,7 +76,7 @@ $ curl -XPOST '[http://localhost:8086/query?u=myusername&p=mypassword](http://lo
 $ curl -XPOST -u myusername:mypassword '[http://localhost:8086/query](http://localhost:8086/query)' --data-urlencode 'q=CREATE DATABASE "mydb”'  
    {"results":[{}]}
 
-## ⑤ /write
+## ③ /write
 `/wirte` 只支持POST的HTTP请求，使用该Endpoint可以写数据到已存在的数据库中。
 
 定义：POST [http://localhost:8086/write](http://localhost:8086/write)
