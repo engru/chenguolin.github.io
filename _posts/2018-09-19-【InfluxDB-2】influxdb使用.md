@@ -31,7 +31,7 @@ InfluxDB API提供了较简单的方式用于数据库交互。该API使用了HT
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/influxdb-endpoint.png?raw=true)
 
 ## ② /ping
-/ping支持GET和HEAD，都可用于获取指定信息。
+`/ping` 支持GET和HEAD，都可用于获取指定信息。
 
 定义：
 1. GET [http://localhost:8086/ping](http://localhost:8086/ping)
@@ -48,7 +48,7 @@ Date: Tue, 26 Dec 2017 08:51:11 GM
 ```
 
 ## ③ /query
-/query支持GET和POST的HTTP请求。可用于查询数据和管理数据库、rp、users。
+`/query` 支持GET和POST的HTTP请求。可用于查询数据和管理数据库、rp、users。
 
 定义：
 1. GET [http://localhost:8086/](http://localhost:8086/ping)query
@@ -79,9 +79,8 @@ $ curl -XPOST '[http://localhost:8086/query?u=myusername&p=mypassword](http://lo
 $ curl -XPOST -u myusername:mypassword '[http://localhost:8086/query](http://localhost:8086/query)' --data-urlencode 'q=CREATE DATABASE "mydb”'  
    {"results":[{}]}
 
-
 ## ⑤ /write
-/wirte只支持POST的HTTP请求，使用该Endpoint可以写数据到已存在的数据库中。
+`/wirte` 只支持POST的HTTP请求，使用该Endpoint可以写数据到已存在的数据库中。
 
 定义：POST [http://localhost:8086/write](http://localhost:8086/write)
 
