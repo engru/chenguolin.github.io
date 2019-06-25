@@ -100,7 +100,7 @@ $ curl -i -XPOST "[http://localhost:8086/write?db=mydb](http://localhost:8086/wr
   mymeas,mytag=2 myfield=34 1463689152000000000'
 
 6. 通过导入文件的形式，写入多个points。需要使用@来指定文件  
-$ curl -i -XPOST "[http://localhost:8086/write?db=mydb](http://localhost:8086/write?db=mydb)" --data-binary @data.txt
+$ curl -i -XPOST "[http://localhost:8086/write?db=mydb](http://localhost:8086/write?db=mydb)" --data-binary @data.txt  
   文件内容如下  
   ```
   mymeas,mytag1=1 value=21 1463689680000000000
