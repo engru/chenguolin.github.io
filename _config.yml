@@ -15,7 +15,7 @@ github_repo: "https://github.com/chenguolin/blog.git" # you code repository
 # Sidebar settings
 # 侧边栏
 sidebar: true                                 # whether or not using Sidebar.
-sidebar-about-description: "贫僧法号玄苦: ①写过Golang、C++、Python、Java、Ruby ②熟悉Linux、K8s、Docker ③会写一些前端 ④了解一些搜索引擎、大数据、区块链方面知识"
+sidebar-about-description: "贫僧法号玄苦: ①写过Golang、C++、Python、Java、Ruby ②熟悉Linux、K8s、Docker ③了解一些搜索引擎、大数据、区块链方面知识"
 sidebar-avatar: /img/head-img.jpeg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # SNS settings
