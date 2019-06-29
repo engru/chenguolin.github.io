@@ -6,15 +6,14 @@ tags:         #标签
     - Spark
 ---
 
-
-# 安装yarn伪分布式集群
-## 1. 创建新用户
+# 一. 安装yarn伪分布式集群
+## ① 创建新用户
   * 添加用户: sudo useradd -m hadoop -s /bin/bash
   * 修改密码: sudo passwd hadoop
   * 添加sudo权限: sudo adduser hadoop sudo
   * 注销选择hadoop用户登录
 
-## 2. 系统环境配置
+## ② 系统环境配置
   * sudo apt-get update
   * 安装vim: sudo apt-get install vim
   * 安装ssh: sudo apt-get install openssh-server
@@ -24,14 +23,14 @@ tags:         #标签
     * ssh-keygen -t rsa  (一路回车即可)
     * cat ./id_rsa.pub >> ./authorized_keys
 
-## 3. 安装java环境
+## ③ 安装java环境
   * 安装jre和jdk: sudo apt-get install openjdk-7-jre openjdk-7-jdk
   * 设置环境变量JAVA_HOME: dpkg -L openjdk-7-jdk | grep '/bin/javac': 该命令会输出一个路径，除去路径末尾的 “/bin/javac”
   * vim ~/.bashrc: 添加一行export JAVA_HOME=...
   * source ~/.bashrc
   * check java 版本: java -version
 
-## 4. 安装hadoop2
+## ④ 安装hadoop2
   * 从http://mirror.bit.edu.cn/apache/hadoop/common/下载最新的稳定版本的hadoop，例如hadoop-2.7.3/hadoop-2.7.3.tar.gz
   * 安装hadoop
     * sudo tar -zxf hadoop-2.7.3.tar.gz -C /usr/local
@@ -39,7 +38,7 @@ tags:         #标签
     * sudo mv hadoop-2.7.3 hadoop
     * sudo chown -R hadoop hadoop
 
-## 5. 配置hadoop
+## ⑤ 配置hadoop
   * /usr/local/hadoop/etc/hadoop进入hadoop配置目录，如果没有hadoop-env.sh或yarn-env.sh需要从后缀名为hadoop-env.sh.template复制一份
     * 在hadoop-env.sh中配置JAVA_HOME
     * 在yarn-env.sh中配置JAVA_HOME
@@ -93,7 +92,7 @@ tags:         #标签
     </configuration>
     ```
 
-## 6. 启动hadoop
+## ⑥ 启动hadoop
   * namenode格式化: ./bin/hdfs namenode -format
   * 修改~/.bashrc添加以下两行，并执行source ~/.bashrc
     * export HADOOP_HOME=/usr/local/hadoop 
@@ -109,7 +108,7 @@ tags:         #标签
     * ./sbin/stop-dfs.sh
     * 第二次之后启动 hadoop，无需进行 NameNode 的初始化，只需要运行 ./sbin/start-dfs.sh 即可
 
-## 7. 启动YARN
+## ⑦ 启动YARN
   * 启动yarn
     * ./sbin/start-yarn.sh 
     * ./sbin/mr-jobhistory-daemon.sh start historyserver  #开启历史服务器，才能在Web中查看任务运行情况
@@ -120,22 +119,22 @@ tags:         #标签
     * ./sbin/stop-yarn.sh 
     * ./sbin/mr-jobhistory-daemon.sh stop historyserver
 
-# 安装Spark
-## 1. 下载Spark
+# 二. 安装Spark
+## ① 下载Spark
   * wget "http://d3kbcqa49mib13.cloudfront.net/spark-2.0.0-bin-hadoop2.7.tgz"
 
-## 2. 解压到/usr/local
+## ② 解压到/usr/local
   * sudo tar -xvzf spark-2.0.0-bin-hadoop2.7.tgz -C /usr/local
   * cd /usr/local
   * sudo mv spark-2.0.0-bin-hadoop2.7 spark
   * sudo chown -R hadoop spark
 
-## 3. 设置环境变化PATH
+## ③ 设置环境变化PATH
   * vim ~/.bashrc
   * export PATH=$PATH:/usr/local/hadoop/bin:/usr/local/spark/bin
   * source ~/.bashrc
 
-## 4. 配置Spark 
+## ④ 配置Spark 
   * cd /usr/local/spark/conf 
   * cp spark-env.sh.template spark-env.sh 
   * vim spark-env.sh
@@ -149,16 +148,15 @@ tags:         #标签
   SPARK_DRIVER_MEMORY=1G
   ```
   
-## 5. 启动spark
+## ⑤ 启动spark
   * sh /usr/local/sbin/start-all.sh
   * 启动成功后可以使用 pyspark或spark-submit
   * 同时也可以访问以下链接查看spark任务 http://master:8080
 
-
-# 使用Yarn运行Spark程序
+# 三. 使用Yarn运行Spark程序
   为了方便，以后我们都采用Yarn来运行Spark任务，不会再单独启动Spark
 
-## 1. 机器配置
+## ① 机器配置
   * sudo chown hadoop:root -R /usr/local/hadoop
   * sudo chown hadoop:root -R /usr/local/spark
   * sudo chmod 775 -R /usr/local/hadoop
@@ -174,7 +172,7 @@ tags:         #标签
   export LD_LIBRARY_PATH=/usr/local/hadoop/lib/native:$LD_LIBRARY_PATH
   ```
 
-## 2. 启动yarn
+## ② 启动yarn
   * cd /usr/local/hadoop
   * ./sbin/start-dfs.sh
   * ./sbin/start-yarn.sh
@@ -190,18 +188,18 @@ tags:         #标签
   16228 DataNode
   ```
 
-## 3. 停止yarn
+## ③ 停止yarn
   * cd /usr/local/hadoop
   * ./sbin/stop-dfs.sh
   * ./sbin/stop-yarn.sh
   * ./sbin/mr-jobhistory-daemon.sh stop historyserver
       
-## 4. web界面查看
+## ④ web界面查看
   * 查看nameNode和dataNode: http://localhost:50070/
   * 查看yarn集群任务: http://localhost:8088/cluster
 
-# 问题汇总
-## 1. 问题
+# 四. 问题汇总
+## ① 问题
 ```
 Hadoop 2.x.x - warning: You have loaded library /home/hadoop/2.2.0/lib/native/libhadoop.so.1.0.0 which might have disabled stack guard.
 解决方案
