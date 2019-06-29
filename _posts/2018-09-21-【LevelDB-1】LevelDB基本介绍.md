@@ -6,7 +6,7 @@ tags:         #标签
     - LevelDB
 ---
 
-# leveldb简介
+# 一. leveldb简介
   leveldb是google两位工程师实现的单机版k-v存储系统，具有以下几个特点
 
 1. key和value都是任意的字节数组，支持内存和持久化存储
@@ -19,12 +19,12 @@ tags:         #标签
 8. 数据使用snappy自动压缩
 9. 外部操作（如文件系统操作等）通过一个虚拟接口使用，用户可以对操作系统进行定制相应操作
 
-# leveldb局限性
+# 二. leveldb局限性
 1. leveldb非关系型数据库，不支持SQL查询也不支持索引
 2. 同一时间只支持单进程(支持多线程)访问db
 3. 不支持客户端-服务器模型，用户需要自己封装
 
-# leveldb基本框架
+# 三. leveldb基本框架
   levelDb本质上是一套存储系统以及在这套存储系统上提供的一些操作接口。为了便于理解整个系统及其处理流程，我们可以从两个不同的角度来看待LevleDb：静态角度和动态角度。从静态角度，可以假想整个系统正在运行过程中（不断插入删除读取数据），此时我们给LevelDb照相，从照片可以看到之前系统的数据在内存和磁盘中是如何分布的，处于什么状态等；从动态的角度，主要是了解系统是如何写入一条记录，读出一条记录，删除一条记录的，同时也包括除了这些接口操作外的内部操作比如compaction，系统运行时崩溃后如何恢复系统等等方面
   leveldb做为存储系统，在整个系统运行过程中，基本的框架如下所示
   ![](https://img-blog.csdn.net/20160130211357097?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
