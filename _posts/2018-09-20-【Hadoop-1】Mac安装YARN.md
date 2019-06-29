@@ -102,3 +102,5 @@ tags:         #标签
         ./sbin/yarn-daemon.sh start nodemanager
 2.  通过jps命令查看是否启动成功
 3.  通过浏览器访问[http://localhost:8088/cluster](http://localhost:8088/cluster) YARN是否启动成功
+
+
