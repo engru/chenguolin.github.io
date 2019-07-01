@@ -26,17 +26,10 @@ tags:         #标签
 1. python weixin_rebot.py
 2. 扫描二维码登录即可  (目前微信限制web版和PC客户端没有办法同时登录)
 
-安装依赖
-```
-1. linux: 
-   1). ubuntu 12.04
-   2). sudo apt-get install imagemagick
-       sudo apt-get install python-pip
-2 python:
-   1). version > 2.6
-   2). sudo pip install requests
-   3). sudo pip install pypng
-   4). sudo pip install Pillow
+安装Python依赖
+1. sudo pip install requests
+2. sudo pip install pypng
+3. sudo pip install Pillow
 ```
 
 # 三. web微信登录过程
