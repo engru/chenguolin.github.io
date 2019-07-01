@@ -121,7 +121,7 @@ tags:         #标签
       'ToUserName': userNmae, //从初始化登录信息那边取到  
    } 
    ```
-   5). 返回json串，BaseResponse内Ret位0表示成功  
+5. 返回json串，BaseResponse内Ret位0表示成功  
    
 ## ⑦. 同步刷新，检查服务端消息  
 1. 说明: 为了实时取到消息，需要客户端不断发送请求给服务端查询  
