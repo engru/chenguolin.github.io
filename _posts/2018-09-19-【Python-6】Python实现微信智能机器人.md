@@ -30,7 +30,6 @@ tags:         #标签
 1. sudo pip install requests
 2. sudo pip install pypng
 3. sudo pip install Pillow
-```
 
 # 三. web微信登录过程
 ## ① 获取uuid  
