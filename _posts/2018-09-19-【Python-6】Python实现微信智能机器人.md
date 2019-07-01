@@ -9,11 +9,10 @@ tags:         #标签
 # 一. 介绍
 [py_weixin_robot](https://github.com/chenguolin/script/tree/master/py_weixin_robot) 是用Python实现的一个智能微信机器人，后端采用图灵机器人接口来实现智能问答。   
    
-要求:
+要求和限制
 1. Python 2.7 版本及以上
-2. 申请[图灵机器人](http://www.turingapi.com/) 获取ApiKey
-
-限制: 目前只支持文本消息回复
+2. 需要申请[图灵机器人](http://www.turingapi.com/) 获取ApiKey
+3. 目前只支持文本消息回复
 
 消息发送机制
 1. 机器人收到消息后会先判读是否发送和接收都是当前用户，如果是则智能回答。否则判读用户是否在2分钟内操作过手机，如果有则跳过，否则进行回答判断
@@ -198,8 +197,3 @@ tags:         #标签
    ```
 5. 返回json串，BaseResponse内Ret位0表示成功  
 
-## 5. 参考
-1. https://github.com/xiangzhai/qwx/blob/master/doc/protocol.md
-2. https://github.com/Urinx/WeixinBot
-3. https://github.com/liuwons/wxBot
-4. http://www.tanhao.me/talk/1466.html/
