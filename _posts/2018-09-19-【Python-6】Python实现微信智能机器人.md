@@ -7,11 +7,11 @@ tags:         #标签
 ---
 
 # 一. 介绍
-[py_weixin_robot](https://github.com/chenguolin/script/tree/master/py_weixin_robot) 是用Python实现的一个智能微信机器人，后端采用图灵机器人接口来实现智能问答。   
+[py_weixin_robot](https://github.com/chenguolin/script/tree/master/py_weixin_robot) 是用Python实现的一个智能微信机器人，后端采用图灵机器人接口来实现智能问答。`声明: 这个项目是比较久之前做的，依赖的第三方图灵机器人API可能现在有些变动，因此运行代码可能会遇到跑不起来的情况，需要做些调整` 
    
 要求和限制
 1. Python 2.7 版本及以上
-2. 需要申请[图灵机器人](http://www.turingapi.com/) 获取ApiKey
+2. 需要申请[图灵机器人](http://www.turingapi.com/) 获取ApiKey (设置到conf目录下的配置文件的api_key字段)
 3. 目前只支持文本消息回复
 
 消息发送机制
@@ -19,6 +19,10 @@ tags:         #标签
 2. 如果消息来自群聊，先判断当前消息是否 @当前用户，如果没有则随机选择是否发送消息
 3. 如果消息来自一般用户，消息类型是图片则随机回复，消息类型是文本则调用图灵机器人接口获取智能回答然后发送消息
 4. 如果消息来自公众号，直接过滤
+
+智能回答效果图  
+![](https://img-blog.csdn.net/20160730152850825)
+![](https://img-blog.csdn.net/20160730152903943)
 
 # 二. 使用说明
 [py_weixin_robot](https://github.com/chenguolin/script/tree/master/py_weixin_robot) 项目源码已经开源，欢迎交流学习
