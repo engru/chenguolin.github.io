@@ -15,7 +15,8 @@ tags:          #标签
     * 简单sig签名
     * 公私钥签名
 3. 服务端检查参数合法性
-4. 公有云鉴权方式参考
+4. 公有云鉴权方式参考  
    1). 阿里云: https://help.aliyun.com/document_detail/122301.html?spm=a2c4g.11186623.6.602.8c2951aeFN3veF  
    2). 华为云: https://support.huaweicloud.com/api-dms/zh-cn_topic_0086485751.html （鉴权方面参考）  
+   3). API签名: https://support.huaweicloud.com/devg-apisign/api-sign-provide.html
 5. token认证？和 AK/SK认证区别？
