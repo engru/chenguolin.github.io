@@ -84,21 +84,21 @@ docs(README): update README
 update README file, add content for use aliyun kafka 
 ```
 
-## 似 Changes that do not affect the meaning of the code
+## ④ Not affect the meaning of the code
 ```
 style(http): add couple of missing semi colons
 
 http/http.go add couple of missing semi colons
 ```
 
-## ⑤ add unit test
+## ⑤ Add unit test
 ```
 test(http): add unit test
 
 http_test.go add TestRequest function
 ```
 
-## ⑥ update build script or dockerfile
+## ⑥ Change build script or dockerfile
 ```
 chore(build): update build.sh and dockerfile
 
