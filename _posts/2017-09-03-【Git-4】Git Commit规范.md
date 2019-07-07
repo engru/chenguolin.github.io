@@ -58,7 +58,7 @@ This reverts commit c8c221ee6420a2c2c9bfac7ac18946631b84f314
 ```
 
 # 三. 举例
-1. Add new feature
+## ① Add new feature
 ```
 feat(kafka): add aliyun kafka client
 
@@ -68,7 +68,7 @@ add kafka package, aliyun kafka client for operator kafka instance:
 3.support get topic status
 ```
 
-2. Fix bug
+## ② Fix bug
 ```
 feat(kafka): modify calculate signature
 
@@ -77,28 +77,28 @@ modify kafka/client.go calculateSignature function, add sort url query params
 Closes #392
 ```
 
-3. Change Documentation
+## ③ Change Documentation
 ```
 docs(README): update README
 
 update README file, add content for use aliyun kafka 
 ```
 
-4. Changes that do not affect the meaning of the code
+## 似 Changes that do not affect the meaning of the code
 ```
 style(http): add couple of missing semi colons
 
 http/http.go add couple of missing semi colons
 ```
 
-5. add unit test
+## ⑤ add unit test
 ```
 test(http): add unit test
 
 http_test.go add TestRequest function
 ```
 
-6. update build script or dockerfile
+## ⑥ update build script or dockerfile
 ```
 chore(build): update build.sh and dockerfile
 
