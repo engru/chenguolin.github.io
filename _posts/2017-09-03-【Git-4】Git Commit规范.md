@@ -70,7 +70,7 @@ add kafka package, aliyun kafka client for operator kafka instance:
 
 ## ② Fix bug
 ```
-feat(kafka): modify calculate signature
+fix(kafka): modify calculate signature
 
 modify kafka/client.go calculateSignature function, add sort url query params
 
