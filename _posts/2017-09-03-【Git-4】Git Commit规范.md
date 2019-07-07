@@ -63,9 +63,9 @@ This reverts commit c8c221ee6420a2c2c9bfac7ac18946631b84f314
 feat(kafka): add aliyun kafka client
 
 add kafka package, aliyun kafka client for operator kafka instance:
-- support create new topic
-- support list topic
-- support get topic status
+1.support create new topic
+2.support list topic
+3.support get topic status
 ```
 
 2. Fix bug
@@ -103,7 +103,7 @@ http_test.go add TestRequest function
 chore(build): update build.sh and dockerfile
 
 update build.sh and dockerfile for build image
-- build.sh: decrease script arguments，modify docker build command
-- dockerfile: add set timezone 2 Asia/Shanghai
+1.build.sh: decrease script arguments，modify docker build command
+2.dockerfile: add set timezone 2 Asia/Shanghai
 ```
 
