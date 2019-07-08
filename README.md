@@ -6,7 +6,7 @@
 3. 文章分类: https://chenguolin.github.io/tags/
 
 # 备忘
-1. `How to fix HTTP 404 on Github Pages`
+1. How to fix HTTP 404 on Github Pages
    ```
    $ git commit --allow-empty -m "refactor: empty commit
      
