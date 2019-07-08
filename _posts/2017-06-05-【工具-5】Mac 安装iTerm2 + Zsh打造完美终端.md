@@ -37,7 +37,7 @@ Mac OSx环境下使用最多的是iTerm2 + Oh My Zsh，两者结合可以打造�
    cd ~/.oh-my-zsh/custom/plugins/
    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
    ```
-4. 配置 ~/.zshrc
+4. 配置 ~/.zshrc [zshrc配置文件](https://github.com/chenguolin/chenguolin.github.io/blob/master/_posts/2016-09-21-%E3%80%90Linux-3%E3%80%91Linux%E9%85%8D%E7%BD%AE.md#%E5%9B%9B-zshrc%E9%85%8D%E7%BD%AE)
     * 配置theme: `ZSH_THEME="ys"`
     * 配置plugin: `zsh-syntax-highlighting加在plugins括号后面`
     * 文件的最后一行添加：`source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh`
