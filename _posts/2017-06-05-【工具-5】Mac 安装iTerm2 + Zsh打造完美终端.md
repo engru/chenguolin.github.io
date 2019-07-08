@@ -9,8 +9,8 @@ tags:          #标签
 Mac OSx环境下使用最多的是iTerm2 + Oh My Zsh，两者结合可以打造一个无比强大的终端体验
 
 # 一. iTerm2
-官网: https://www.iterm2.com/
-安装下载: https://www.iterm2.com/downloads.html
+官网: https://www.iterm2.com/  
+安装下载: https://www.iterm2.com/downloads.html  
 
 安装iTerm2的过程会自动安装`zsh`安装路径在`/bin/zsh`，由于Mac默认使用`dash`我们需要修改默认终端使用`zsh`
 
@@ -18,7 +18,7 @@ Mac OSx环境下使用最多的是iTerm2 + Oh My Zsh，两者结合可以打造�
 2. zsh->dash: `$ chsh -s /bin/bash`
 
 # 二. Oh My Zsh
-开源地址: https://github.com/robbyrussell/oh-my-zsh
+开源地址: https://github.com/robbyrussell/oh-my-zsh  
 安装: `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 
 # 三. 配置
@@ -38,9 +38,9 @@ Mac OSx环境下使用最多的是iTerm2 + Oh My Zsh，两者结合可以打造�
    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
    ```
 4. 配置 ~/.zshrc
-    * 配置theme: ZSH_THEME="ys"
-    * 配置plugin: zsh-syntax-highlighting加在plugins括号后面
-    * 文件的最后一行添加：source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    * 配置theme: `ZSH_THEME="ys"`
+    * 配置plugin: `zsh-syntax-highlighting加在plugins括号后面`
+    * 文件的最后一行添加：`source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh`
 5. 配置文件生效  
    `$ source ~/.zshrc`
 
