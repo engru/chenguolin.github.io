@@ -667,15 +667,14 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/lib/hadoop/native
 
 # alias
-alias mt161='ssh -A cgl@42.62.69.161 -p 34185'
 alias pytool='python -mjson.tool'
 
-# ssh-add ~/.ssh/hkkevin.pem
-ssh-add ~/.ssh/id_rsa_meitu
+# add rsa private key 2 ssh ssh-agent session
+ssh-add ~/.ssh/id_rsa
 
 # kubectl completion
 source <(kubectl completion zsh)
-
+# zsh-syntax-highlighting
 source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ```
 
