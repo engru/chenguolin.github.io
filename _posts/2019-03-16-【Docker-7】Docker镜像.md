@@ -37,7 +37,7 @@ ubuntu系统下挂载目录为 `/var/lib/docker/aufs/mnt/{mount_id}`，centos系
 
 https://mp.weixin.qq.com/s/MOtGXCRwTWKfH7KuzvZ9ww
 
-
+https://www.sandtable.com/reduce-docker-image-sizes-using-alpine/
 
 
 
