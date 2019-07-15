@@ -37,14 +37,14 @@ commit message 应该按照以下格式，每个commit message由三部分组成
 ```
 
 1. `<type>`: 本次commit类型
-    * `feat`: A new feature
-    * `fix`: A bug fix
-    * `docs`: Documentation only changes
-    * `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-    * `refactor`: A code change that neither fixes a bug or adds a feature
-    * `perf`: A code change that improves performance
-    * `test`: Adding missing tests
-    * `chore`: Changes to the build process or auxiliary tools and libraries such as documentation generation
+    * `feat`: 新增功能
+    * `fix`: bug修复
+    * `docs`: 只更新文档内容
+    * `style`: 更新代码并不影响现有的功能，只涉及简单的格式化，去空格，缺少分号等
+    * `refactor`: 代码更新既不属于`bug修复`也不属于`新增功能`
+    * `perf`: 代码更新用于提高性能
+    * `test`: 单元测试相关代码更新，例如增加、删除、修改单元测试
+    * `chore`: 辅助工具更新，例如构建脚本、Dockerfile等更新
 2. `<scope>`: 本次变更文件的范围，可选字段。可以是某个类名、包名、函数名、文件名等
 3. `<subject>`: 本次commit的主题，言简意赅同时使用小写字母，不需要使用`.`结尾
 4. `<body>`: 本次commit的详细内容，可以分点描述
