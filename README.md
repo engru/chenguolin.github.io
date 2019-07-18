@@ -8,9 +8,7 @@
 # 备忘
 1. How to fix HTTP 404 on Github Pages
    ```
-   $ git commit --allow-empty -m "refactor: empty commit
-     
-     Trigger Github Pages rebuild"
+   $ git commit --allow-empty -m "refactor: Trigger Github Pages rebuild"
    $ git push
    ```
    
