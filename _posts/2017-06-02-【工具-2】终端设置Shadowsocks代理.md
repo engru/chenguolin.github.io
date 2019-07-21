@@ -95,4 +95,6 @@ SS默认是针对浏览器的请求进行代理，很多时候我们也希望Con
    `unset http_proxy`
    `unset https_proxy`
       
- 
+7. 相关问题
+   + `Failed to connect to localhost port 8118: Connection refused`: 确认下 privoxy 是不是没有开启
+
