@@ -17,7 +17,7 @@ tags:         #标签
     + 日志打印到 文件 的时候，我们就需要考虑日志如何备份，备份就会面临日志文件滚动切割问题。这些问题可以由业务方通过代码来控制，Java应用可以使用log4j，Golang应用可以使用Zap。除此之外，也可以由运维工具来实现，例如 `logratate`。
 
 # 二. inode
-我们知道在 Linux 下一切设备皆 `文件`，而 `inode` 则是用来描述文件数据结构。每个文件有一个 `inode`，每个 `inode` 由一个整数编号标识。`inode` 存储当前文件的所有者、访问权限、以及文件类型等信息。通过 `inode` 编号，内核文件系统驱动可以访问到文件内容。
+我们知道在 Linux 下一切设备皆 `文件`，而 `inode` 则是用来描述文件的数据结构。每个文件都对应一个 `inode`，每个 `inode` 由一个整数编号标识。`inode` 用来存储当前文件的所有者、访问权限、以及文件类型等信息。通过 `inode` 编号，内核文件系统驱动可以访问到文件内容。
 
 Unix/Linux操作系统内部不是直接使用文件名，而是使用 `inode` 编号来标识文件，文件名只是一个别名。  
 所以，当我们打开一个文件的时候操作系统会先找到这个文件名对应的 `inode` 编号，然后通过 `inode` 编号获取 `inode` 信息，最后根据 `inode` 信息找到文件数据所在的 `block` 读出数据。
@@ -74,8 +74,7 @@ sleep     21647  cgl    1w      REG    8,3    25896  1315128 /home/cgl/test_log 
 [cgl@test.com ~]$ ls -i test_log         //inode 发生变化
 1320345 test_log
 ```
-
-`结论: test_log文件inode已经被删除了，但是文件描述符还未被释放；重新创建相同文件名test_log文件，shell进程并不能把内容输出到test_log，查看inode发现不同，说明是一个新文件。`
+`结论: test_log文件inode已经被删除了，但是文件描述符还未被释放，因此shell进程还在；重新创建相同文件名test_log文件，shell进程并不能把内容输出到test_log，查看inode发现不同，说明test_log已经是一个新文件。`
 
 2. 我们使用shell脚本重定向输出到 `test_log` 文件，在运行过程中 `mv` 该文件
 ```
@@ -121,14 +120,14 @@ Usage: logrotate [-dfv?] [-d|--debug] [-f|--force] [-m|--mail=command] [-s|--sta
 # Set "su" directive in config file to tell logrotate which user/group should be used for rotation
 su root root
    
-/tmp/*.log {        //只处理/tmp目录下所有log结尾日志文件
+/tmp/*.log {       //只处理/tmp目录下所有log结尾日志文件
    compress        //滚动切割后日志使用gizp压缩，nocompress指不压缩
    rotate 2        //日志滚动切割后保留多少个文件
    size 100k       //日志文件超过指定大小后进行滚动切割，支持配置100k、100M、100G
    missingok       //如果日志文件不存在，直接忽略
    notifempty      //如果日志文件为空，则不处理
    copytruncate    //滚动切割动作为: 先拷贝原始日志文件，然后清空原始日志文件
-   daily           //每天处理一次，初次之外还可以配置weekly、monthly、yearly等
+   daily           //每天处理一次，除此之外还可以配置weekly、monthly、yearly等
    olddir /tmp/old //存放历史日志文件目录
    postrotate      //日志滚动切割之后执行后置命令
       echo "done~"
