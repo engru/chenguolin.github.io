@@ -54,8 +54,39 @@ Change: 2019-06-22 21:38:06.204658098 +0800
 [cgl@BJSH-VM-132-29.meitu-inc.com ~]$
 ```
 
-由上可知，类Unix操作系统内部不直接使用文件名，而使用 `inode` 号码来标识文件，文件名只是一个别名。所以，当我们打开一个文件的时候操作系统会先找到这个文件名对应的 `inode` 编号，然后通过 `inode` 编号获取 `inode` 信息，最后根据 `inode` 信息找到文件数据所在的 `block` 读出数据。
+由上可知，类Unix操作系统内部不直接使用文件名，而使用 `inode` 编号来标识文件，文件名只是一个别名。所以，当我们打开一个文件的时候操作系统会先找到这个文件名对应的 `inode` 编号，然后通过 `inode` 编号获取 `inode` 信息，最后根据 `inode` 信息找到文件数据所在的 `block` 读出数据。
 
+了解了 `inode` 一些基础知识后，我们来看几个问题
+
+1. 我们使用shell脚本重定向输出到 `test_log` 文件，在运行过程中 `rm` 该文件
+   ```
+   [cgl@test.com ~]$ sh run.sh > test_log
+   [cgl@test.com ~]$ ls -i test_log
+   1315128 test_log
+   [cgl@test.com ~]$ find -inum 1315128 -exec head -n 2 {} \;   //根据inode查看文件内容
+   hello cgl ~
+   hello cgl ~
+   [cgl@test.com ~]$ rm test_log
+   [cgl@test.com ~]$ find -inum 1315128 -exec head -n 2 {} \;
+   [cgl@test.com ~]$ lsof | grep deleted                        //查找那些被进程打开，但文件描述符未被释放的进程
+   sh        19473  cgl    1w      REG    8,3    25896  1315128 /home/cgl/test_log (deleted)
+   sleep     21647  cgl    1w      REG    8,3    25896  1315128 /home/cgl/test_log (deleted)
+   ```
+   `结论: test_log文件inode已经被删除了，但是文件描述符还未被释放`
+2. 我们使用shell脚本重定向输出到 `test_log` 文件，在运行过程中 `mv` 该文件
+   ```
+   [cgl@test.com ~]$ sh run.sh > test_log
+   [cgl@test.com ~]$ ls -i test_log
+   1315128 test_log
+   [cgl@test.com ~]$ find -inum 1315128 -exec head -n 2 {} \;   //根据inode查看文件内容
+   hello cgl ~
+   hello cgl ~
+   [cgl@test.com ~]$ mv test_log test_log2
+   [cgl@test.com ~]$ ls -i test_log2
+   1315128 test_log2
+   ```
+   `结论: test_log文件被mv为test_log2，但是inode并不变，证实了上面提到的类Unix操作系统内部不直接使用文件名，而使用 inode 号码来标识文件`   
+   
 # 三. logrotate
 
 
