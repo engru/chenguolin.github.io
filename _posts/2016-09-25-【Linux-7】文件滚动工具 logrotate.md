@@ -88,7 +88,57 @@ hello cgl ~
 `结论: test_log文件被mv为test_log2，但是inode并不变，证实了上面提到的类Unix操作系统内部不直接使用文件名，而使用 inode 号码来标识文件`   
    
 # 三. logrotate
+`logrotate`是设计用来管理日志，支持自动滚动切割、压缩、删除以及通过邮件发送日志，支持天级、周级、月级定期处理。 [logrotate man page](https://linux.die.net/man/8/logrotate)
 
+1. 安装 logrotate
+   ```
+   RHEL/CentOS
+   [cgl@test.com ~]$ yum install logrotate
+   
+   Debian/Ubuntu
+   [cgl@test.com ~]$ apt-get install logrotate
 
+   Fedora
+   [cgl@test.com ~]$ dnf install logrotate
+   ```
+
+2. logrotate 命令行参数
+   ```
+   [cgl@test.com ~]$ logrotate
+   logrotate 3.11.0 - Copyright (C) 1995-2001 Red Hat, Inc.
+   This may be freely redistributed under the terms of the GNU Public License
+
+    Usage: logrotate [-dfv?] [-d|--debug] [-f|--force] [-m|--mail=command] [-s|--state=statefile] [-v|--verbose] [-l|--log=STRING]
+           [--version] [-?|--help] [--usage] [OPTION...] <configfile>
+           
+    -d,--debug: 打开debug模式，并不会真正改变日志文件
+    -f,--force: 强制执行文件切割、压缩等操作
+    -m,--mail <command>: 处理完成后发送邮件
+   ```
+
+3. logrotate 配置文件
+   ```
+   # logrotate log file
+   # Set "su" directive in config file to tell logrotate which user/group should be used for rotation
+   su root root
+   
+   /tmp/*.log {        //只处理/tmp目录下所有log结尾日志文件
+       compress        //滚动切割后日志使用gizp压缩，nocompress指不压缩
+       rotate 2        //日志滚动切割后保留多少个文件
+       size 100k       //日志文件超过指定大小后进行滚动切割，支持配置100k、100M、100G
+       missingok       //如果日志文件不存在，直接忽略
+       notifempty      //如果日志文件为空，则不处理
+       copytruncate    //滚动切割动作为: 先拷贝原始日志文件，然后清空原始日志文件
+       daily           //每天处理一次，初次之外还可以配置weekly、monthly、yearly等
+       olddir /tmp/old //存放历史日志文件目录
+       postrotate      //日志滚动切割之后执行后置命令
+          echo "done~"
+       endscript
+       ...
+   }
+   ```
+
+4. logrotate 使用
+   
 
 
