@@ -7,7 +7,7 @@ tags:         #标签
 ---
 
 # 一. 概述
-日常开发过程中 `日志打印` 是必不可少的环节，但程序日志打印却面临2个问题，`日志打印到哪里？` 和 `日志如何备份？`。
+日常开发过程中 `日志打印` 是必不可少的环节，但程序日志打印却面临2个问题。
 
 1. 日志打印到哪里？
     + 在Docker、K8s等容器化平台还未兴起的时候，我们的应用都是直接部署在 `物理机` 上，大部分程序日志打印都是输出到 `文件`。
@@ -90,55 +90,55 @@ hello cgl ~
 # 三. logrotate
 `logrotate`是设计用来管理日志，支持自动滚动切割、压缩、删除以及通过邮件发送日志，支持天级、周级、月级定期处理。 [logrotate man page](https://linux.die.net/man/8/logrotate)
 
-1. 安装 logrotate
-   ```
-   RHEL/CentOS
-   [cgl@test.com ~]$ yum install logrotate
-   
-   Debian/Ubuntu
-   [cgl@test.com ~]$ apt-get install logrotate
+## ① logrotate 安装
+1. RHEL/CentOS: yum install logrotate
+2. Debian/Ubuntu: apt-get install logrotate
+3. Fedora: dnf install logrotate
 
-   Fedora
-   [cgl@test.com ~]$ dnf install logrotate
-   ```
+## ② logrotate 命令行参数
+```
+[cgl@test.com ~]$ logrotate
+logrotate 3.11.0 - Copyright (C) 1995-2001 Red Hat, Inc.
+This may be freely redistributed under the terms of the GNU Public License
 
-2. logrotate 命令行参数
-   ```
-   [cgl@test.com ~]$ logrotate
-   logrotate 3.11.0 - Copyright (C) 1995-2001 Red Hat, Inc.
-   This may be freely redistributed under the terms of the GNU Public License
-
-    Usage: logrotate [-dfv?] [-d|--debug] [-f|--force] [-m|--mail=command] [-s|--state=statefile] [-v|--verbose] [-l|--log=STRING]
-           [--version] [-?|--help] [--usage] [OPTION...] <configfile>
+Usage: logrotate [-dfv?] [-d|--debug] [-f|--force] [-m|--mail=command] [-s|--state=statefile] [-v|--verbose] [-l|--log=STRING]
+       [--version] [-?|--help] [--usage] [OPTION...] <configfile>
            
-    -d,--debug: 打开debug模式，并不会真正改变日志文件
-    -f,--force: 强制执行文件切割、压缩等操作
-    -m,--mail <command>: 处理完成后发送邮件
-   ```
+-d,--debug: 打开debug模式，并不会真正改变日志文件
+-f,--force: 强制执行文件切割、压缩等操作
+-m,--mail <command>: 处理完成后发送邮件
+```
 
-3. logrotate 配置文件
-   ```
-   # logrotate log file
-   # Set "su" directive in config file to tell logrotate which user/group should be used for rotation
-   su root root
+## ③ logrotate 配置文件
+```
+# logrotate log file
+# Set "su" directive in config file to tell logrotate which user/group should be used for rotation
+su root root
    
-   /tmp/*.log {        //只处理/tmp目录下所有log结尾日志文件
-       compress        //滚动切割后日志使用gizp压缩，nocompress指不压缩
-       rotate 2        //日志滚动切割后保留多少个文件
-       size 100k       //日志文件超过指定大小后进行滚动切割，支持配置100k、100M、100G
-       missingok       //如果日志文件不存在，直接忽略
-       notifempty      //如果日志文件为空，则不处理
-       copytruncate    //滚动切割动作为: 先拷贝原始日志文件，然后清空原始日志文件
-       daily           //每天处理一次，初次之外还可以配置weekly、monthly、yearly等
-       olddir /tmp/old //存放历史日志文件目录
-       postrotate      //日志滚动切割之后执行后置命令
-          echo "done~"
-       endscript
-       ...
-   }
-   ```
+/tmp/*.log {        //只处理/tmp目录下所有log结尾日志文件
+   compress        //滚动切割后日志使用gizp压缩，nocompress指不压缩
+   rotate 2        //日志滚动切割后保留多少个文件
+   size 100k       //日志文件超过指定大小后进行滚动切割，支持配置100k、100M、100G
+   missingok       //如果日志文件不存在，直接忽略
+   notifempty      //如果日志文件为空，则不处理
+   copytruncate    //滚动切割动作为: 先拷贝原始日志文件，然后清空原始日志文件
+   daily           //每天处理一次，初次之外还可以配置weekly、monthly、yearly等
+   olddir /tmp/old //存放历史日志文件目录
+   postrotate      //日志滚动切割之后执行后置命令
+      echo "done~"
+   endscript
+   ...
+}
+```
 
-4. logrotate 使用
+## ④ logrotate 使用
+1. logrotate 安装完成以后默认的配置文件如下
+   + /etc/logrotate.conf   //主要的配置文件
+   + /etc/logrotate.d/     //logrotate.d是一个目录该目录里的所有文件都会被主动的读入/etc/logrotate.conf中执行
    
+   logrotate 是基于`cron`机制来运行的，默认调度配置在 `/etc/cron.daily/logrotate`，每天(6点25)定期执行 `/usr/sbin/logrotate /etc/logrotate.conf`命令。  
+   
+   `如果只需要每天定期执行，可以通过配置不同配置文件并放到 /etc/logrotate.d/ 目录下，就可以每天被自动执行。`
+2. 
 
 
