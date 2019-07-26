@@ -13,20 +13,21 @@ tags:         #标签
     + 在Docker、K8s等容器化平台还未兴起的时候，我们的应用都是直接部署在 `物理机` 上，大部分程序日志打印都是输出到 `文件`。
     + 在全面容器化时代到来之后，我们的应用变成部署在K8s集群底层使用Docker运行，这个时候大部分程序日志可以直接打印到 `stdout或stderr`，由Docker log-driver接管，但是少部分应用可能还需要把日志打印到容器内文件。
 2. 日志如何备份？
-    + 日志打印到 stdout、stderr 的时候，我们不需要考虑备份日志问题
+    + 日志打印到 stdout、stderr 的时候，我们不需要考虑备份日志问题。
     + 日志打印到 文件 的时候，我们就需要考虑日志如何备份，备份就会面临日志文件滚动切割问题。这些问题可以由业务方通过代码来控制，Java应用可以使用log4j，Golang应用可以使用Zap。除此之外，也可以由运维工具来实现，例如 `logratate`。
 
 # 二. inode
-我们知道在 Linux 下一切设备皆 `文件`，而 `inode` 正是用来描述这个文件的。
+我们知道在 Linux 下一切设备皆 `文件`，而 `inode` 则是用来描述文件数据结构。每个文件有一个 `inode`，每个 `inode` 由一个整数编号标识。`inode` 存储当前文件的所有者、访问权限、以及文件类型等信息。通过 `inode` 编号，内核文件系统驱动可以访问到文件内容。
 
-`inode` 指的是用来描述文件、目录的数据结构，每个文件有一个 `inode`，每个 `inode` 由一个整数编号标识。`inode` 存储当前文件的所有者、访问权限、以及文件类型等信息。通过 `inode` 编号，内核文件系统驱动可以访问到文件内容。
+Unix/Linux操作系统内部不是直接使用文件名，而是使用 `inode` 编号来标识文件，文件名只是一个别名。  
+所以，当我们打开一个文件的时候操作系统会先找到这个文件名对应的 `inode` 编号，然后通过 `inode` 编号获取 `inode` 信息，最后根据 `inode` 信息找到文件数据所在的 `block` 读出数据。
 
-Linux下，我们可以使用 `ls -i` 或 `stat` 命令查看某个文件的inode
+Linux下，我们可以使用 `ls -i` 或 `stat` 命令查看某个文件的inode。
 
 ```
 [cgl@test.com ~]$ ls
-4 drwxrwxr-x 2 cgl cgl     4096 Jun 22 21:38 tmp
-4 -rw-rw-r-- 1 cgl cgl     1067 Jul 15 11:33 log
+4 drwxrwxr-x 2 cgl cgl     4096 Jun 22 21:38 tmp    //目录
+4 -rw-rw-r-- 1 cgl cgl     1067 Jul 15 11:33 log    //文件
 
 [cgl@test.com ~]$ ls -i log
 1315851 log
@@ -54,8 +55,6 @@ Change: 2019-06-22 21:38:06.204658098 +0800
 [cgl@BJSH-VM-132-29.meitu-inc.com ~]$
 ```
 
-由上可知，类Unix操作系统内部不直接使用文件名，而使用 `inode` 编号来标识文件，文件名只是一个别名。所以，当我们打开一个文件的时候操作系统会先找到这个文件名对应的 `inode` 编号，然后通过 `inode` 编号获取 `inode` 信息，最后根据 `inode` 信息找到文件数据所在的 `block` 读出数据。
-
 了解了 `inode` 一些基础知识后，我们来看几个问题
 
 1. 我们使用shell脚本重定向输出到 `test_log` 文件，在运行过程中 `rm` 该文件
@@ -73,6 +72,7 @@ sh        19473  cgl    1w      REG    8,3    25896  1315128 /home/cgl/test_log 
 sleep     21647  cgl    1w      REG    8,3    25896  1315128 /home/cgl/test_log (deleted)
 ```
 `结论: test_log文件inode已经被删除了，但是文件描述符还未被释放`
+
 2. 我们使用shell脚本重定向输出到 `test_log` 文件，在运行过程中 `mv` 该文件
 ```
 [cgl@test.com ~]$ sh run.sh > test_log
