@@ -91,9 +91,9 @@ hello cgl ~
 `logrotate`是设计用来管理日志，支持自动滚动切割、压缩、删除以及通过邮件发送日志，支持天级、周级、月级定期处理。 [logrotate man page](https://linux.die.net/man/8/logrotate)
 
 ## ① logrotate 安装
-1. RHEL/CentOS: yum install logrotate
-2. Debian/Ubuntu: apt-get install logrotate
-3. Fedora: dnf install logrotate
+1. RHEL/CentOS: `yum install logrotate`
+2. Debian/Ubuntu: `apt-get install logrotate`
+3. Fedora: `dnf install logrotate`
 
 ## ② logrotate 命令行参数
 ```
@@ -133,12 +133,12 @@ su root root
 
 ## ④ logrotate 使用
 1. logrotate 安装完成以后默认的配置文件如下
-   + /etc/logrotate.conf   //主要的配置文件
-   + /etc/logrotate.d/     //logrotate.d是一个目录该目录里的所有文件都会被主动的读入/etc/logrotate.conf中执行
+   + `/etc/logrotate.conf`   //主要的配置文件
+   + `/etc/logrotate.d/`     //该目录里的所有文件都被/etc/logrotate.conf文件引用，都会被读取
    
    logrotate 是基于`cron`机制来运行的，默认调度配置在 `/etc/cron.daily/logrotate`，每天(6点25)定期执行 `/usr/sbin/logrotate /etc/logrotate.conf`命令。  
    
    `如果只需要每天定期执行，可以通过配置不同配置文件并放到 /etc/logrotate.d/ 目录下，就可以每天被自动执行。`
-2. 
+2. 很多情况我们需要很灵活的定时调度 logrotate 命令来滚动切割日志文件，这个时候默认的天级别执行就不能满足我们的需求了。我们可以使用 crontab 来配置定时调度任务，通过 `logrotate -f tmp.conf` 这个命令强制执行。 
 
 
