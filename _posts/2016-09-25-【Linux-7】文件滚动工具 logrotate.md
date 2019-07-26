@@ -70,8 +70,12 @@ hello cgl ~
 [cgl@test.com ~]$ lsof | grep deleted                        //查找那些被进程打开，但文件描述符未被释放的进程
 sh        19473  cgl    1w      REG    8,3    25896  1315128 /home/cgl/test_log (deleted)
 sleep     21647  cgl    1w      REG    8,3    25896  1315128 /home/cgl/test_log (deleted)
+[cgl@test.com ~]$ touch test_log         //重新创建文件
+[cgl@test.com ~]$ ls -i test_log         //inode 发生变化
+1320345 test_log
 ```
-`结论: test_log文件inode已经被删除了，但是文件描述符还未被释放`
+
+`结论: test_log文件inode已经被删除了，但是文件描述符还未被释放；重新创建相同文件名test_log文件，shell进程并不能把内容输出到test_log，查看inode发现不同，说明是一个新文件。`
 
 2. 我们使用shell脚本重定向输出到 `test_log` 文件，在运行过程中 `mv` 该文件
 ```
@@ -85,10 +89,12 @@ hello cgl ~
 [cgl@test.com ~]$ ls -i test_log2
 1315128 test_log2
 ```
-`结论: test_log文件被mv为test_log2，但是inode并不变，证实了上面提到的类Unix操作系统内部不直接使用文件名，而使用 inode 号码来标识文件`   
+`结论: test_log文件被mv为test_log2，但是inode并不变，shell进程继续输出到test_log2文件；证实了上面提到的Unix/Linux操作系统内部不直接使用文件名，而使用 inode 编号来标识文件`   
+
+从上面2个实验，一个文件被进程打开之后，如果要实现文件滚动切割不能简单的通过 `rm`和`mv` 等命令来实现，需要充分考虑 `inode` 是否变化。
    
 # 三. logrotate
-`logrotate`是设计用来管理日志，支持自动滚动切割、压缩、删除以及通过邮件发送日志，支持天级、周级、月级定期处理。 [logrotate man page](https://linux.die.net/man/8/logrotate)
+`logrotate`是设计用来管理日志文件，支持自动滚动切割、压缩、删除以及通过邮件发送日志，允许天级、周级、月级定期处理。 [logrotate man page](https://linux.die.net/man/8/logrotate)
 
 ## ① logrotate 安装
 1. RHEL/CentOS: `yum install logrotate`
