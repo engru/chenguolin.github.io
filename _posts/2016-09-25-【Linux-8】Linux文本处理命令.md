@@ -16,7 +16,7 @@ tags:         #标签
 5. 按时间搜索
    + -atime 访问时间 (单位是天，分钟单位则是-amin，以下类似）
    + -mtime 修改时间 （内容被修改）
-   + -ctime 变化时间 （元数据或权限变化）
+   + -ctime 变化时间 （元数据或权限变化）  
    最近7天被访问过的所有文件：`$ find . -atime 7 -type f -print`
 6. 按大小搜索：`$ find . -type f -size +2k`  //寻找大于2k的文件
 7. 按权限查找：`$ find . -type f -perm 644 -print` //找具有可执行权限的所有文件
@@ -95,19 +95,19 @@ xargs参数说明
 1. 拼接2个文本：paste file1 file2
 2. 默认的定界符是制表符，可以用-d指明定界符：paste file1 file2 -d “,”
 
-# WC统计行和字符
+# 九. WC统计行和字符
 1. 统计行数：wc -l file
 2. 统计单词数：wc -w file
 3. 统计字符数：wc -c file
 
-# 九. Sed文本替换
+# 十. Sed文本替换
 1. 首处替换: `$ sed ’s/text/replace_text/‘ file`
 2. 全局替换: `$ sed ’s/test/replace_test/g’ file`
    + 默认替换后，输出替换后的内容，如果需要直接替换原文件,使用-i
    + `$ sed -i ’s/test/replace_test/g’ file`
 3. 移除空白行：`$ sed '/^$/d' file`
 
-# 十. Awk数据流处理
+# 十一. Awk数据流处理
 1. awk脚本结构
     awk ' BEGIN{ statements } statements2 END{ statements } '
     工作方式
@@ -125,7 +125,7 @@ xargs参数说明
 5. 累加每一行的第一个字段: `$ echo -e "1\n 2\n 3\n 4\n" | awk 'BEGIN{num = 0; print "begin";} {sum += $1;} END {print "=="; print sum }'`
 6. 在awk中使用循环: `for(i=0;i<10;i++){print $i;}`
 
-# 十一. 迭代文件中的行、单词和字符
+# 十二. 迭代文件中的行、单词和字符
 1. 迭代文件中的每一行
 ```
 # while 循环法
