@@ -32,12 +32,12 @@ tags:         #标签
 grep match_patten file // 默认访问匹配行
 常用参数
 1. -o 只输出匹配的文本行 VS -v 只输出没有匹配的文本行
-2. -c 统计文件中包含文本的次数：grep -c "text" filename
+2. -c 统计文件中包含文本的次数: `$ grep -c "text" filename`
 3. -n 打印匹配的行号
 4. -i 搜索时忽略大小写
 5. -l 只打印文件名
-6.  在多级目录中对文本递归搜索(程序员搜代码的最爱）：grep "class" . -R -n
-7. 匹配多个模式：grep -e "class" -e "vitural" file
+6.  在多级目录中对文本递归搜索(程序员搜代码的最爱）: `$ grep "class" . -R -n`
+7. 匹配多个模式: `$ grep -e "class" -e "vitural" file`
 
 # 三. xargs命令行参数
 xargs 能够将输入数据转化为特定命令的命令行参数；这样，可以配合很多命令来组合使用。比如grep，比如find；
@@ -66,39 +66,38 @@ xargs参数说明
 
 # 六. 用Tr进行替换
 1. 通用用法
-    echo 12345 | tr '0-9' '9876543210' //加解密转换，替换对应字符
-    cat text| tr '\t' ' '  //制表符转空格
+   + 加解密转换，替换对应字符: `$ echo 12345 | tr '0-9' '9876543210'`
+   + 制表符转空格: `$ cat text| tr '\t' ' '`
 2. tr删除字符
-    cat file | tr -d '0-9' // 删除所有数字
+   + 删除所有数字: `$ cat file | tr -d '0-9'` 
 3. -c 求补集
-    cat file | tr -c '0-9' //获取文件中所有数字
-    cat file | tr -d -c '0-9 \n'  //删除非数字数据
+   + 获取文件中所有数字: `$ cat file | tr -c '0-9'`
+   + 删除非数字数据: `$ cat file | tr -d -c '0-9 \n'`
 4. tr压缩字符
-    tr -s 压缩文本中出现的重复字符；最常用于压缩多余的空格
-    cat file | tr -s ' '
+   + 压缩文本中出现的重复字符: `$ tr -s`
+   + 压缩多余的空格: `$ cat file | tr -s ' '`
 
 # 七. cut 按列切分文本
-1. 截取文件的第2列和第4列：cut -f2,4 filename
-2. 去文件除第3列的所有列：cut -f3 --complement filename
-    -d 指定定界符：
-    cat -f2 -d";" filename
+1. 截取文件的第2列和第4列: `$ cut -f2,4 filename`
+2. 去文件除第3列的所有列: `$ cut -f3 --complement filename`
+   + -d 指定定界符: `$ cat -f2 -d";" filename`
 3. cut 取的范围
-    N- 第N个字段到结尾
-    M- 第1个字段为M
-    N-M N到M个字段
+   + N- 第N个字段到结尾
+   + M- 第1个字段为M
+   + N-M N到M个字段
 4. cut 取的单位
-     -b 以字节为单位
-     -c 以字符为单位
-     -f 以字段为单位（使用定界符）
+   + -b 以字节为单位
+   + -c 以字符为单位
+   + -f 以字段为单位（使用定界符）
 
 # 八. paste按列拼接文本
-1. 拼接2个文本：paste file1 file2
-2. 默认的定界符是制表符，可以用-d指明定界符：paste file1 file2 -d “,”
+1. 拼接2个文本: `$ paste file1 file2`
+2. 默认的定界符是制表符，可以用-d指明定界符: `$ paste file1 file2 -d ","`
 
 # 九. WC统计行和字符
-1. 统计行数：wc -l file
-2. 统计单词数：wc -w file
-3. 统计字符数：wc -c file
+1. 统计行数: `$ wc -l file`
+2. 统计单词数: `$ wc -w file`
+3. 统计字符数: `$ wc -c file`
 
 # 十. Sed文本替换
 1. 首处替换: `$ sed ’s/text/replace_text/‘ file`
@@ -108,12 +107,11 @@ xargs参数说明
 3. 移除空白行：`$ sed '/^$/d' file`
 
 # 十一. Awk数据流处理
-1. awk脚本结构
-    awk ' BEGIN{ statements } statements2 END{ statements } '
-    工作方式
-    执行begin中语句块；
-    * 从文件或stdin中读入一行，然后执行statements2，重复这个过程，直到文件全部被读取完毕；
-    * 执行end语句块；
+1. awk脚本结构  
+   `awk ' BEGIN{ statements } statements2 END{ statements } '`
+    
+   1). 先执行begin中语句块: 从文件或stdin中读入一行，然后执行statements2，重复这个过程，直到文件全部被读取完毕  
+   2). 最后执行end语句块
 2. 特殊变量： NR NF $0 $1 $2
     * NR:表示记录数量，在执行过程中对应当前行号；
     * NF:表示字段数量，在执行过程总对应当前行的字段数；
@@ -134,5 +132,5 @@ xargs参数说明
    echo $line;
    done < file.txt
    ```
-2. awk法：cat file.txt| awk '{print}'
-3. 迭代一行中的每一个单词：for word in $line; do echo $word; done
+2. awk法: `$ cat file.txt| awk '{print}'`
+3. 迭代一行中的每一个单词: `$ for word in $line; do echo $word; done`
