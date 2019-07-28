@@ -127,12 +127,12 @@ xargs参数说明
 
 # 十二. 迭代文件中的行、单词和字符
 1. 迭代文件中的每一行
-```
-# while 循环法
-while read line;
-do
-echo $line;
-done < file.txt
-```
+   ```
+   # while 循环法
+   while read line;
+   do
+   echo $line;
+   done < file.txt
+   ```
 2. awk法：cat file.txt| awk '{print}'
 3. 迭代一行中的每一个单词：for word in $line; do echo $word; done
