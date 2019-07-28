@@ -7,28 +7,26 @@ tags:         #标签
 ---
 
 # 一. find 文件查找
-1. 查找txt和pdf文件：find . \( -name "*.txt" -o -name "*.pdf" \) -print
-2. 查找所有非txt文件：find . ! -name "*.txt" -print
-3. 指定深度搜索：find . -maxdepth 1 -type f
-4. 按类型搜索：find . -type d -print  //只列出所有目录
-     -type f 文件
-     -type l 符号链接
+1. 查找txt和pdf文件：`$ find . \( -name "*.txt" -o -name "*.pdf" \) -print`
+2. 查找所有非txt文件：`$ find . ! -name "*.txt" -print`
+3. 指定深度搜索：`$ find . -maxdepth 1 -type f`
+4. 按类型搜索：`$ find . -type d -print`  //只列出所有目录
+   + -type f 文件
+   + -type l 符号链接
 5. 按时间搜索
-     -atime 访问时间 (单位是天，分钟单位则是-amin，以下类似）
-     -mtime 修改时间 （内容被修改）
-     -ctime 变化时间 （元数据或权限变化）
-     最近7天被访问过的所有文件：find . -atime 7 -type f -print
-6. 按大小搜索：find . -type f -size +2k  //寻找大于2k的文件
-7. 按权限查找：find . -type f -perm 644 -print //找具有可执行权限的所有文件
-8. 按用户查找：find . -type f -user weber -print  // 找用户weber所拥有的文件
-9. 删除当前目录下所有swp文件：find . -type f -name "*.swp" -delete
-10. 执行动作（强大的exec）
-      find . -type f -user root -exec chown weber {} \; //将当前目录下的所有权变更为weber
-      注：{}是一个特殊的字符串，对于每一个匹配的文件，{}会被替换成相应的文件名；
-11. 将找到的文件全都copy到另一个目录：find . -type f -mtime +10 -name "*.txt" -exec cp {} OLD \;
+   + -atime 访问时间 (单位是天，分钟单位则是-amin，以下类似）
+   + -mtime 修改时间 （内容被修改）
+   + -ctime 变化时间 （元数据或权限变化）
+   最近7天被访问过的所有文件：`$ find . -atime 7 -type f -print`
+6. 按大小搜索：`$ find . -type f -size +2k`  //寻找大于2k的文件
+7. 按权限查找：`$ find . -type f -perm 644 -print` //找具有可执行权限的所有文件
+8. 按用户查找：`$ find . -type f -user weber -print`  // 找用户weber所拥有的文件
+9. 删除当前目录下所有swp文件：`$ find . -type f -name "*.swp" -delete`
+10. 执行动作（强大的exec: `$ find . -type f -user root -exec chown weber {} \;` //将当前目录下的所有权变更为weber，注：{}是一个特殊的字符串，对于每一个匹配的文件，{}会被替换成相应的文件名；
+11. 将找到的文件全都copy到另一个目录: `$ find . -type f -mtime +10 -name "*.txt" -exec cp {} OLD \;`
 12. -print的定界符
-      默认使用'\n'作为文件的定界符；
-      -print0 使用'\0'作为文件的定界符，这样就可以搜索包含空格的文件
+    + 默认使用'\n'作为文件的定界符；
+    + -print0 使用'\0'作为文件的定界符，这样就可以搜索包含空格的文件
 
 # 二. Grep文本搜索
 grep match_patten file // 默认访问匹配行
@@ -48,9 +46,9 @@ xargs参数说明
 1. -d 定义定界符 （默认为空格 多行的定界符为 \n）
 2. -n 指定输出为多行
 3. -0 指定\0为输入定界符
-4. -I {} 指定替换字符串，这个字符串在xargs扩展时会被替换掉,用于待执行的命令需要多个参数时
- cat file.txt | xargs -I {} ./command.sh -p {} -1
- 例如统计程序行数：find source_dir/ -type f -name "*.cpp" -print0 |xargs -0 wc -l
+4. -I {} 指定替换字符串，这个字符串在xargs扩展时会被替换掉,用于待执行的命令需要多个参数时  
+   `$ cat file.txt | xargs -I {} ./command.sh -p {} -1`
+5. 例如统计程序行数: `$ find source_dir/ -type f -name "*.cpp" -print0 |xargs -0 wc -l`
 
 # 四. Sort排序
 1. -n 按数字进行排序 VS -d 按字典序进行排序
@@ -61,9 +59,9 @@ xargs参数说明
 6. sort -bd data // 忽略像空格之类的前导空白字符
 
 # 五. Uniq消除重复行
-1. 消除重复行：sort unsort.txt | uniq
-2. 统计各行在文件中出现的次数：sort unsort.txt | uniq -c
-3. 找出重复行：sort unsort.txt | uniq -d
+1. 消除重复行：`sort unsort.txt | uniq`
+2. 统计各行在文件中出现的次数：`sort unsort.txt | uniq -c`
+3. 找出重复行：`sort unsort.txt | uniq -d`
     可指定每行中需要比较的重复内容：-s 开始位置 -w 比较字符数
 
 # 六. 用Tr进行替换
@@ -103,11 +101,11 @@ xargs参数说明
 3. 统计字符数：wc -c file
 
 # 九. Sed文本替换
-1. 首处替换：sed ’s/text/replace_text/‘ file
-2. 全局替换：sed ’s/test/replace_test/g’ file
-    默认替换后，输出替换后的内容，如果需要直接替换原文件,使用-i
-    sed -i ’s/test/replace_test/g’ file
-3. 移除空白行：sed '/^$/d' file
+1. 首处替换: `$ sed ’s/text/replace_text/‘ file`
+2. 全局替换: `$ sed ’s/test/replace_test/g’ file`
+   + 默认替换后，输出替换后的内容，如果需要直接替换原文件,使用-i
+   + `$ sed -i ’s/test/replace_test/g’ file`
+3. 移除空白行：`$ sed '/^$/d' file`
 
 # 十. Awk数据流处理
 1. awk脚本结构
@@ -122,11 +120,10 @@ xargs参数说明
     * $0:这个变量包含执行过程中当前行的文本内容；
     * $1:第一个字段的文本内容；
     * $2:第二个字段的文本内容；
-3. 打印每一行的第二和第三个字段：awk '{print $2, $3}' file
-4. 统计文件的行数：awk ' END {print NR}’ file
-5. 累加每一行的第一个字段：echo -e "1\n 2\n 3\n 4\n" | awk 'BEGIN{num = 0; print "begin";} {sum += $1;} END {print "=="; print sum }’
-6. 在awk中使用循环
-     for(i=0;i<10;i++){print $i;}
+3. 打印每一行的第二和第三个字段：`$ awk '{print $2, $3}' file`
+4. 统计文件的行数：`$ awk 'END {print NR}' file`
+5. 累加每一行的第一个字段: `$ echo -e "1\n 2\n 3\n 4\n" | awk 'BEGIN{num = 0; print "begin";} {sum += $1;} END {print "=="; print sum }'`
+6. 在awk中使用循环: `for(i=0;i<10;i++){print $i;}`
 
 # 十一. 迭代文件中的行、单词和字符
 1. 迭代文件中的每一行
