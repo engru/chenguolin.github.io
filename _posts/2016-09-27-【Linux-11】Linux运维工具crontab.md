@@ -80,7 +80,7 @@ tags:         #标签
 4. Dockerfile中使用
    + 安装cron: `apt-get install cron` 或 `yum install cron`  （cron会开机自启动）
    + COPY命令拷贝cron job文件到 /etc/cron.d目录 `COPY xxxx /etc/cron.d/xxx`
-   + RUN命令载入到用户crontab文件: `RUN crontab /etc/cron.d/xxx`   （默认使用root用户）
+   + RUN命令载入到用户crontab文件: `RUN crontab /etc/cron.d/xxx`   （不指定-u 默认使用当前用户）
 
 # 四. 最佳实践
 通过日常的一些实践，配置crontab遵循以下几个原则，保证稳定和可维护
