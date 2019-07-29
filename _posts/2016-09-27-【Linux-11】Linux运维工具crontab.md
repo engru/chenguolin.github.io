@@ -85,7 +85,7 @@ tags:         #标签
 # 四. 最佳实践
 通过日常的一些实践，配置crontab遵循以下几个原则，保证稳定和可维护
 
-1. crontab配置定时调度执行某个shell脚本，执行命令封装在shell脚本内
+1. crontab配置定时调度执行某个shell脚本，执行命令封装在shell脚本内  
    `* * * * * cd /home/cgl/tmp && sh run.sh`  
    `3,15 * * * * cd /home/cgl/tmp2 && sh run2.sh`
 2. 用户具体要执行的命令封装在shell内
