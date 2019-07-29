@@ -103,4 +103,6 @@ tags:         #标签
 2. 当crontab失效时，可以尝试 `$ service crond restart` 解决问题，或者查看日志确认某个job有没有执行报错 `$ tail -f /var/log/cron`
 3. `crontab -u {username} -r` 命令会把 `var/spool/cron` 目录对应用户crontab文件删除，删除之后该用户的所有cron job全部失效
 4. crontab中`%`是有特殊含义的表示换行的意思，如果要用的话必须进行 `\` 进行转义，例如 `date +%s` 必须使用 `date +\%s`代替。
+5. 将每条任务进行重定向处理非常重要，如果任务输出的日志很多日积月累可能会影响正常的系统运行，可以考虑重定向到 `/dev/null`  
+   例如`0 */3 * * * sh run.sh >/dev/null 2>&1`，`/dev/null 2>&1`表示先将`stdout`重定向到`/dev/null`，然后将`stderr`重定向到`stdout`，由于`stdout`已经重定向到了`/dev/null`，因此`stderr`也会重定向到`/dev/null`。
 
