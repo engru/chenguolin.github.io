@@ -36,8 +36,8 @@ tags:         #标签
    + 状态: `$ service crond status`
 2. crontab常用命令
    + crontab任务列表文件载入crond进程: `$ crontab -u {username} {file}`
-   + 显示某个用户的crontab文件内容: `$ crontab -u {username} -l`
-   + 编辑crontab文件内容: `$ crontab -u {username} -e`
+   + 显示某个用户的crontab文件内容: `$ crontab -u {username} -l`  (对应`/var/spool/cron`目录中某个用户的crontab文件)
+   + 编辑crontab文件内容: `$ crontab -u {username} -e`   (对应`/var/spool/cron`目录中某个用户的crontab文件)
    + 删除crontab文件内容: `$ crontab -u {username} -ir`  (从`/var/spool/cron`目录中删除某个用户的crontab文件)
    
    `如果没有通过 -u 指定用户，默认使用当前用户`
