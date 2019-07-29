@@ -34,6 +34,7 @@ tags:         #标签
    + 启动: `$ service crond start`
    + 停止: `$ service crond stop`
    + 状态: `$ service crond status`
+   + 重启: `$ service crond restart`
 2. crontab常用命令
    + crontab任务列表文件载入crond进程: `$ crontab -u {username} {file}`
    + 显示某个用户的crontab文件内容: `$ crontab -u {username} -l`  (对应`/var/spool/cron`目录中某个用户的crontab文件)
@@ -95,4 +96,11 @@ tags:         #标签
 4. 每个小时第25、35、45分执行: `25,35,45 * * * * command`
 5. 每天8-11点的第25分钟执行ls命令: `25 8-11 * * * command`
 6. 每隔两天的上午8点到11点的第3和第15分钟执行: `3,15 8-11 */2  *  * command`
+7. 每周一上午8点到11点的第3和第15分钟执行: `3,15 8-11 * * 1 command`
+
+# 五. 注意事项
+1. 新创建的cron job，不会马上执行至少要过`2分钟`才执行，如果重启`crond`则马上生效
+2. 当crontab失效时，可以尝试 `$ service crond restart` 解决问题，或者查看日志确认某个job有没有执行报错 `$ tail -f /var/log/cron`
+3. `crontab -u {username} -r` 命令会把 `var/spool/cron` 目录对应用户crontab文件删除，删除之后该用户的所有cron job全部失效
+4. crontab中`%`是有特殊含义的表示换行的意思，如果要用的话必须进行 `\` 进行转义，例如 `date +%s` 必须使用 `date +\%s`代替。
 
