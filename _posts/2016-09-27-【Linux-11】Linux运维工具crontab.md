@@ -6,49 +6,9 @@ tags:         #标签
     - Linux
 ---
 
-1. http://linux-training.be/sysadmin/ch08.html
-2. https://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html
-
-# 一. gdb 程序调试
-
-# 二. ldd 程序依赖库
-
-# 三. lsof 一切皆文件
-
-# 四. ps 进程查看器
-
-# 五. pstack 跟踪进程栈
-
-# 六. strace 跟踪进程系统调用
-
-# 七. ipcs 查询进程间通信状态
-
-# 八. top 任务管理器
-
-# 九. free 查询可用内存
-
-# 十. vmstat 监视内存使用情况
-
-# 十一. iostat 监视I/O子系统
-
-# 十二. sar 找出系统瓶颈
-
-# 十三. readelf elf文件格式分析
-
-# 十四. objdump 二进制文件分析
-
-# 十五. nm 目标文件格式分析
-
-# 十六. size 查看程序内存映像大小
-
-# 十七. wget 文件下载
-
-# 十八. scp 远程拷贝
-
-# 十九. crontab 定时任务
+# 一. crontab 介绍
 `crontab` 可以用来在固定的间隔时间执行指定的系统指令或 shell 脚本，时间间隔的单位可以是`分钟`、`小时`、`日`、`月`、`周`及以上的任意组合，非常适合用于周期性的日志分析或数据备份等工作。
 
-## ① crontab 介绍
 `crontab` 是Linux自带的定时任务管理工具，用户无须安装就可以直接使用，默认会自带以下文件与目录
 
 1. `/etc/cron.allow`: 允许配置crontab的用户列表，文件允许不存在
@@ -69,7 +29,7 @@ tags:         #标签
    + 文件第一行必须为 `#!/bin/bash`
 4. crontab任务运行的最小时间间隔是`1分钟`，也就是最细粒度只能支持分钟级别定时调度，不支持秒级定时调度。 
 
-## ② crontab 命令
+# 二. crontab 命令
 1. crontab 服务
    + 启动: `$ service crond start`
    + 停止: `$ service crond stop`
@@ -87,7 +47,7 @@ tags:         #标签
    + `run-parts /etc/cron.weekly`
    + `run-parts /etc/cron.monthly`
 
-## ③ crontab 使用
+# 三. crontab 使用
 正常情况下如果开发或运维有定时任务需求都可以通过 `crontab` 来实现，但是配置 `crontab` 需要登录机器这会带来一定的风险。现在有很多开源的 `任务调度` 平台可以用来实现我们这个需求，除此之外 `K8s` 的`Job`和`CronJob`也能够支持任务定时调度。
 
 所以，如果只是简单的需求可以直接使用 `crontab`，但是非常不推荐在生产环境大量使用，因为不仅低效而且风险很大。
@@ -128,7 +88,7 @@ tags:         #标签
    ```
 3. 如果任务没有被调度，可以查看 `/var/log/cron` 日志确认是否有问题
    
-## ④. crontab 举例
+# 四. crontab 举例
 1. 每分钟执行: `* * * * * command`
 2. 每5分钟执行: `*/5 * * * * command`
 3. 每个小时第10分执行: `10 * * * * command`
