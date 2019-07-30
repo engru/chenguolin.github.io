@@ -145,5 +145,5 @@ su root root
    
    `如果只需要每天定期执行，可以通过配置不同配置文件并放到 /etc/logrotate.d/ 目录下，就可以每天被自动执行。`
 2. 很多情况我们需要很灵活的定时调度 logrotate 命令来滚动切割日志文件，这个时候默认的天级别执行就不能满足我们的需求了。我们可以使用 crontab 来配置定时调度任务，通过 `logrotate -f tmp.conf` 这个命令强制执行。  
-   [crontab 定时任务](https://chenguolin.github.io/2016/09/27/Linux-11-Linux%E6%9C%80%E5%B8%B8%E7%94%A8%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/#%E5%8D%81%E4%B9%9D-crontab-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1)
+   [Linux定时任务crontab](https://chenguolin.github.io/2016/09/27/Linux-11-Linux%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1crontab/)
 
