@@ -122,6 +122,7 @@ xargs参数说明
 4. 统计文件的行数：`$ awk 'END {print NR}' file`
 5. 累加每一行的第一个字段: `$ echo -e "1\n 2\n 3\n 4\n" | awk 'BEGIN{num = 0; print "begin";} {sum += $1;} END {print "=="; print sum }'`
 6. 在awk中使用循环: `for(i=0;i<10;i++){print $i;}`
+7. 使用`-F`设置分隔符(默认为空格): `$ awk -F ';' {print $1} file`
 
 # 十二. 迭代文件中的行、单词和字符
 1. 迭代文件中的每一行
@@ -132,5 +133,6 @@ xargs参数说明
    echo $line;
    done < file.txt
    ```
+   等价于: `$ cat file.txt | (while read line;do echo $line;done)`
 2. awk法: `$ cat file.txt| awk '{print}'`
 3. 迭代一行中的每一个单词: `$ for word in $line; do echo $word; done`
