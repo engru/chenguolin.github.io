@@ -405,7 +405,7 @@ spec:
 4. 直接访问`http://k8s.prometheus.com/graph`即可访问Prometheus web UI界面
    ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/prometheus-localhost.png?raw=true) 
     
-`注意: K8s上相关的资源例如Pod如果希望被Prometheus采集，需要设置annotations prometheus_io_scrape: "true"，如果没有设置prometheus_io_port则prometheus默认会拉取容器暴露的所有端口 （适合用于一个Pod内有多个想被采集的端口）`    
+`注意: K8s上相关的资源例如Pod如果希望被Prometheus采集，需要设置annotations prometheus_io_scrape: "true"，如果没有设置prometheus_io_port则prometheus默认会拉取容器暴露的所有端口（适合用于一个Pod内有多个想被采集的端口）`    
     
 # 三. Grafana展示
 `Prometheus`自带的web UI功能比较简单，业界的做法是使用`Grafana`来做监控报表展示。`Grafana`是一个开源的时序统计和监控平台，支持`Elasticsearch`、`Graphite`、`Influxdb`、`Prometheus`等众多的数据源，并以功能强大的界面编辑器著称。
