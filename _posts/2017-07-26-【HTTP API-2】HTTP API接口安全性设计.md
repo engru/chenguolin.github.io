@@ -41,7 +41,7 @@ HTTP API接口安全性演进如下
 2. 确认sigTime是否小于当前时间，如果是说明签名已经过期了
 3. 按照相同的算法计算一遍签名，比较计算的结果和header里面的signature是否一致，如果是验证通过
 
-简单的代码如下
+简单的代码如下，完整的代码可以参考 [简单的http签名算法](https://chenguolin.github.io/2017/07/25/HTTP-API-1-%E7%AE%80%E5%8D%95%E7%9A%84http%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95/)
 ```
 // 1. url path
 path := "http://localhost:8080/user/select"
