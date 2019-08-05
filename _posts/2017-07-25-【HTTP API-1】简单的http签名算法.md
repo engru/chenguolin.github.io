@@ -32,22 +32,22 @@ tags:          #标签
 package http
 
 import (
-	"bytes"
-	"crypto/md5"
-	"fmt"
-	"sort"
-	"strings"
+    "bytes"
+    "crypto/md5"
+    "fmt"
+    "sort"
+    "strings"
 
-	"github.com/gin-gonic/gin"
+    "github.com/gin-gonic/gin"
 )
 
 const (
-	// httpSignatureSecret 秘钥
-	httpSignatureSecret = "abcdefghijklnmop"
-	// httpSignatureSalt 盐
-	httpSignatureSalt = "abcdefghijklnmop"
-	// sigField 字段
-	sigField = "sig"
+    // httpSignatureSecret 密钥
+    httpSignatureSecret = "abcdefghijklnmop"
+    // httpSignatureSalt 盐
+    httpSignatureSalt = "abcdefghijklnmop"
+    // sigField 字段
+    sigField = "sig"
 )
 
 // GenSignature get http signature
@@ -57,42 +57,43 @@ const (
 // 4. calculator md5
 // 5. shuffle md5 byte
 func GenSignature(c *gin.Context) string {
-	// 1. get url path
-	// http://localhost:8080/user/select
-	path := strings.TrimLeft(c.Request.URL.Path, "/")
+    // 1. get url path
+    // http://localhost:8080/user/select
+    path := strings.TrimLeft(c.Request.URL.Path, "/")
 
-	// 2. sort form values
-	sigTime := c.GetString("sigTime")
-	// content-type muse be application/x-www-form-urlencoded
-	params := make([]string, 0, 10)
-	// sigTime append 2 params
-	params = append(params, sigTime)
+    // 2. sort form values
+    sigTime := c.GetString("sigTime")
+    // content-type muse be application/x-www-form-urlencoded
+    params := make([]string, 0, 10)
+    // sigTime append 2 params
+    params = append(params, sigTime)
 
-	form := c.Request.Form
-	for k, v := range form {
-		// filter sig field
-		if k == sigField {
-			continue
-		}
-		params = append(params, v[0])
+    form := c.Request.Form
+    for k, v := range form {
+	// filter sig field
+	if k == sigField {
+	    continue
 	}
-	sort.Strings(params)
+	params = append(params, v[0])
+    }
+    sort.Strings(params)
 
-	// 3. calculator signature
-	// combine
-	str := path + strings.Join(params, "") + httpSignatureSecret + httpSignatureSalt
-	// md5
-	temp := fmt.Sprintf("%x", md5.Sum([]byte(str)))
-	// shuffle byte
-	sig := bytes.Buffer{}
-	var pos int
-	for i := 0; i < 16; i++ {
-		pos = i * 2
-		sig.WriteByte(temp[pos+1])
-		sig.WriteByte(temp[pos])
-	}
+    // 3. calculator signature
+    // combine
+    str := path + strings.Join(params, "") + httpSignatureSecret + httpSignatureSalt
+    
+    // md5
+    temp := fmt.Sprintf("%x", md5.Sum([]byte(str)))
+    // shuffle byte
+    sig := bytes.Buffer{}
+    var pos int
+    for i := 0; i < 16; i++ {
+	pos = i * 2
+	sig.WriteByte(temp[pos+1])
+	sig.WriteByte(temp[pos])
+    }
 
-	return sig.String()
+    return sig.String()
 }
 ```
 
