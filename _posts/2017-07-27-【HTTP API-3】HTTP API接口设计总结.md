@@ -23,3 +23,8 @@ tags:          #标签
    2). 华为云: https://support.huaweicloud.com/api-dms/zh-cn_topic_0086485751.html （鉴权方面参考）  
    3). API签名: https://support.huaweicloud.com/devg-apisign/api-sign-provide.html
 5. token认证？和 AK/SK认证区别？
+
+
+内网调用接口设计？  
+用户客户端走公网接口设计？
+
