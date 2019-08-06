@@ -7,7 +7,7 @@ tags:          #标签
 ---
 
 # 一. 介绍
-`HTTP/HTTPS API`接口是互联网各系统之间对接的重要方式之一，使用HTTP/HTTPS API接口开发和调用都很方便，也是被大量采用的方式，它可以让不同系统之间实现数据的交换和共享。
+`HTTP/HTTPS API`接口是互联网各系统之间对接的重要方式之一，使用HTTP/HTTPS API接口开发和调用都很方便，也是被大量采用的方式，它可以让不同系统之间实现数据的交换和共享，最常用的HTTP操作类型主要是 `GET` 和 `POST`。
 
 常用于以下3个场景
 
@@ -31,11 +31,17 @@ API的URI scheme 由以下几个部分组成: {URI Scheme} :// {Endpoint} / {Ver
 
 举例: `https://www.huaweicloud.com/v1/auth/tokens` 或 `https://www.huaweicloud.com/v1/kafka/topics?instance_id=xxxx`
 
-## ② 请求参数
+## ② 请求消息头
+请求消息Headers用来设置附加字段，例如指定的URI和HTTP方法所要求的字段。`Content-Type` 字段是必须的，用来定义消息体类型
 
-## ③ 响应结果
+请求方发起请求的时候必须设置 `Content-Type` 值为 `application/x-www-form-urlencoded; charset=utf-8`
 
-## ④ 安全设计
+## ③ 请求参数
+
+
+## ④ 响应结果
+
+## ⑤ 安全设计
 
 
 设计点
