@@ -54,13 +54,12 @@ API的URI scheme 由以下几个部分组成: {URI Scheme} :// {Endpoint} / {Ver
 | app_version  | string | 客户端->服务端 | 客户端版本 |
 | network  | string | 客户端->服务端 | 客户端网络类型，例如2G、3G、4G、5G、wifi |
 | mac_addr  | string | 客户端->服务端 | 客户端Mac地址 |
-| language  | string | 客户端->服务端 | 客户端语言类型，常用于多语言场景，`EN`标识英文，`ZhHans`标识中文 |
-| signature  | string | 是 | 签名结果 |
-| signature_method  | string | 是 | 签名方法，例如`HMAC-SHA1` |
-| signature_version  | string | 是 | 签名版本，例如`1.0` |
-| signature_nonce  | string | 是 | 签名唯一随机数。用于防止网络重放攻击，建议您每一次请求都使用不同的随机数 |
-| timestamp  | string | 是 | 请求时间戳，按照 ISO8601 标准表示，并需要使用 UTC 时间，格式为 yyyy-MM-ddTHH:mm:ssZ <br> 2018-01-01T12:00:00Z 表示北京时间 2018 年 1 月 1 日 20 点 00 分 00 秒 |
-
+| language  | string | 客户端->服务端 | 客户端语言类型，常用于多语言场景 <br> `EN`标识英文，`ZhHans`标识中文 |
+| signature  | string | 通用 | 签名结果 |
+| signature_method  | string | 通用 | 签名方法，例如`HMAC-SHA1` |
+| signature_version  | string | 通用 | 签名版本，例如`1.0` |
+| signature_nonce  | string | 通用 | 签名唯一随机数 <br> 用于防止网络重放攻击，建议您每一次请求都使用不同的随机数 |
+| timestamp  | string | 通用 | 请求时间戳，按照 ISO8601 标准表示，并需要使用 `UTC` 时间，格式为 `yyyy-MM-ddTHH:mm:ssZ` <br> 2018-01-01T12:00:00Z 表示北京时间 2018 年 1 月 1 日 20 点 00 分 00 秒 |
 
 ## ④ 响应结果
 
