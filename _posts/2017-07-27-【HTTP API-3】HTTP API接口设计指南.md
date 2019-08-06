@@ -38,10 +38,9 @@ API的URI scheme 由以下几个部分组成: {URI Scheme} :// {Endpoint} / {Ver
 
 ## ③ 请求参数
 
-
 ## ④ 响应结果
 
-## ⑤ 安全设计
+# 三. 接口安全
 
 
 设计点
