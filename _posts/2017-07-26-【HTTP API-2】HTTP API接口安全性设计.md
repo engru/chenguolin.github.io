@@ -30,16 +30,16 @@ HTTP API接口安全性演进如下
 
 客户端计算签名步骤如下  
 1. 客户端和服务端事先约定 密钥secret和盐salt，密钥和盐一般是16或32位字符串
-2. 客户端计算一个sigTime
-3. 请求所有参数和sigTime，拼接成一个字符串并按字典序排序，记为data
+2. 客户端计算一个 sig_time
+3. 请求所有参数和 sig_time，拼接成一个字符串并按字典序排序，记为data
 4. `url path` + `data` + `secret` + `salt`，拼接成最终字符串`s`
 5. 对`s`计算一个md5即为签名结果
-6. 客户端请求的时候在header里面设置`Signature: sigTime={sigTime}&signature={signature}`
+6. 客户端请求的时候把参数传给服务端 `sig_time={sig_time}&signature={signature}`
 
 服务端验证签名
-1. 解析header获取Signature
-2. 确认sigTime是否小于当前时间，如果是说明签名已经过期了
-3. 按照相同的算法计算一遍签名，比较计算的结果和header里面的signature是否一致，如果是验证通过
+1. 解析参数获取`sig_time`和`signature`2个字段
+2. 确认`sig_time`是否小于当前时间，如果是说明签名已经过期了
+3. 按照相同的算法计算一遍签名，比较计算的结果和signature是否一致，如果是验证通过
 
 简单的代码如下，完整的代码可以参考 [简单的http签名算法](https://chenguolin.github.io/2017/07/25/HTTP-API-1-%E7%AE%80%E5%8D%95%E7%9A%84http%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95/)
 ```
@@ -76,14 +76,17 @@ sig := fmt.Sprintf("%x", md5.Sum([]byte(str)))
 
 客户端计算签名步骤如下  
 1. 客户端生成公私钥对
-2. 客户端计算一个sigTime
-3. 请求所有参数和sigTime，拼接成一个字符串并按字典序排序，记为data
+2. 客户端计算一个 sig_time
+3. 请求所有参数和 sig_time，拼接成一个字符串并按字典序排序，记为data
 4. 使用私钥对data进行签名，得到sig记为签名结果
-5. 客户端请求的时候在header里面设置`Authorization: pubk={pubk}&sigTime={sigTime}&signature={signature}`
+5. 客户端请求的时候把相关的参数传给服务端 `pubk={pubk}&sig_time={sig_time}&signature={signature}`
+   + pubk={pubk}: 公钥
+   + sig_time={sig_time}: 签名时间
+   + signature={signature}: 签名结果
 
 服务端验证签名
-1. 解析header获取Authorization，得到公钥pubk，sigTime，和签名结果signature
-2. 确认sigTime是否小于当前时间，如果是说明签名已经过期了
+1. 解析参数得到公钥pubk，sig_time，和签名结果signature
+2. 确认sig_time是否小于当前时间，如果是说明签名已经过期了
 3. 服务端使用公钥验证签名结果signature，验证通过说明请求参数没有被篡改
 
 简单的代码如下
