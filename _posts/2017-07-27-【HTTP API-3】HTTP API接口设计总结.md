@@ -6,7 +6,16 @@ tags:          #标签
     - HTTP API
 ---
 
-# 一. 
+# 一. 介绍
+`HTTP/HTTPS API`接口是互联网各系统之间对接的重要方式之一，使用HTTP/HTTPS API接口开发和调用都很方便，也是被大量采用的方式，它可以让不同系统之间实现数据的交换和共享。
+
+常用于以下3个场景
+
+1. 客户端(Android/iOS/Web)通过公网使用`HTTPS`请求服务API接口做数据交互
+2. 服务通过公网使用`HTTPS`请求另外一个服务API接口做数据交互
+3. 服务通过内网使用`HTTP`请求另外一个服务API接口做数据交互
+
+针对
 
 # 二. 
 设计点
@@ -46,6 +55,8 @@ SK(Secret Access Key)：与访问密钥ID结合使用的私有访问密钥，对
 是用户访问内部资源最重要的身份凭证。用户调用API时的通信加密和身份认证会使用API凭证（即基于非对称密钥算法的鉴权密钥对）。API凭证是云上用户调用云服务API、访问云上资源的唯一身份凭证。
 在阿里云，用户可以使用AccessKey（简称AK）构造一个API请求（或者使用云服务SDK）来操作资源。AccessKey包括AccessKeyId和AccessKeySecret。其中AccessKeyId用于标识用户，AccessKeySecret是用来验证用户身份合法性的密钥。AccessKeySecret必须保密。
 
+需要注意的是，开发者绝不能将AccessKeySecret密钥包含在分发给最终用户的程序中，无论是包含在配置文件中还是二进制文件中都会带来非常大的密钥泄漏风险。
+
 消息响应的标准格式？
 {
     "meta":{...},
@@ -54,5 +65,7 @@ SK(Secret Access Key)：与访问密钥ID结合使用的私有访问密钥，对
 
 安全建议
 1. 不要将AccessKey嵌入代码，应该使用数据库或者写文件方式，避免泄露
-2. 定期更新AccessKey，保证
+2. 定期更新AccessKey，保证一些旧的代码泄漏后不会影响现有的业务
+
+
 
