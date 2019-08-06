@@ -21,13 +21,13 @@ tags:          #标签
 ## ① 接口风格
 API接口应该使用 [RESTful API](https://en.wikipedia.org/wiki/Representational_state_transfer) 风格，并遵循以下几个设计原则
 
-API的URI scheme 由以下几个部分组成: `{URI Scheme} :// {Endpoint} / {Version} /  {Resource Path} ? {Query string}`
+API的URI scheme 由以下几个部分组成: {URI Scheme} :// {Endpoint} / {Version} /  {Resource Path} ? {Query string}
 
-1. URI Scheme: 传输请求的协议，走公网所有API应该使用`HTTPS`协议，走内网所有API可以使用`HTTP`协议  【必须】
-2. Endpoint: 承载REST服务端点的服务器域名或IP，例如`www.xxx.com`  【必须】
-3. Version: API版本，例如 `v1`   【必须】
-4. Resource Path: API访问路径，例如 `/auth/tokens` 表示获取用户Token，Path一般使用复数名词表示  【必须】
-5. Query String: 查询参数，参数格式为 `参数名=参数值`多个参数使用`&`拼接【可选】
+1. `URI Scheme`: 传输请求的协议，走公网所有API应该使用`HTTPS`协议，走内网所有API可以使用`HTTP`协议  【必须】
+2. `Endpoint`: 承载REST服务端点的服务器域名或IP，例如`www.xxx.com`  【必须】
+3. `Version`: API版本，例如 `v1`   【必须】
+4. `Resource Path`: API访问路径，例如 `/auth/tokens` 表示获取用户Token，Path一般使用复数名词表示  【必须】
+5. `Query String`: 查询参数，参数格式为 `参数名=参数值`多个参数使用`&`拼接【可选】
 
 举例: `https://www.huaweicloud.com/v1/auth/tokens` 或 `https://www.huaweicloud.com/v1/kafka/topics?instance_id=xxxx`
 
