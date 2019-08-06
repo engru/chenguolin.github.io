@@ -37,6 +37,13 @@ API的URI scheme 由以下几个部分组成: {URI Scheme} :// {Endpoint} / {Ver
 请求方发起请求的时候必须设置 `Content-Type` 值为 `application/x-www-form-urlencoded; charset=utf-8`
 
 ## ③ 请求参数
+我们把请求参数分成2类，一类是`公共参数`，另外一类是`业务参数`，参数传递应该遵循以下2个原则
+
+1. 无论是`GET`还是`POST`请求，参数应该使用 `key=value`并使用`&`连接这种方式
+2. 对于`GET`请求，所有的参数应该使用 `key=value`并使用`&`连接，做为URI的Query string
+3. 对于`POST`请求，公共参数应该使用 `key=value`并使用`&`连接，做为URI的Query string。业务参数使用`key=value`并使用`&`连接，做为data数据
+
+
 
 ## ④ 响应结果
 
