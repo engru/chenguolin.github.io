@@ -118,17 +118,9 @@ API接口响应结果应该按照以下格式
 1. 不要将`AK/SK`嵌入代码，应该使用数据库或者写文件方式，避免泄露
 2. 定期更新`AK/SK`，保证一些旧的代码泄漏后不会影响现有的业务
 
-`阿里云AK/SK签名算法
+阿里云AK/SK签名算法可以参考 [calculate signature](https://github.com/chenguolin/go-aliyun/blob/master/kafka/client.go#L289)
 
 ## ③ 服务A->服务B (内网)
-
-安全性
-1. 启用HTTPS
-2. 启用签名鉴权
-    * 简单sig签名
-    * 公私钥签名
-3. 服务端检查参数合法性
-
 
 
 
