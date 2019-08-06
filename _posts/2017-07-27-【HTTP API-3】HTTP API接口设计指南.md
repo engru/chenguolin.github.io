@@ -11,9 +11,9 @@ tags:          #标签
 
 常用于以下3个场景
 
-1. 客户端(Android/iOS/Web)通过公网使用`HTTPS`请求服务API接口做数据交互
-2. 服务通过公网使用`HTTPS`请求另外一个服务API接口做数据交互
-3. 服务通过内网使用`HTTP`请求另外一个服务API接口做数据交互
+1. `客户端->服务端`: 客户端(Android/iOS/Web)通过公网使用`HTTPS`请求服务API接口做数据交互
+2. `服务A->服务B (公网)`: 服务通过公网使用`HTTPS`请求另外一个服务API接口做数据交互
+3. `服务A->服务B (内网)`:服务通过内网使用`HTTP`请求另外一个服务API接口做数据交互
 
 针对以上3个使用场景，结合公有云的一些使用姿势，总结出这3种场景下 HTTP/HTTPS API接口设计指南。
 
@@ -56,10 +56,9 @@ API的URI scheme 由以下几个部分组成: {URI Scheme} :// {Endpoint} / {Ver
 | mac_addr  | string | 客户端->服务端 | 客户端Mac地址 |
 | language  | string | 客户端->服务端 | 客户端语言类型，常用于多语言场景 <br> `EN`标识英文，`ZhHans`标识中文 |
 | signature  | string | 通用 | 签名结果 |
-| signature_method  | string | 通用 | 签名方法，例如`HMAC-SHA1` |
 | signature_version  | string | 通用 | 签名版本，例如`1.0` |
 | signature_nonce  | string | 通用 | 签名唯一随机数 <br> 用于防止网络重放攻击，建议您每一次请求都使用不同的随机数 |
-| timestamp  | string | 通用 | 请求时间戳，按照 ISO8601 标准表示，并需要使用 `UTC` 时间，格式为 `yyyy-MM-ddTHH:mm:ssZ` <br> 2018-01-01T12:00:00Z 表示北京时间 2018 年 1 月 1 日 20 点 00 分 00 秒 |
+| sig_timestamp  | string | 通用 | 签名时间戳，服务端会校验是否过期 |
 
 ## ④ 响应结果
 API接口响应结果应该按照以下格式
@@ -84,13 +83,24 @@ API接口响应结果应该按照以下格式
 2. response: 包含本次请求获取到的相关数据，有些情况可能为空
 
 # 三. 接口安全
+由于API接口开放在互联网上，所以我们就需要有足够的安全措施来保证接口安全，之前写过2篇文章 [简单的http签名算法](https://chenguolin.github.io/2017/07/25/HTTP-API-1-%E7%AE%80%E5%8D%95%E7%9A%84http%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95/) 和 [http api接口安全性设计](https://chenguolin.github.io/2017/07/26/HTTP-API-2-HTTP-API%E6%8E%A5%E5%8F%A3%E5%AE%89%E5%85%A8%E6%80%A7%E8%AE%BE%E8%AE%A1/)，可以先简单了解一下。
 
-| 名称 | 类型 | 是否必须 | 描述 |
-|:--|:--|:--|:--
-| access_key_id  | string | 是 | 用户访问密钥ID，用来标识某个客户端或用户 |
+上述提到的3个场景，接口安全性要求是不同的，针对这3个场景，我总结了接口安全设计方法
 
-设计点
-1. REST风格？REST（Representational State Transfer）
+## ① 客户端->服务端
+用户客户端调用服务端是最常见的场景，我们可以把API接口分成以下几类
+
+1. 通用接口: 和用户无关接口，用户无须登录即可访问，这类接口对接口安全性要求弱
+2. 用户相关接口: 和用户强相关，用户需要登录才可以访问，这类接口安全性要求高，必须要保证用户请求数据不被篡改
+
+针对这个场景，需要做以下几点来保证接口安全性
+
+1. 使用`HTTPS`代替`HTTP`，使用HTTPS加密传输，避免明文传输导致数据泄露或被劫持篡改
+2. 使用`私钥签名公钥验签`方式来保证请求参数不会被窜改，具体可以参考 [HTTP API接口安全性设计 - 私钥签名公钥验签](https://chenguolin.github.io/2017/07/26/HTTP-API-2-HTTP-API%E6%8E%A5%E5%8F%A3%E5%AE%89%E5%85%A8%E6%80%A7%E8%AE%BE%E8%AE%A1/#%E4%B8%89-%E7%A7%81%E9%92%A5%E7%AD%BE%E5%90%8D%E5%85%AC%E9%92%A5%E9%AA%8C%E7%AD%BE)
+
+## ② 服务A->服务B (公网)
+
+## ③ 服务A->服务B (内网)
 
 安全性
 1. 启用HTTPS
