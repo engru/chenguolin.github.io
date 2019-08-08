@@ -99,7 +99,7 @@ API接口响应结果应该按照以下格式
 1. 使用`HTTPS`代替`HTTP`，使用HTTPS加密传输，避免明文传输导致数据泄露或被劫持篡改
 2. 客户端使用`私钥签名公钥验签`方式来保证请求参数不会被窜改，具体可以参考 [HTTP API接口安全性设计 - 私钥签名公钥验签](https://chenguolin.github.io/2017/07/26/HTTP-API-2-HTTP-API%E6%8E%A5%E5%8F%A3%E5%AE%89%E5%85%A8%E6%80%A7%E8%AE%BE%E8%AE%A1/#%E4%B8%89-%E7%A7%81%E9%92%A5%E7%AD%BE%E5%90%8D%E5%85%AC%E9%92%A5%E9%AA%8C%E7%AD%BE)
 3. 用户相关的接口，客户端需要通过`token认证`来标识某个用户  (通常在请求消息头添加`Access-Token: {token}`)
-4. 服务端使用公钥验证签名，需要保证sig_time在有效期内同时signature_nonce没有被使用过
+4. 服务端使用公钥验证签名，需要保证 sig_timestamp 在有效期内同时 signature_nonce 没有被使用过
 
 `客户端会持有私钥，因此需要保证私钥不能够泄露，如果泄露需要及时替换新的公私钥对`
 
