@@ -45,9 +45,11 @@ const (
     // httpSignatureSecret 密钥
     httpSignatureSecret = "abcdefghijklnmop"
     // httpSignatureSalt 盐
-    httpSignatureSalt = "abcdefghijklnmop"
-    // sigField 字段
+    httpSignatureSalt = "xxyymmsfsflsfsflfssfsfsfsf2"
+    // sigField field
     sigField = "sig"
+    // sigTimestamp field
+    sigTimestampField = "sig_timestamp"
 )
 
 // GenSignature get http signature
@@ -62,11 +64,11 @@ func GenSignature(c *gin.Context) string {
     path := strings.TrimLeft(c.Request.URL.Path, "/")
 
     // 2. sort form values
-    sigTime := c.GetString("sigTime")
+    sigTimestamp := c.GetString(sigTimestampField)
     // content-type muse be application/x-www-form-urlencoded
     params := make([]string, 0, 10)
-    // sigTime append 2 params
-    params = append(params, sigTime)
+    // sigTimestamp append 2 params
+    params = append(params, sigTimestamp)
 
     form := c.Request.Form
     for k, v := range form {
@@ -109,9 +111,7 @@ import md5
 
 # 常量定义
 SIG = "sig"
-SIG_TIME = "sigTime"
-SIG_VERSION = "sigVersion"
-SIG_FINAL_STRING = "sigFinalString"
+SIG_TIMESTAMP = "sig_timestamp"
 SIG_SDK_APP_SECRET = "xxx"              # 密钥 客户端服务端提前约定好即可
 SIG_SDK_ADD_KEY = "yyy"                 # 盐   客户端服务端提前约定好即可
 
@@ -123,7 +123,7 @@ def get_signature(path, params, sig_time):
 def sort_params(params):
     values = list()
     for k, v in params.items():
-        if k == SIG or k == SIG_TIME or k == SIG_VERSION or k == SIG_FINAL_STRING:
+        if k == SIG:
             continue
         values.append(str(v))
     return sorted(values)
@@ -151,9 +151,9 @@ if __name__ == "__main__":
             "value": "100000000000000000",
             "name": "chenguolin"
     }
-    sig_time = 1539847107000
+    sig_timestamp = 1539847107000
     # call get_signature
-    print get_signature(path, params, sig_time)
+    print get_signature(path, params, sig_timestamp)
 ```
 
 
