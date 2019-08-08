@@ -79,13 +79,13 @@ sig := fmt.Sprintf("%x", md5.Sum([]byte(str)))
 2. 客户端计算一个 `sig_timestamp`
 3. 请求所有参数和 `sig_timestamp`，拼接成一个字符串并按字典序排序，记为 `data`
 4. 使用私钥对 `data` 进行签名，得到 `sig` 记为签名结果
-5. 客户端请求的时候把相关的参数传给服务端 `pubk={pubk}&sig_timestamp={sig_timestamp}&signature={signature}`
-   + pubk={pubk}: 公钥
+5. 客户端请求的时候把相关的参数传给服务端 `public_key={public_key}&sig_timestamp={sig_timestamp}&signature={signature}`
+   + public_key={public_key}: 公钥
    + sig_timestamp={sig_timestamp}: 签名时间
    + signature={signature}: 签名结果
 
 服务端验证签名
-1. 解析参数得到公钥 pubk，sig_timestamp，和签名结果 signature
+1. 解析参数得到公钥 public_key，sig_timestamp，和签名结果 signature
 2. 确认 sig_timestamp 是否小于当前时间，如果是说明签名已经过期了
 3. 服务端使用公钥验证签名结果 signature，验证通过说明请求参数没有被篡改
 
