@@ -42,12 +42,12 @@ import (
 )
 
 const (
-    // httpSignatureSecret 密钥
-    httpSignatureSecret = "abcdefghijklnmop"
-    // httpSignatureSalt 盐
-    httpSignatureSalt = "xxyymmsfsflsfsflfssfsfsfsf2"
-    // sigField field
-    sigField = "sig"
+    // HTTPSignatureSecret 密钥
+    HTTPSignatureSecret = "abcdefghijklnmop"
+    // HTTPSignatureSalt 盐
+    HTTPSignatureSalt = "xxyymmsfsflsfsflfssfsfsfsf2"
+    // signatureField field
+    signatureField = "sig"
 )
 
 // GenSignature get http signature
@@ -69,7 +69,7 @@ func GenSignature(c *gin.Context) string {
     for k, v := range form {
 	// filter sig field
 	// 其它所有字段都加入计算签名
-	if k == sigField {
+	if k == signatureField {
 	    continue
 	}
 	params = append(params, v[0])
@@ -78,7 +78,7 @@ func GenSignature(c *gin.Context) string {
 
     // 3. calculator signature
     // combine
-    str := path + strings.Join(params, "") + httpSignatureSecret + httpSignatureSalt
+    str := path + strings.Join(params, "") + HTTPSignatureSecret + HTTPSignatureSalt
     
     // md5
     temp := fmt.Sprintf("%x", md5.Sum([]byte(str)))
@@ -106,7 +106,7 @@ import time
 import md5
 
 # 常量定义
-SIG = "sig"
+SIGNATURE = "signature"
 SIG_TIMESTAMP = "sig_timestamp"
 SIG_SDK_APP_SECRET = "xxx"              # 密钥 客户端服务端提前约定好即可
 SIG_SDK_ADD_KEY = "yyy"                 # 盐   客户端服务端提前约定好即可
@@ -119,7 +119,7 @@ def get_signature(path, params, sig_time):
 def sort_params(params):
     values = list()
     for k, v in params.items():
-        if k == SIG:
+        if k == SIGNATURE:
             continue
         values.append(str(v))
     return sorted(values)
