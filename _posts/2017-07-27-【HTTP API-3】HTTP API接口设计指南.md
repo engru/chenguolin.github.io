@@ -56,9 +56,9 @@ API的URI scheme 由以下几个部分组成: {URI Scheme} :// {Endpoint} / {Ver
 | network  | string | 客户端->服务端 | 客户端网络类型，例如2G、3G、4G、5G、wifi |
 | mac_addr  | string | 客户端->服务端 | 客户端Mac地址 |
 | language  | string | 客户端->服务端 | 客户端语言类型，常用于多语言场景 <br> `EN`标识英文，`ZhHans`标识中文 |
-| signature  | string | 通用 | 签名结果 |
-| signature_version  | string | 通用 | 签名版本，例如`1.0` |
-| signature_nonce  | string | 通用 | 签名唯一随机数 <br> 用于防止网络重放攻击，建议您每一次请求都使用不同的随机数 |
+| sig  | string | 通用 | 签名结果 |
+| sig_version  | string | 通用 | 签名版本，例如`1.0` |
+| sig_nonce  | string | 通用 | 签名唯一随机数 <br> 用于防止网络重放攻击，建议您每一次请求都使用不同的随机数 |
 | sig_timestamp  | string | 通用 | 签名时间戳，服务端会校验是否过期 |
 
 ## ④ 响应结果
