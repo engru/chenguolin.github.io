@@ -48,8 +48,6 @@ const (
     httpSignatureSalt = "xxyymmsfsflsfsflfssfsfsfsf2"
     // sigField field
     sigField = "sig"
-    // sigTimestamp field
-    sigTimestampField = "sig_timestamp"
 )
 
 // GenSignature get http signature
@@ -64,15 +62,13 @@ func GenSignature(c *gin.Context) string {
     path := strings.TrimLeft(c.Request.URL.Path, "/")
 
     // 2. sort form values
-    sigTimestamp := c.GetString(sigTimestampField)
     // content-type muse be application/x-www-form-urlencoded
     params := make([]string, 0, 10)
-    // sigTimestamp append 2 params
-    params = append(params, sigTimestamp)
 
     form := c.Request.Form
     for k, v := range form {
 	// filter sig field
+	// 其它所有字段都加入计算签名
 	if k == sigField {
 	    continue
 	}
