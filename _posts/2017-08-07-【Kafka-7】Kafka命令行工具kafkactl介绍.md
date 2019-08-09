@@ -10,7 +10,7 @@ tags:         #标签
 `kafkactl`是一个使用Golang开发的kafka命令行工具，用于管控kafka集群。例如 `查询topic列表`、`创建topic`、`删除topic`、`新增partition`、`消费topic`、`生产数据` 等等。  
 项目源码在 [go-kafka tools](https://github.com/chenguolin/golang/tree/master/go-kafka/tools) 欢迎交流学习~
 
-要求: kafka server版本 >= v0.10.0.x，某些命令需要更高版本（例如create topic需要v0.10.1.x）
+`要求: kafka server版本 >= v0.10.0.x，某些命令需要更高版本（例如create topic需要v0.10.1.x）`
 
 1. [kafkactl for mac](https://github.com/chenguolin/golang/blob/master/go-kafka/tools/bin/mac/kafkactl)
 2. [kafkactl for linux](https://github.com/chenguolin/golang/blob/master/go-kafka/tools/bin/linux/kafkactl)
@@ -173,10 +173,14 @@ Use "kafkactl create --help" for more information about a given command.
 ## ① kafkactl create topic
 `$ ./kafkactl create topic -topic kafka_topic_test -partition 3 -replica 1 -brokers 127.0.0.1:9092`  
    Successfully ~
+   
+备注: require kafka server version >= `v0.10.1.0`
 
 ## ② kafkactl create partition
 `$ ./kafkactl create partition -topic kafka_topic_test -totalPartition 6 -brokers 127.0.0.1:9092`  
    Successfully ~
+   
+备注: require kafka server version >= `v1.0.0.0`
 
 # 五. kafkactl delete
 ```
@@ -208,9 +212,13 @@ Use "kafkactl delete --help" for more information about a given command.
 `$ ./kafkactl delete topic -topic kafka_topic_test -brokers 127.0.0.1:9092`  
    Successfully ~
 
+备注: require kafka server version >= `v0.10.1.0`
+
 ## ② kafkactl delete message
 `$ ./kafkactl delete message -topic kafka_topic_test -partition 0 -endOffset 2 -brokers 127.0.0.1:9092`  
    Successfully ~
+
+备注: require kafka server version >= `v0.11.0.0`
 
 # 七. kafkactl consume
 ```
@@ -240,7 +248,8 @@ Examples:
 
 Use "kafkactl consume --help" for more information about a given command.
 ```
-  
+
+## ① kafkactl consume
 `$ ./kafkactl consume -topic kafka_topic_test -group kafka_topic_test_group -partition 1 -start newest -brokers 127.0.0.1:9092`
 ```
 {"offset":231805, "key":, "message":{"log":{"category":"access","@timestamp":"2019-06-24T18:39:05+0800","remote_addr":"120.12.32.147",,"request":"GET /unread/get.json?uid=1999999999 HTTP/1.0","status":"200","first_byte_commit_time":"7","request_time":"0.007","http_x_real_ip":"230.61.192.190","http_x_forwarded_for":"230.61.192.190","content_length":"-","sent_http_content_length":"-","body_bytes_sent":"33","http_cdn":"-"},"stream":"stdout","time":"2019-06-24T10:39:05.028588606Z","k8s":{"container_id":"7c42deb58da2","container_name":"test-write-feed-pre","host":"bjxd-k8sn-1-20","ns":"k8s-log","pod_ip":"120.22.210.122","labels":{"meta-track":"pre","meta-svc":"pre"}}}}
@@ -266,6 +275,7 @@ Examples:
 Use "kafkactl producer --help" for more information about a given command.
 ```
 
+## ① kafkactl producer
 `$ ./kafkactl producer -topic kafka_topic_test -group -key key -message "write by chenguolin 20190624" -brokers 127.0.0.1:9092`  
   Successfully write 2 partition [0] offset [0] ~
 
