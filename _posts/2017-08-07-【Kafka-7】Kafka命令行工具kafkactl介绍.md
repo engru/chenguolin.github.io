@@ -151,6 +151,7 @@ Options:
   -topic             topic name.
   -partition         topic partition count, default 1 partition.
   -replica           topic replica count, default 1 replica.
+  -retentionTime     topic message retention time (second), default 86400 second.
   -totalPartition    topic total partition count.
   -brokers           kafka brokers address.
 
@@ -163,6 +164,10 @@ Examples:
 
   # Create new topic, 3 partition and 2 replica.
   kafkactl create topic -topic kafka_topic_test -partition 3 -replica 2 -brokers 127.0.0.1:9092,127.0.0.2:9092.
+  
+  # Create new topic, 3 partition and 2 replica retention 3 day.
+  kafkactl create topic -topic kafka_topic_test -partition 3 -replica 2 -retentionTime 259200 -brokers 127.0.0.1:9092,127.0.0.2:9092.
+
 
   # Create new partition.
   kafkactl create partition -topic kafka_topic_test -totalPartition 6 -brokers 127.0.0.1:9092,127.0.0.2:9092.
