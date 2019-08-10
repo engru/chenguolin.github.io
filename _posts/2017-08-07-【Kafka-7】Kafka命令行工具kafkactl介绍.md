@@ -256,7 +256,7 @@ Use "kafkactl consumer --help" for more information about a given command.
 
 数据消费例子
 
-`$ ./kafkactl consumer -topic kafka_topic_test -group kafka_topic_test_group -partition 1 -start newest -brokers 127.0.0.1:9092`
+`$ ./kafkactl consumer -topic kafka_topic_test -group kafka_topic_test_group -partition 1 -start newest -brokers 127.0.0.1:9092`  
 {"offset":231805, "key":, "message":{"log":{"category":"access","@timestamp":"2019-06-24T18:39:05+0800","remote_addr":"120.12.32.147",,"request":"GET /unread/get.json?uid=1999999999 HTTP/1.0","status":"200","first_byte_commit_time":"7","request_time":"0.007","http_x_real_ip":"230.61.192.190","http_x_forwarded_for":"230.61.192.190","content_length":"-","sent_http_content_length":"-","body_bytes_sent":"33","http_cdn":"-"},"stream":"stdout","time":"2019-06-24T10:39:05.028588606Z","k8s":{"container_id":"7c42deb58da2","container_name":"test-write-feed-pre","host":"bjxd-k8sn-1-20","ns":"k8s-log","pod_ip":"120.22.210.122","labels":{"meta-track":"pre","meta-svc":"pre"}}}}
 ...
 
