@@ -22,7 +22,7 @@ docker run 创建Docker容器时，可以用`--net`选项指定容器的网络�
 
 Docker有以下4种网络模式
 1. `host`: `--net=host`指定
-2. `container`: ，`--net=container:NAMEorID`指定
+2. `container`: ，`--net=container:xxx`指定
 3. `none`: `--net=none`指定
 4. `bridge`: `--net=bridge`指定 (Docker默认设置)
 
