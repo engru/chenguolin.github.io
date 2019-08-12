@@ -67,10 +67,12 @@ $ tree
    }
    ```
    可以看到这个ubuntu镜像实际由4个层组成，每一层都是增量Rootfs
-3. 当我们启动容器的时候会把这4层联合挂载到一个统一的挂载点上，由于ubuntu和centos使用UnionFS技术不同，则挂载的目录会不同  
+3. 当我们启动容器的时候会把这4层联合挂载到一个统一的挂载点上，由于使用UnionFS技术不同，则挂载的目录会不同  
    ```
-   ubuntu是在: /var/lib/docker/aufs/mnt/{mount_id}
-   centout是在: /var/lib/docker/devicemapper/mnt/{mount_id}
+   aufs: /var/lib/docker/aufs/mnt/{mount_id}
+   devicemapper: /var/lib/docker/devicemapper/mnt/{mount_id}
+   
+   最新的docker版本推荐使用overlay2做为storage driver
    ```
 4. 需要注意的是在多层联合挂载到统一挂载点上的时候，上层文件会覆盖下层文件。  
    举个例子，例如d60e01b37e74f12aa90456c74e161f3a3e7c690b056c2974407c9e1f4c51d25b 这一层有个文件`/tmp/1.txt`，内容为`例如d60e01b37e74f12aa90456c74e161f3a3e7c690b056c2974407c9e1f4c51d25b 1.txt`。  
