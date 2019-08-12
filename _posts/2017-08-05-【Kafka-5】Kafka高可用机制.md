@@ -6,6 +6,8 @@ tags:         #标签
     - Kafka
 ---
 
+TODO (@玄苦)
 
+参考
 1. Kafka如何保证数据不丢失  https://mp.weixin.qq.com/s/wbqA9vZOCQ0M_N9Q0NXWVg
 2. Kafka高可用机制 https://mp.weixin.qq.com/s/IxS46JAr7D9sBtCDr8pd7A
