@@ -6,9 +6,9 @@ tags:          #标签
     - Docker
 ---
 
+# 一. 镜像介绍
 TODO (@玄苦)
 
-# 一. 镜像介绍
 Docker镜像是通过 Dockerfile 构建出来的，Docker镜像在设计上引入了`层`的概念，也就是说用户制作镜像的每个步骤都会生成一个层。当镜像构建完成后，因为`storage-driver`的不同镜像存储的目录也不一样，通常在`dockerd`启动时候会设定 `--storage-driver`。
 
 最常见的storage-driver有以下3种
@@ -33,13 +33,17 @@ ubuntu系统下挂载目录为 `/var/lib/docker/aufs/mnt/{mount_id}`，centos系
 
 
 # 二. 常用命令
+TODO (@玄苦)
+
 参考
 
 1. https://mp.weixin.qq.com/s/MOtGXCRwTWKfH7KuzvZ9ww
 2. https://www.sandtable.com/reduce-docker-image-sizes-using-alpine/
 
 # 三. 镜像构建
+TODO (@玄苦)
 
 # 四. Dockerfile最佳实践
+TODO (@玄苦)
 
 
