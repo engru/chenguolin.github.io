@@ -9,7 +9,15 @@ tags:         #标签
 # 一. 简介
 ![](https://raw.githubusercontent.com/chenguolin/chenguolin.github.io/master/data/image/kafka_architecture.png)
 
-Kafka被用于两大类应用：
+上面是Kafka的一个架构图，包括几个部分
+1. Producer: 消息生产者，向Broker发送消息。
+2. Consumer: 消息消费者，从Broker读取消息。
+3. Broker: 处理节点，一个Kafka节点就是一个Broker，多个Broker可以组成一个Kafka集群。
+4. Topic: 主题，Kafka根据Topic对消息进行归类，发布到Kafka集群的每条消息都需要指定一个Topic。
+5. Partition: 分区，一个Topic可以分为多个Partition，每个Partition内部消息是有序的。
+6. ConsumerGroup: 消费组，每个Consumer Group包括多个Consumer，一条消息可以发送到多个不同的Consumer Group，但是一个Consumer Group中只能有一个Consumer能够消费该消息。
+
+Kafka被用于两大类应用
 1. 在应用间构建实时的数据流通道
 2. 构建传输或处理数据流的实时流式应用
 
