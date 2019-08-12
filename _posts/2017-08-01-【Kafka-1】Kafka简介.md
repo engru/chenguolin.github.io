@@ -7,6 +7,8 @@ tags:         #标签
 ---
 
 # 一. 简介
+![](https://raw.githubusercontent.com/chenguolin/chenguolin.github.io/master/data/image/kafka_architecture.png)
+
 Kafka被用于两大类应用：
 1. 在应用间构建实时的数据流通道
 2. 构建传输或处理数据流的实时流式应用
