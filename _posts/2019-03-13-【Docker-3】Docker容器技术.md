@@ -115,7 +115,7 @@ latest: Pulling from library/ubuntu:14.04
 从上面的介绍，我们可以知道Docker容器最核心的原理是 `为待创建的用户进程执行以下3个操作`
 1. 启用一堆Linux Namespace参数，包括PID Namespace、Network Namespace、Mount Namespace等等
 2. 使用Cgroups配置进程资源限制
-3. 使用pivot_root或chroot切换进程根目录，切换到Rootfs挂载点(/var/lib/docker/aufs/mnt/ 或者 /var/lib/docker/devicemapper/mnt/)
+3. 使用pivot_root或chroot切换进程根目录，切换到Rootfs挂载点(/var/lib/docker/aufs/mnt/ 或者 /var/lib/docker/devicemapper/mnt/，跟具体选择的storage driver有关系)
 
 容器创建过程由容器初始化进程(dockerinit)负责完成根目录准备、挂载设备和目录、配置hostname等一序列需要在容器内进行的初始化操作，最后它通过`execv()`系统调用，让应用进程代替自己成为PID为1的进程。
 
