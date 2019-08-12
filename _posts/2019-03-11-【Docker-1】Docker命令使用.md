@@ -6,7 +6,10 @@ tags:          #标签
     - Docker
 ---
 
-https://mp.weixin.qq.com/s/jv480Q0g6KGKMJhqe0tbjQ
+TODO (@玄苦)
 
-1. 监听docker daemon进程事件流(Docker daemon会监听Unix域套接字：/var/run/docker.sock)  
+参考  
+1. https://mp.weixin.qq.com/s/jv480Q0g6KGKMJhqe0tbjQ
+2. https://docs.docker.com/engine/reference/run/
+3. 监听docker daemon进程事件流(Docker daemon会监听Unix域套接字：/var/run/docker.sock)  
    curl --unix-socket /var/run/docker.sock http://localhost/events
