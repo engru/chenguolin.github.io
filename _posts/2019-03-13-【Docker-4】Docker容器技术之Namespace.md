@@ -388,7 +388,7 @@ Docker默认没有隔离宿主机用户和容器用户，docker已经实现了�
 7. 虽然容器内是root用户，实际上在宿主机还是以普通用户身份运行容器进程，因此容器安全性能够得到保证，同时也给容器极大的自由。
 
 # 八. Docker 使用Namespace
-Docker创建一个容器时，它会创建新的以上几种 Namespace 的实例，然后把容器中的所有进程放到这些 Namespace 之中，使得Docker容器中的进程只能看到隔离的系统资源。 
+Docker创建一个容器时，它会创建使用以上几种 Namespace 的实例，然后把容器中的所有进程放到这些 Namespace 之中，使得Docker容器中的进程只能看到隔离的系统资源。 
 
 Docker run 命令有以下4个参数和 Namespace 相关  
    + --ipc string IPC namespace to use
