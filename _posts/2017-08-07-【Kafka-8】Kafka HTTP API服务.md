@@ -200,7 +200,7 @@ HTTP API Service提供一下接口供业务使用
       },
       "response": {
           "success": true   //true表示成功
-          "error": "xxxx"   //false的
+          "error": "xxxx"   //false的才会有该字段，表示错误信息
       }
    }
    ```
@@ -209,11 +209,11 @@ HTTP API Service提供一下接口供业务使用
 1. HTTP Method: `POST`
 2. 请求参数
 
-| 参数 | 类型 | 是否必须 | 备注 | 
-|---|---|---|---|
-| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
-| topic | string | 是 | topic名称 |
-| total_partition | int | 是 | partition总个数，最大允许为100 |
+   | 参数 | 类型 | 是否必须 | 备注 | 
+   |---|---|---|---|
+   | brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+   | topic | string | 是 | topic名称 |
+   | total_partition | int | 是 | partition总个数，最大允许为100 |
 3. 使用举例
    ```
    $ curl "http://localhost:38765/v1/create/partition" -d "brokers=127.0.0.1:9092&topic=kafka_cgl3&total_partition=3"
@@ -226,7 +226,8 @@ HTTP API Service提供一下接口供业务使用
           "request_uri": "/v1/create/partition"
       },
       "response": {
-          "success": true
+          "success": true   //true表示成功
+          "error": "xxxx"   //false的才会有该字段，表示错误信息
       }
    }
    ```
@@ -235,10 +236,10 @@ HTTP API Service提供一下接口供业务使用
 1. HTTP Method: `POST`
 2. 请求参数
 
-| 参数 | 类型 | 是否必须 | 备注 | 
-|---|---|---|---|
-| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
-| topic | string | 是 | topic名称 |
+   | 参数 | 类型 | 是否必须 | 备注 | 
+   |---|---|---|---|
+   | brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+   | topic | string | 是 | topic名称 |
 3. 使用举例
    ```
    $ curl "http://localhost:38765/v1/delete/topic" -d "brokers=127.0.0.1:9092&topic=kafka_cgl3"
@@ -251,7 +252,8 @@ HTTP API Service提供一下接口供业务使用
           "request_uri": "/v1/delete/topic"
       },
       "response": {
-          "success": true
+          "success": true   //true表示成功
+          "error": "xxxx"   //false的才会有该字段，表示错误信息
       }
    }
    ```
@@ -260,12 +262,12 @@ HTTP API Service提供一下接口供业务使用
 1. HTTP Method: `POST`
 2. 请求参数
 
-| 参数 | 类型 | 是否必须 | 备注 | 
-|---|---|---|---|
-| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
-| topic | string | 是 | topic名称 |
-| partition_id | int | 是 | partition id |
-| end_offset | int | 是 | 要删除消息最大的offset |
+   | 参数 | 类型 | 是否必须 | 备注 | 
+   |---|---|---|---|
+   | brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+   | topic | string | 是 | topic名称 |
+   | partition_id | int | 是 | partition id |
+   | end_offset | int | 是 | 要删除消息最大的offset |
 3. 使用举例
    ```
    $ curl "http://localhost:38765/v1/delete/message" -d "brokers=127.0.0.1:9092&topic=kafka_topic_test&partition_id=0&end_offset=10000"
@@ -278,7 +280,8 @@ HTTP API Service提供一下接口供业务使用
           "request_uri": "/v1/delete/message"
       },
       "response": {
-          "success": true
+          "success": true   //true表示成功
+          "error": "xxxx"   //false的才会有该字段，表示错误信息
       }
    }
    ```
@@ -287,13 +290,13 @@ HTTP API Service提供一下接口供业务使用
 1. HTTP Method: `GET`
 2. 请求参数
 
-| 参数 | 类型 | 是否必须 | 备注 | 
-|---|---|---|---|
-| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
-| topic | string | 是 | topic名称 |
-| consumer_group | string | 否| consumer group名称 <br> 对于一个新的consumer group，默认从最新的数据开始消费 <br> 对于已有的consumer group会从上次消费到的offset处继续消费 |
-| count | int | 否 | 要读取的消息条数，默认10条，最大为10 |
-| time_wait | int | 否 | 没有读到消息时等待时长(单位秒)，默认3秒，最大60 |
+   | 参数 | 类型 | 是否必须 | 备注 | 
+   |---|---|---|---|
+   | brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+   | topic | string | 是 | topic名称 |
+   | consumer_group | string | 否| consumer group名称 <br> 对于一个新的consumer group，默认从最新的数据开始消费 <br> 对于已有的consumer  group会从上次消费到的offset处继续消费 |
+   | count | int | 否 | 要读取的消息条数，默认10条，最大为10 |
+   | time_wait | int | 否 | 没有读到消息时等待时长(单位秒)，默认3秒，最大60 |
 3. 使用举例
    ```
    $ curl "http://localhost:38765/v1/consumer/messages?brokers=127.0.0.1:9092&topic=kafka_topic_test&consumer_group=cgl&count=3"
@@ -327,11 +330,11 @@ HTTP API Service提供一下接口供业务使用
 1. HTTP Method: `GET`
 2. 请求参数
 
-| 参数 | 类型 | 是否必须 | 备注 | 
-|---|---|---|---|
-| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
-| topic | string | 是 | topic名称 |
-| messages | string | 是 | 消息列表，格式为 `[{"key":key, "value":value}, ...]` |
+   | 参数 | 类型 | 是否必须 | 备注 | 
+   |---|---|---|---|
+   | brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+   | topic | string | 是 | topic名称 |
+   | messages | string | 是 | 消息列表，格式为 `[{"key":key, "value":value}, ...]` |
 3. 使用举例
    ```
    $ curl "http://localhost:38765/v1/producer/messages" -d "brokers=127.0.0.1:9092&topic=kafka_cgl&messages=[{\"key\":\"cgl_key\",\"value\":\"cgl_value\"}]"
@@ -344,7 +347,8 @@ HTTP API Service提供一下接口供业务使用
           "request_uri": "/v1/producer/messages"
       },
       "response": {
-          "success": true
+          "success": true   //true表示所有数据都发送成功
+          "error": "xxxx"   //false表示至少有一条数据发送失败
       }
    }
    ```
