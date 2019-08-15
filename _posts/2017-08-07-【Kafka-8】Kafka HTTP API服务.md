@@ -39,19 +39,31 @@ HTTP API Service提供一下接口供业务使用
 10. 生产数据: /v1/producer/messages
 
 ## ① 查询topic列表
+1. HTTP Method: `GET`
+
+2. 请求参数
+
+| 参数 | 类型 | 是否必须 | 备注 | 
+|---|---|---|---|---|
+| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+
+3. 响应结果
+
 ## ② 查询consumer group列表
+
 ## ③ 查看某个topic信息
+
 ## ④ 查看某个consumer group信息
+
 ## ⑤ 创建一个新的topic
+
 ## ⑥ topic创建新的partition
+
 ## ⑦ 删除某个topic
+
 ## ⑧ 删除消息
+
 ## ⑨ 消费topic
+
 ## ⑩ 生产数据
-
-
-
-
-
-
 
