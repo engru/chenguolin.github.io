@@ -27,16 +27,16 @@ tags:         #标签
 要求: `kafka server版本 >= v0.10.0.x，某些命令需要更高版本（例如create topic需要v0.10.1.x）`
 
 HTTP API Service提供一下接口供业务使用  
-1. 查询topic列表: /v1/list/topics
-2. 查询consumer group列表: /v1/list/consumer_groups
-3. 查看某个topic信息: /v1/describe/topic
-4. 查看某个consumer group信息: /v1/describe/consumer_group
-5. 创建一个新的topic: /v1/create/topic
-6. topic创建新的partition: /v1/create/partition
-7. 删除某个topic: /v1/delete/topic
-8. 删除消息: /v1/delete/message
-9. 消费topic: /v1/consumer/messages
-10. 生产数据: /v1/producer/messages
+1. 查询topic列表: `/v1/list/topics`
+2. 查询consumer group列表: `/v1/list/consumer_groups`
+3. 查看某个topic信息: `/v1/describe/topic`
+4. 查看某个consumer group信息: `/v1/describe/consumer_group`
+5. 创建一个新的topic: `/v1/create/topic`
+6. topic创建新的partition: `/v1/create/partition`
+7. 删除某个topic: `/v1/delete/topic`
+8. 删除消息: `/v1/delete/message`
+9. 消费topic: `/v1/consumer/messages`
+10. 生产数据: `/v1/producer/messages`
 
 ## ① 查询topic列表
 1. HTTP Method: `GET`
