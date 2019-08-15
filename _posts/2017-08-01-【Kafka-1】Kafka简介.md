@@ -48,7 +48,7 @@ Kafka 客户端和服务端之间的通信是建立在简单的、高效的、�
 
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/kafka-consumer.png?raw=true)
 
-1. 实际上唯一需要保存的元数据是消费者的消费进度，即消费日志的偏移量 Offset。这个 Offset 是由 Consumer 控制的，通常消费者会在读取 Message 时以线性方式commit Offset，但是事实上，由于 Offset 由 Consumer 控制，因此它可以以任何顺序消费记录。例如一个 Consumer 可以通过重置 Offset 来处理过去的数据或者跳过部分数据。``
+1. 实际上唯一需要保存的元数据是消费者的消费进度，即消费日志的偏移量 Offset。这个 Offset 是由 Consumer 控制的，通常消费者会在读取 Message 时以线性方式commit Offset，但是事实上，由于 Offset 由 Consumer 控制，因此它可以以任何顺序消费记录。例如一个 Consumer 可以通过重置 Offset 来处理过去的数据或者跳过部分数据。`每个 partition 内每条消息由 offset 唯一标识，每个消费组会标识自己消费到哪个 offset`
 2. 每个topic有多个分区，主要影响同时允许多少个 Consumer 消费该topic，影响的是并行消费的能力。
 
 # 三. Distribution
