@@ -345,3 +345,47 @@ HTTP API Service提供一下接口供业务使用
       }
    }
    ```
+   
+# 四. 性能压测
+1. `wrk -t12 -c400 -d30s "http://localhost:38765/v1/list/topics?brokers=127.0.0.1:9092"`
+  ```
+  Running 30s test @ http://localhost:38765/v1/list/topics?brokers=127.0.0.1:9092
+    12 threads and 400 connections
+
+    Thread Stats   Avg      Stdev     Max   +/- Stdev
+      Latency   308.50ms  168.99ms   1.02s    61.88%
+      Req/Sec   111.89     80.33   370.00     71.25%
+    38818 requests in 30.10s, 33.21MB read
+    Socket errors: connect 0, read 9, write 1, timeout 0
+  Requests/sec:   1289.60
+  Transfer/sec:      1.10MB
+  ```
+2. `wrk -t12 -c400 -d30s "http://localhost:38765/v1/consumer/messages?brokers=127.0.0.1:9092&topic=kafka_topic_test&consumer_group=cgl&count=3"`
+  ```
+  Running 30s test @ http://localhost:38765/v1/consumer/messages?brokers=127.0.0.1:9092&topic=kafka_topic_test&consumer_group=cgl&count=3
+    12 threads and 400 connections
+    Thread Stats   Avg      Stdev     Max   +/- Stdev
+      Latency     0.00us    0.00us   0.00us     nan%
+      Req/Sec    60.09     76.83   313.00     83.10%
+    3571 requests in 30.10s, 1.18MB read
+    Socket errors: connect 0, read 3, write 2, timeout 3571
+  Requests/sec:    118.66
+  Transfer/sec:     40.00KB
+  ```
+3. `wrk -t4 -c2000 -d30s -T5s --script=post.lua --latency "http://localhost:38765/v1/producer/messages"`
+  ```
+  Running 30s test @ http://localhost:38765/v1/producer/messages
+     4 threads and 2000 connections
+     Thread Stats   Avg      Stdev     Max   +/- Stdev
+       Latency     1.71s   776.75ms   4.15s    66.35%
+       Req/Sec   377.20    484.01     3.38k    87.77%
+     Latency Distribution
+        50%    1.38s
+        75%    2.31s
+        90%    2.93s
+        99%    3.26s
+     33209 requests in 30.10s, 8.65MB read
+     Socket errors: connect 0, read 314, write 3, timeout 1
+   Requests/sec:   1103.14
+   Transfer/sec:    294.10KB
+  ```
