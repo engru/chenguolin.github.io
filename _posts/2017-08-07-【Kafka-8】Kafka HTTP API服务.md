@@ -38,6 +38,8 @@ HTTP API Service提供一下接口供业务使用
 9. 消费topic: `/v1/consumer/messages`
 10. 生产数据: `/v1/producer/messages`
 
+关于接口的一些设计思想可以参考 [HTTP API 接口设计指南](https://chenguolin.github.io/2017/07/27/HTTP-API-3-HTTP-API%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1%E6%8C%87%E5%8D%97/)
+
 ## ① 查询topic列表
 1. HTTP Method: `GET`
 2. 请求参数
@@ -68,6 +70,7 @@ HTTP API Service提供一下接口供业务使用
       }
    }
    ```
+4. 响应结果
 
 ## ② 查询consumer group列表
 1. HTTP Method: `GET`
