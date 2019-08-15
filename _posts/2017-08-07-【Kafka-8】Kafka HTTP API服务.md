@@ -327,7 +327,7 @@ HTTP API Service提供一下接口供业务使用
    ```
 
 ## ⑩ 生产数据
-1. HTTP Method: `GET`
+1. HTTP Method: `POST`
 2. 请求参数
 
    | 参数 | 类型 | 是否必须 | 备注 | 
