@@ -20,6 +20,38 @@ tags:         #标签
 `这种需求在公有云场景下非常常见，公有云对外提供Kafka Paas服务，企业如果要对接Kafka服务，可以使用 SDK 也可以使用 HTTP API方式。`
 
 # 二. 源码
+1. 项目源码在 https://github.com/chenguolin/go-kafka-http
+2. 代码内部会缓存 kafka client、consumer、producer 实例，避免每次 HTTP 请求处理的时候都去创建，节省资源占用
 
 # 三. 使用
+要求: `kafka server版本 >= v0.10.0.x，某些命令需要更高版本（例如create topic需要v0.10.1.x）`
+
+HTTP API Service提供一下接口供业务使用  
+1. 查询topic列表: /v1/list/topics
+2. 查询consumer group列表: /v1/list/consumer_groups
+3. 查看某个topic信息: /v1/describe/topic
+4. 查看某个consumer group信息: /v1/describe/consumer_group
+5. 创建一个新的topic: /v1/create/topic
+6. topic创建新的partition: /v1/create/partition
+7. 删除某个topic: /v1/delete/topic
+8. 删除消息: /v1/delete/message
+9. 消费topic: /v1/consumer/messages
+10. 生产数据: /v1/producer/messages
+
+## ① 查询topic列表
+## ② 查询consumer group列表
+## ③ 查看某个topic信息
+## ④ 查看某个consumer group信息
+## ⑤ 创建一个新的topic
+## ⑥ topic创建新的partition
+## ⑦ 删除某个topic
+## ⑧ 删除消息
+## ⑨ 消费topic
+## ⑩ 生产数据
+
+
+
+
+
+
 
