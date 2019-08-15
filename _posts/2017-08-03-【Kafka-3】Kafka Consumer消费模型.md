@@ -58,11 +58,12 @@ consumer-tutorial-group, consumer-tutorial, 2, 6666, 6666, 0, consumer-3_/127.0.
 ```
 
 # 三. Offset
-Consumer Group第一次初始化时，Consumer实例通常会读取每个Partition的最早或最新的Offset，然后顺序地读取每个Partition的数据，在消费者读取过程中，它会提交已经成功处理的消息的Offset，默认情况Consumer实例会定期提交Offset。
+Consumer Group第一次初始化时，Consumer实例通常会读取每个Partition的最早或最新的Offset，然后顺序地读取每个Partition的数据，在消费者读取过程中，它会提交已经成功处理的消息的Offset，默认情况Consumer实例会定期提交Offset。  
+每个partition offset是顺序递增的表示消息的ID，offset只在partition内部独立。
 
 ![](https://images.weserv.nl/?url=http://img.blog.csdn.net/20160221172517706)
 
-Kafka `0.9`版本之后把Offsert保存到了`__consumer_offsert`的Topic下，这个`__consumer_offsert`有`50`个Partition，通过`hash(Consumer Group) % 50`来确定要保存到哪个Partition。
+Kafka `0.9`版本之后把每个 Consumer Group 消费 Topic 当前的 Offsert 保存到了`__consumer_offsert`的Topic下，这个`__consumer_offsert`有`50`个Partition，通过`hash(Consumer Group) % 50`来确定要保存到哪个Partition。
 
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/kafka_consume_offset.png?raw=true)
 
