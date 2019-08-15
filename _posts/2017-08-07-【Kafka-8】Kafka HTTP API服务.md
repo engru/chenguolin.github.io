@@ -200,7 +200,7 @@ HTTP API Service提供一下接口供业务使用
       },
       "response": {
           "success": true   //true表示成功
-          "error": "xxxx"   //false的才会有该字段，表示错误信息
+          "error": "xxxx"   //false的时候才会有该字段，表示错误信息
       }
    }
    ```
@@ -227,7 +227,7 @@ HTTP API Service提供一下接口供业务使用
       },
       "response": {
           "success": true   //true表示成功
-          "error": "xxxx"   //false的才会有该字段，表示错误信息
+          "error": "xxxx"   //false的时候才会有该字段，表示错误信息
       }
    }
    ```
@@ -253,7 +253,7 @@ HTTP API Service提供一下接口供业务使用
       },
       "response": {
           "success": true   //true表示成功
-          "error": "xxxx"   //false的才会有该字段，表示错误信息
+          "error": "xxxx"   //false的时候才会有该字段，表示错误信息
       }
    }
    ```
@@ -281,7 +281,7 @@ HTTP API Service提供一下接口供业务使用
       },
       "response": {
           "success": true   //true表示成功
-          "error": "xxxx"   //false的才会有该字段，表示错误信息
+          "error": "xxxx"   //false的时候才会有该字段，表示错误信息
       }
    }
    ```
@@ -348,7 +348,7 @@ HTTP API Service提供一下接口供业务使用
       },
       "response": {
           "success": true   //true表示所有数据都发送成功
-          "error": "xxxx"   //false表示至少有一条数据发送失败
+          "error": "xxxx"   //表示至少有一条数据发送失败，才会有error字段
       }
    }
    ```
