@@ -40,22 +40,152 @@ HTTP API Service提供一下接口供业务使用
 
 ## ① 查询topic列表
 1. HTTP Method: `GET`
-
 2. 请求参数
 
 | 参数 | 类型 | 是否必须 | 备注 | 
 |---|---|---|---|
 | brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+3. 使用举例
+   ```
+   $ curl "http://localhost:38765/v1/list/topics?brokers=127.0.0.1:9092"
 
-3. 响应结果
+   {
+      "meta": {
+          "code": 0,
+          "error": "",
+          "request_id": "ac148a57-144f-478c-af8f-5536dc08f184",
+          "request_uri": "/v1/list/topics?brokers=127.0.0.1:9092"
+      },
+      "response": {
+          "topics": [
+             "kafka_topic_test-20190624",
+             "kafka_topic_test",
+             "TestClient_CreateTopic33",
+             "dummy",
+             "kafka_cgl",
+             ...
+         ]
+      }
+   }
+   ```
 
 ## ② 查询consumer group列表
+1. HTTP Method: `GET`
+2. 请求参数
+
+| 参数 | 类型 | 是否必须 | 备注 | 
+|---|---|---|---|
+| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+3. 使用举例
+   ```
+   $ curl "http://localhost:38765/v1/list/consumer_groups?brokers=127.0.0.1:9092"
+
+   {
+      "meta": {
+          "code": 0,
+          "error": "",
+          "request_id": "1aae0f59-9a78-4cd8-8fe6-088d2e097c34",
+          "request_uri": "/v1/list/consumer_groups?brokers=127.0.0.1:9092"
+      },
+      "response": {
+          "groups": [
+              "consumer_example",
+              ...
+          ]
+      }
+   }
+   ```
 
 ## ③ 查看某个topic信息
+1. HTTP Method: `GET`
+2. 请求参数
+
+| 参数 | 类型 | 是否必须 | 备注 | 
+|---|---|---|---|
+| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+| topic | string | 是 | topic名称 | 
+3. 使用举例
+   ```
+   $ curl "http://localhost:38765/v1/describe/topic?brokers=127.0.0.1:9092&topic=kafka_topic_test"
+
+   {
+      "meta": {
+          "code": 0,
+          "error": "",
+          "request_id": "9b036f6a-1a8b-4c3c-9da5-851112e917c8",
+          "request_uri": "/v1/describe/topic?brokers=127.0.0.1:9092&topic=kafka_topic_test"
+      },
+      "response": {
+          "total_partition": 3,
+          "partitions": [
+              {
+                  "id": 0,
+                  "isr": [
+                      0
+                  ],
+                  "leader": 0,
+                  "new_offset": 243848,
+                  "offline_replicas": null,
+                  "old_offset": 230322,
+                  "replicas": [
+                      0
+                  ]
+              },
+              ...
+           ]
+        }
+   }
+   ```
 
 ## ④ 查看某个consumer group信息
+1. HTTP Method: `GET`
+2. 请求参数
+
+| 参数 | 类型 | 是否必须 | 备注 | 
+|---|---|---|---|
+| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+| consumer_group | string | 是 | consumer group名称 |
+3. 使用举例
+   ```
+   $ curl "http://localhost:38765/v1/describe/consumer_group?brokers=127.0.0.1:9092&consumer_group=consumer_example"
+
+   {
+      "meta": {
+          "code": 0,
+          "error": "",
+          "request_id": "bedac8bf-6b75-49b7-a961-4a2072314648",
+          "request_uri": "/v1/describe/consumer_group?brokers=127.0.0.1:9092&consumer_group=consumer_example"
+      },
+      "response": {
+          "Err": 0,
+          "GroupID": "consumer_example",
+          "Members": {
+              "sarama-0c26bf79-f570-4a63-9390-0c9188caf7d9": {
+                  "ClientHost": "/127.0.0.1",
+                  "ClientID": "sarama",
+                  "MemberAssignment": "AAAAAAABABBrYWZrYV90b...",
+                  "MemberMetadata": "AAEAAAABABBrYWZrYV90b3BpY190ZXN0..."
+              }
+          },
+          "Protocol": "range",
+          "ProtocolType": "consumer",
+          "State": "Stable"
+      }
+   }
+   ```
 
 ## ⑤ 创建一个新的topic
+1. HTTP Method: `GET`
+2. 请求参数
+
+| 参数 | 类型 | 是否必须 | 备注 | 
+|---|---|---|---|
+| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+| topic | string | 是 | topic名称 |
+| partition_count | int | 否 | partition个数，默认为1，最大允许为100 |
+| replica_count | int | 否 | 每个partition replica个数，默认为1，最大允许为10 |
+| retention_time | int | 否 | 消息保留时长(单位秒)，默认为259200(即3天)，最大不超过2592000(即30天) |
+3. 使用举例
 
 ## ⑥ topic创建新的partition
 
