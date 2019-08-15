@@ -175,7 +175,7 @@ HTTP API Service提供一下接口供业务使用
    ```
 
 ## ⑤ 创建一个新的topic
-1. HTTP Method: `GET`
+1. HTTP Method: `POST`
 2. 请求参数
 
 | 参数 | 类型 | 是否必须 | 备注 | 
@@ -186,14 +186,162 @@ HTTP API Service提供一下接口供业务使用
 | replica_count | int | 否 | 每个partition replica个数，默认为1，最大允许为10 |
 | retention_time | int | 否 | 消息保留时长(单位秒)，默认为259200(即3天)，最大不超过2592000(即30天) |
 3. 使用举例
+   ```
+   $ curl "http://localhost:38765/v1/create/topic" -d "brokers=127.0.0.1:9092&topic=kafka_cgl3"
+
+   {
+      "meta": {
+          "code": 0,
+          "error": "",
+          "request_id": "60408758-3623-4a68-a37f-6ffad5488a20",
+          "request_uri": "/v1/create/topic"
+      },
+      "response": {
+          "success": true
+      }
+   }
+   ```
 
 ## ⑥ topic创建新的partition
+1. HTTP Method: `POST`
+2. 请求参数
+
+| 参数 | 类型 | 是否必须 | 备注 | 
+|---|---|---|---|
+| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+| topic | string | 是 | topic名称 |
+| total_partition | int | 是 | partition总个数，最大允许为100 |
+3. 使用举例
+   ```
+   $ curl "http://localhost:38765/v1/create/partition" -d "brokers=127.0.0.1:9092&topic=kafka_cgl3&total_partition=3"
+
+   {
+      "meta": {
+          "code": 0,
+          "error": "",
+          "request_id": "445aa15d-abe9-4b06-9cbc-1cd6c967e69e",
+          "request_uri": "/v1/create/partition"
+      },
+      "response": {
+          "success": true
+      }
+   }
+   ```
 
 ## ⑦ 删除某个topic
+1. HTTP Method: `POST`
+2. 请求参数
 
+| 参数 | 类型 | 是否必须 | 备注 | 
+|---|---|---|---|
+| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+| topic | string | 是 | topic名称 |
+3. 使用举例
+   ```
+   $ curl "http://localhost:38765/v1/delete/topic" -d "brokers=127.0.0.1:9092&topic=kafka_cgl3"
+
+   {
+      "meta": {
+          "code": 0,
+          "error": "",
+          "request_id": "aadcc2c2-55d9-4078-98e7-290f3438df0f",
+          "request_uri": "/v1/delete/topic"
+      },
+      "response": {
+          "success": true
+      }
+   }
+   ```
+   
 ## ⑧ 删除消息
+1. HTTP Method: `POST`
+2. 请求参数
+
+| 参数 | 类型 | 是否必须 | 备注 | 
+|---|---|---|---|
+| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+| topic | string | 是 | topic名称 |
+| partition_id | int | 是 | partition id |
+| end_offset | int | 是 | 要删除消息最大的offset |
+3. 使用举例
+   ```
+   $ curl "http://localhost:38765/v1/delete/message" -d "brokers=127.0.0.1:9092&topic=kafka_topic_test&partition_id=0&end_offset=10000"
+
+   {
+      "meta": {
+          "code": 0,
+          "error": "",
+          "request_id": "092ae599-f215-4df7-b987-cd546ba12c4b",
+          "request_uri": "/v1/delete/message"
+      },
+      "response": {
+          "success": true
+      }
+   }
+   ```
 
 ## ⑨ 消费topic
+1. HTTP Method: `GET`
+2. 请求参数
+
+| 参数 | 类型 | 是否必须 | 备注 | 
+|---|---|---|---|
+| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+| topic | string | 是 | topic名称 |
+| consumer_group | string | 否| consumer group名称 <br> 对于一个新的consumer group，默认从最新的数据开始消费 <br> 对于已有的consumer group会从上次消费到的offset处继续消费 |
+| count | int | 否 | 要读取的消息条数，默认10条，最大为10 |
+| time_wait | int | 否 | 没有读到消息时等待时长(单位秒)，默认3秒，最大60 |
+3. 使用举例
+   ```
+   $ curl "http://localhost:38765/v1/consumer/messages?brokers=127.0.0.1:9092&topic=kafka_topic_test&consumer_group=cgl&count=3"
+
+   {
+      "meta": {
+          "code": 0,
+          "error": "",
+          "request_id": "f523ad59-4eb6-4b18-ac5e-dbc96f97a267",
+          "request_uri": "/v1/consumer/messages?brokers=127.0.0.1:9092&topic=kafka_topic_test&consumer_group=cgl&count=3"
+      },
+      "response": {
+          "messages": [
+              {
+                  "BlockTimestamp": "0001-01-01T00:00:00Z",
+                  "Headers": null,
+                  "Key": "U1RZSFRDWU9XT0lOVVVXSA==",
+                  "Offset": 45,
+                  "Partition": 62,
+                  "Timestamp": "0001-01-01T00:00:00Z",
+                  "Topic": "kafka_topic_test",
+                  "Value": "TFJKQllMRExGUkVCS0VTSkxPUUVaSlNIUEVPUFpPSU5YQ01FWklTQVRCR1ZFWkhPTFJWRlNDWlVCT0ZSUkVaWQ=="
+              },
+              ...
+           ]
+      }
+   }
+   ```
 
 ## ⑩ 生产数据
+1. HTTP Method: `GET`
+2. 请求参数
 
+| 参数 | 类型 | 是否必须 | 备注 | 
+|---|---|---|---|
+| brokers | string | 是 | kafka broker地址，多个broker之间用 `,` 分割，例如 127.0.0.1:9092,127.0.0.2:9092 | 
+| topic | string | 是 | topic名称 |
+| messages | string | 是 | 消息列表，格式为 `[{"key":key, "value":value}, ...]` |
+3. 使用举例
+   ```
+   $ curl "http://localhost:38765/v1/producer/messages" -d "brokers=127.0.0.1:9092&topic=kafka_cgl&messages=[{\"key\":\"cgl_key\",\"value\":\"cgl_value\"}]"
+
+   {
+      "meta": {
+          "code": 0,
+          "error": "",
+          "request_id": "942e8842-4c83-4c98-9b97-2fbcbc2cc96a",
+          "request_uri": "/v1/producer/messages"
+      },
+      "response": {
+          "success": true
+      }
+   }
+   ```
