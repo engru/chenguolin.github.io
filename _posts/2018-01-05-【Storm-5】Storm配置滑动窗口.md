@@ -10,7 +10,7 @@ tags:         #标签
 
 2. 那么如何每10s进行自动触发，storm有一个TickTuple可以满足这个要求
    ```
-   "__system" component会定时往task发送 "__tick" stream的tuple 发送频率由TOPOLOGY_TICK_TUPLE_FREQ_SECS来配置
+   __system component会定时往task发送 __tick stream的tuple 发送频率由TOPOLOGY_TICK_TUPLE_FREQ_SECS来配置
    可以在default.ymal里面配置也可以在代码里面通过getComponentConfiguration()来进行配置,
  
    public Map<String, Object> getComponentConfiguration() {
