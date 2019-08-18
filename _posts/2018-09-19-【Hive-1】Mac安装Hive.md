@@ -25,75 +25,75 @@ Hive默认用derby作为元数据库。这里我们用mysql来存储元数据，
     * cp hive-default.xml.template hive-site.xml
 
 2.  修改hive-site.xml文件，找到以下对应的property并修改其值  
-```
-<property>
+    ```
+    <property>
          <name>hive.metastore.uris</name>
          <value>thrift://127.0.0.1:9083</value>
-         <description>Thrift URI for the remote metastore. Used by metastore client to connect to remote metastore.</description>
-</property>
-<property>
+         <description>Thrift URI for the remote metastore. Used by metastore client to connect to remote metastore </description>
+    </property>
+    <property>
        <name>javax.jdo.option.ConnectionURL</name>
        <value>jdbc:mysql://localhost:3306/metastore?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=latin1&amp;useSSL=true</value>
        <description>JDBC connect string for a JDBC metastore</description>
-</property>
-<property>
+    </property>
+    <property>
         <name>javax.jdo.option.ConnectionDriverName</name>
         <value>com.mysql.jdbc.Driver</value>
         <description>Driver class name for a JDBC metastore</description>
-</property>
-<property>
+    </property>
+    <property>
         <name>javax.jdo.option.ConnectionUserName</name>
         <value>hive</value>
         <description>username to use against metastore database</description>
-</property>
-<property>
+    </property>
+    <property>
         <name>javax.jdo.option.ConnectionPassword</name>
         <value>123456</value>
         <description>password to use against metastore database</description>
-</property>
-<property>
+    </property>
+    <property>
         <name>hive.exec.scratchdir</name>
         <value>hdfs://localhost:9000/user/hive/tmp</value>
         <description>HDFS root scratch dir for Hive jobs which gets created with write all (733) permission. For each connecting user, an HDFS scratch dir: ${hive.exec.scratchdir}/&lt;username&gt; is created, with ${hive.scratch.dir.permission}.</description>
-  </property>
-<property>
-    <name>hive.exec.local.scratchdir</name>
-    <value>/usr/local/hive/tmp</value>
-    <description>Local scratch space for Hive jobs</description>
-  </property>
-<property>
-       <name>hive.metastore.warehouse.dir</name>
-       <value>hdfs://localhost:9000/user/hive/warehouse</value>
-       <description>location of default database for the warehouse</description>
-</property>
-<property>
+    </property>
+    <property>
+        <name>hive.exec.local.scratchdir</name>
+        <value>/usr/local/hive/tmp</value>
+        <description>Local scratch space for Hive jobs</description>
+    </property>
+    <property>
+        <name>hive.metastore.warehouse.dir</name>
+        <value>hdfs://localhost:9000/user/hive/warehouse</value>
+        <description>location of default database for the warehouse</description>
+    </property>
+    <property>
         <name>hive.downloaded.resources.dir</name>
         <value>/usr/local/hive/resources</value>
         <description>Temporary local directory for added resources in the remote file system.</description>
-</property>
-<property>
-         <name>hive.querylog.location</name>
-         <value>/usr/local/hive/log</value>
-         <description>Location of Hive run time structured log file</description>
-</property>
-<property>
-         <name>hive.server2.logging.operation.log.location</name>
-         <value>/usr/local/hive/operation_logs</value>
-         <description>Top level directory where operation logs are stored if logging functionality is enabled</description>
-</property>
-```
+    </property>
+    <property>
+        <name>hive.querylog.location</name>
+        <value>/usr/local/hive/log</value>
+        <description>Location of Hive run time structured log file</description>
+    </property>
+    <property>
+        <name>hive.server2.logging.operation.log.location</name>
+        <value>/usr/local/hive/operation_logs</value>
+        <description>Top level directory where operation logs are stored if logging functionality is enabled</description>
+    </property>
+    ```
 
 3. Hadoop core-site添加如下配置，给当前用户授权访问hdfs  
-```
-<property>
-        <name>hadoop.proxyuser.zj-db0972.groups</name>
-        <value>*</value>
- </property>
- <property>
-        <name>hadoop.proxyuser.zj-db0972.hosts</name>
-        <value>*</value>
- </property>
-```
+   ```
+   <property>
+       <name>hadoop.proxyuser.zj-db0972.groups</name>
+       <value>*</value>
+   </property>
+   <property>
+       <name>hadoop.proxyuser.zj-db0972.hosts</name>
+       <value>*</value>
+   </property>
+   ```
 
 4. 配置hive日志目录  
     * cp hive-log4j.properties.template hive-log4j.properties
