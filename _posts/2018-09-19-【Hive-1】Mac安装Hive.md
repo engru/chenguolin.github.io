@@ -25,6 +25,7 @@ Hive默认用derby作为元数据库。这里我们用mysql来存储元数据，
    + cp hive-default.xml.template hive-site.xml
 
 2. 修改hive-site.xml文件，找到以下对应的property并修改其值
+
    ```xml
     <property>  
        <name>hive.metastore.uris</name>   
