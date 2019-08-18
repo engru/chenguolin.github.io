@@ -58,55 +58,55 @@ func main() {
 # 四. 规范
 使用Goroutine实现高并发有一些规范开发必须要注意，否则很容易带来困扰
 
-##### 1. Golang主程序必须要等待所有的Goroutine结束才能够退出，否则如果先退出主程序会导致所有的Goroutine可能未执行结束就退出了
-```
-package main
+1. `Golang主程序必须要等待所有的Goroutine结束才能够退出，否则如果先退出主程序会导致所有的Goroutine可能未执行结束就退出了`
+   ```
+   package main
 
-import (
-    "sync"
-    "fmt"
-    "time"
-)
+   import (
+       "sync"
+       "fmt"
+       "time"
+   )
 
-func calc(w *sync.WaitGroup, i int)  {
-    defer func() {
-        err := recover()
-        if err != nil {
-          fmt.Println("panic error.")
-        }
-    }()
+   func calc(w *sync.WaitGroup, i int)  {
+       defer func() {
+           err := recover()
+           if err != nil {
+             fmt.Println("panic error.")
+           }
+       }()
     
-    fmt.Println("calc: ", i)
-    time.Sleep(time.Second)
-    w.Done()
-}
+       fmt.Println("calc: ", i)
+       time.Sleep(time.Second)
+       w.Done()
+   }
 
-func main()  {
-    # WaitGroup能够一直等到所有的goroutine执行完成，并且阻塞主线程的执行，直到所有的goroutine执行完成。
-    wg := sync.WaitGroup{}    
-    for i:=0; i<10; i++ {
-        wg.Add(1)
-        go calc(&wg, i)
-    }
-    # 阻塞主线程等到所有的goroutine执行完成
-    wg.Wait()
-    fmt.Println("all goroutine finish")
-}
-```
+   func main()  {
+       # WaitGroup能够一直等到所有的goroutine执行完成，并且阻塞主线程的执行，直到所有的goroutine执行完成。
+       wg := sync.WaitGroup{}    
+       for i:=0; i<10; i++ {
+           wg.Add(1)
+           go calc(&wg, i)
+       }
+       # 阻塞主线程等到所有的goroutine执行完成
+       wg.Wait()
+       fmt.Println("all goroutine finish")
+   }
+   ```
 
-##### 2. 每个Goroutine都要有recover机制，因为当一个Goroutine抛panic的时候只有自身能够捕捉到其它Goroutine是没有办法捕捉的。如果没有recover机制，整个进程会crash。
-##### 3. recover只能在defer里面生效，如果不是在defer里调用，会直接返回nil。 
-##### 4. Goroutine发生panic时，只会调用自身的defer，所以即便主Goroutine里写了recover逻辑，也无法recover。 
-```
-# Goroutine里面需要写defer recover机制
-go func() {
-   defer func() {
-      err := recover()
-      if err != nil {
-         fmt.Println("panic error.")
-      }
+2. `每个Goroutine都要有recover机制，因为当一个Goroutine抛panic的时候只有自身能够捕捉到其它Goroutine是没有办法捕捉的。如果没有recover机制，整个进程会crash`
+3. `recover只能在defer里面生效，如果不是在defer里调用，会直接返回nil`
+4. `Goroutine发生panic时，只会调用自身的defer，所以即便主Goroutine里写了recover逻辑，也无法recover`
+   ```
+   # Goroutine里面需要写defer recover机制
+   go func() {
+      defer func() {
+         err := recover()
+         if err != nil {
+            fmt.Println("panic error.")
+         }
+      }()
+      # other code
    }()
-   # other code
-}()
-```
+   ```
 
