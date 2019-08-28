@@ -63,7 +63,7 @@ tags:          #标签
 ## ④ Goroutine调度举例
 1. Go调度器包括2种类型Queue: GRQ (Global Run Queue) 和 LRQ (Local Run Queue)，每个P都有一个LRQ，每个P同一时刻只能运行一个M，每个M上运行G，G在M上实现调度上下文切换。
    ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-1.png?raw=true)
-2. Goroutine因为异步系统调用，进行切换
+2. Goroutine异步系统调用（例如网络调用）
    G1正在M上运行，准备去执行网络调用
    ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-2.png?raw=true)
    
@@ -72,6 +72,31 @@ tags:          #标签
    
    G1执行完成之后push到LRQ，最大的好处是异步网络调用不需要创建新的M
    ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-4.png?raw=true)
+3. Goroutine同步系统调用（例如file I/O）
+   G1正在M上运行，准备去执行阻塞系统调用
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-5.png?raw=true)
+
+   G1和M1阻塞，P上切换新M执行（如果M2已经存在会比创建一个新的更快），M2执行G2
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-6.png?raw=true)
+
+   G1执行完成之后push到LRQ，M1放在一边以备将来使用
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-7.png?raw=true)
+4. Goroutine work-stealing
+   有2个P，每个P LRQ有3个G
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-8.png?raw=true)
+   
+   P1 LRQ为空，P1需要从其它P获取G
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-9.png?raw=true)
+   
+   P1从P2 LRQ获取一半G，开始执行G3
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-10.png?raw=true)
+   
+   P2 LRQ为空，计划从P1获取G，发现P1 LRQ也为空，因此从GRQ获取
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-11.png?raw=true)
+   
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-12.png?raw=true)
+
+
 
 
 
