@@ -52,7 +52,7 @@ tags:          #标签
    ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/go-goroutine-steal.png?raw=true)
 4. Go中即使产生了成千上万个Goroutine，如果大多数Goroutine都因为一些原因阻塞了，这样也不会导致系统资源浪费，因为Go runtime会切换去执行可执行的Goroutine。
 
-`总的来说: Go 调度器做了很多工作，避免过多的抢占操作系统的线程`
+`总的来说: Go 调度器做了很多工作，避免操作系统的线程之间有过多的抢占行为，从而提高整体性能`
 
 # 四. Goroutine调度举例
 1. Go调度器包括2种类型Queue: GRQ (Global Run Queue) 和 LRQ (Local Run Queue)，每个P都有一个LRQ，每个P同一时刻只能运行一个M，每个M上运行G，G在M上实现调度上下文切换。
