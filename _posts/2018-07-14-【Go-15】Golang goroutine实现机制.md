@@ -91,8 +91,8 @@ tags:          #标签
    ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-12.png?raw=true)
 
 # 五. 并行与并发
-1. 并发: 多个线程在同一个逻辑CPU核上轮流使用CPU时间片，如下图所示G2、G3、G5属于并发
-2. 并行: 多个线程在多个逻辑CPU核上同时运行，如下图所示G1和G2属于并行
+1. `并发`: 多个线程在同一个逻辑CPU核上轮流使用CPU时间片，如下图所示G2、G3、G5属于并发
+2. `并行`: 多个线程在多个逻辑CPU核上同时运行，如下图所示G1和G2属于并行
 
 ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-13.png?raw=true)
 
