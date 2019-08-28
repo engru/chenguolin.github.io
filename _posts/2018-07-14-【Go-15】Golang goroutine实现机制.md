@@ -34,6 +34,7 @@ tags:          #标签
 2. `启动和销毁的成本`: 线程的启动和销毁必须要和操作系统内核进行交互，Goroutine的启动和销毁都是通过Go runtime，Go runtime负责管理调度、垃圾回收、Goroutine创建等，Goroutine相对于线程来说启动和销毁成本低很多。
    ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-vs-thread.png?raw=true)
 3. `上下文切换成本`: Goroutine和线程最大的区别是上下文切换成本，线程是抢占式调度的，当线程运行CPU时间片到了之后就会被另外一个可运行线程抢占，这个过程需要涉及到上下文切换，线程需要保存所有的寄存器，包括通用寄存器、程序计数器等。Goroutine调度是协作式的，Goroutine的调度不需要和操作系统内核进行交互，当Goroutine进行切换的时候只需要保存少量的程序计数器，成本比线程低很多。
+4. `状态`: Goroutine和系统线程一样同样有3种状态 `Waiting`、`Runnable`、`Executing`
 
 ## ③ Go调度器
 1. Go使用以下3个实体描述Goroutine调度，通过这3个Go就可以实现`x:y`的调度，也就是 x 个Goroutine可以运行在 y 个系统线程上，任何时候每个系统线程 M 都可以执行一个G，如果某个G 阻塞，系统线程 M 会切换执行另外一个G ，所以Goroutine阻塞并不会导致系统线程阻塞，这就大大提高了程序并发处理能力
@@ -62,7 +63,6 @@ tags:          #标签
 ## ④ Goroutine调度举例
 1. Go调度器包括2种类型Queue: GRQ (Global Run Queue) 和 LRQ (Local Run Queue)，每个P都有一个LRQ，每个P同一时刻只能运行一个M，每个M上运行G，G在M上实现调度上下文切换。
    ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-1.png?raw=true)
-
-
+2. 
 
 
