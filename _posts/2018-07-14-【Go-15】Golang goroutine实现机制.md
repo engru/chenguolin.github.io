@@ -63,6 +63,15 @@ tags:          #标签
 ## ④ Goroutine调度举例
 1. Go调度器包括2种类型Queue: GRQ (Global Run Queue) 和 LRQ (Local Run Queue)，每个P都有一个LRQ，每个P同一时刻只能运行一个M，每个M上运行G，G在M上实现调度上下文切换。
    ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-1.png?raw=true)
-2. 
+2. Goroutine因为异步系统调用，进行切换
+   G1正在M上运行，准备去执行网络调用
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-2.png?raw=true)
+   
+   G1切换去执行网络调用，M切换去执行G2
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-3.png?raw=true)
+   
+   G1执行完成之后push到LRQ，最大的好处是异步网络调用不需要创建新的M
+   ![](https://github.com/chenguolin/chenguolin.github.io/blob/master/data/image/goroutine-figure-4.png?raw=true)
+
 
 
