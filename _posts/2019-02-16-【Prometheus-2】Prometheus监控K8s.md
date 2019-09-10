@@ -546,3 +546,9 @@ https://grafana.com/dashboards?dataSource=prometheus&search=Kubernetes
     * https://grafana.com/api/dashboards/7670/revisions/1/download
     * https://grafana.com/api/dashboards/747/revisions/2/download
 
+## ⑤ 注意事项
+1. Grafana使用Prometheus做为数据源的时候，基本都会设置一个`interval`变量，用于大范围的rate计算
+    * 如果我们默认设置为2m (例如sum(rate{...}[2m]))，当要查看长周期监控数据的话，Grafana会使用降准的数据，每个数据点会超过2m，就会导致获取不到监控数据
+    * `interval`变量默认会设置auto，如果是interval值是auto的话，Grafana自动根据请求的时间周期进行调整
+    * 看别人分享的Grafana的prometheus数据源的例子一般都会有这个interval变量
+
