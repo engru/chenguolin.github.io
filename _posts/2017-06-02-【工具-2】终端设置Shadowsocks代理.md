@@ -30,6 +30,7 @@ SS默认是针对浏览器的请求进行代理，很多时候我们也希望Con
    
 2. 配置privoxy  
    `vim /usr/local/etc/privoxy/config`  
+   
    ```
    confdir /usr/local/etc/privoxy
    logdir /usr/local/var/log/privoxy
@@ -39,7 +40,10 @@ SS默认是针对浏览器的请求进行代理，很多时候我们也希望Con
    filterfile default.filter
    filterfile user.filter      # User customizations
    logfile logfile
-   listen-address 0.0.0.0:8118  # 监听任意IP地址的8118端口
+
+   # privoxy 监听配置
+   listen-address 0.0.0.0:8118
+
    toggle  1
    enable-remote-toggle  0
    enable-remote-http-toggle  0
@@ -53,30 +57,23 @@ SS默认是针对浏览器的请求进行代理，很多时候我们也希望Con
    split-large-forms 0
    keep-alive-timeout 5
    tolerate-pipelining 1
-   socket-timeout 300
+   socket-timeout 30
 
-   forward-socks5 /  127.0.0.1:1080 .   # 代表所有的URL都转发到socks5代理，1080为默认socks端口 需要和SS配置的端口保持一致
+   # privoxy 代理到socks的地址上
+   forward-socks5 .google.com  127.0.0.1:1080 .
+   forward-socks5 .github.com 127.0.0.1:1080 .
+   forward-socks5 .githubusercontent 127.0.0.1:1080 .
+   forward-socks5 .github.cnpmjs.org  127.0.0.1:1080 .
+   forward-socks5 .k8s.io 127.0.0.1:1080 .
+   forward-socks5 .golang.org 127.0.0.1:1080 .
+   forward-socks5 .googlesource.com 127.0.0.1:1080 .
+
+   # 不需要走http代理的IP或者域名
    forward     192.168.*.*/     .
-   forward     172.16.*.*/     .
-   forward     172.17.*.*/     .
-   forward     172.18.*.*/     .
-   forward     172.19.*.*/     .
-   forward     172.20.*.*/     .
-   forward     172.21.*.*/     .
-   forward     172.22.*.*/     .
-   forward     172.23.*.*/     .
-   forward     172.24.*.*/     .
-   forward     172.25.*.*/     .
-   forward     172.26.*.*/     .
-   forward     172.27.*.*/     .
-   forward     172.28.*.*/     .
-   forward     172.29.*.*/     .
-   forward     172.30.*.*/     .
-   forward     172.31.*.*/     .
    forward     10.*.*.*/     .
    forward     127.*.*.*/     .
    forward     localhost/     .
-   forward     .local.com/     .
+   forward     .local.com/      .
    ```
 
 3. 启动privoxy  
@@ -97,4 +94,9 @@ SS默认是针对浏览器的请求进行代理，很多时候我们也希望Con
       
 7. 相关问题  
    `Failed to connect to localhost port 8118: Connection refused`: 确认下 privoxy 是不是没有开启
+
+# 三. 相关问题
+问题1: 如果使用 `dep ensure -update` 命令的时候发现报 `net/http: TLS handshake timeout`
+解决方案: 可以参考 https://github.com/helm/helm/issues/5220 主要是把 export https_proxy='https://localhost:8118' 改成 export https_proxy='http://localhost:8118'
+
 
