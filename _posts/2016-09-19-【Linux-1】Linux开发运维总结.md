@@ -244,4 +244,9 @@ tags:         #标签
     + Encode: `$ echo "cgl" | base64`
     + Decode: `$ echo 'MWYyZDFlMmU2N2Rm' | base64 —decode`
 
+# 十九. 差异
+1. Ubuntu操作系统没有 `dig` 工具，需要安装 `dnsutils`，命令为 `apt-get install dnsutils`
+
+
+
 
