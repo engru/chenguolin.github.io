@@ -9,7 +9,7 @@ tags:          #标签
 # 一. 背景
 很多时候我们会需要测试某个域名是否能够正常访问，如果域名解析还未生效我们一般需要先通过设置 hosts 的方式来保证能够正常访问。但是在Docker容器环境下，设置hosts和传统的物理机会有些区别。
 
-正常情况下我们会想到在Dockerfile里面设置/etc/hosts，Dockerfile内容如下所示。使用Dockerfile完成镜像构建之后，运行容器之后发现容器内/etc/hosts文件并没有 10.255.0.14 cgl.test.com 这行配置。
+正常情况下我们会想到在Dockerfile里面设置/etc/hosts，Dockerfile内容如下所示。使用Dockerfile完成镜像构建之后，运行容器之后发现容器内 /etc/hosts 文件并没有 10.10.0.14 cgl.test.com 这行配置。
 ```
 FROM alpine:3.5
 
