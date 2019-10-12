@@ -19,7 +19,7 @@ RUN echo "10.10.0.14 cgl.test.com" >> /etc/hosts
 问题的根本原因是 hosts 文件其实并不是存储在Docker镜像中的，/etc/hosts, /etc/resolv.conf 和 /etc/hostname，是存在主机上的 /var/lib/docker/containers/{docker_id} 目录下，容器启动时是通过 mount 将这些文件挂载到容器内部的。因此如果在容器中修改这些文件，修改部分不会存在于容器的可读写层，而是直接写入这3个文件中。容器重启后修改内容不存在的原因是Docker每次创建新容器时，会根据当前 docker0 下的所有节点的IP信息重新建立hosts文件。也就是说，你的修改会被Docker给自动覆盖掉。
 
 # 二. 解决方案
-## ① docker run 添加 --add-host参数
+## ① docker run 添加 --add-host 参数
 我们在运行容器的时候添加 --add-host 参数，容器运行命令为 `docker run -it --add-host=cgl.test.com:10.10.0.14 cgl-test-hosts:v0.0.1`,查看 hosts 是否有设置成功，发现容器内 /etc/hosts 已经有对应的域名解析配置了。
 
 ```
@@ -63,6 +63,45 @@ ff02::2	ip6-allrouters
 10.10.0.14 cgl.test.com      //设置成功了
 ```
 
-## ③ 
+## ③ 通过脚本注入镜像
+通过前面的介绍我们知道在Dockerfile内直接修改 /etc/hosts 文件是无效的，因此我们需要把配置放在一个shell脚本内，通过Dockerfile把脚本注入镜像，同时设置容器的启动的命令为该shell脚本。
 
+Dockerfile 内容如下
+```
+FROM alpine:3.5
+
+COPY modify_hosts.sh /www/cgl/modify_hosts.sh
+RUN chmod 775 /www/cgl/run.sh
+
+# run the script that starts container
+ENTRYPOINT /www/cgl/run.sh
+```
+
+run.sh 脚本内容如下
+```
+#!/bin/sh
+
+## set hosts
+echo "10.10.0.14 cgl.test.com" >> /etc/hosts
+
+## start application
+sleep 36000
+```
+
+1. 镜像构建: docker build -t cgl-test-hosts:v0.0.2 .
+2. 运行容器并查看是否设置成功
+```
+$ docker run -itd cgl-test-hosts:v0.0.2
+  aadb29a5716dd97d3a042808dbe391b5337e6b87205f4b3db670c640776414cf
+$ docker exec -it aadb29a5716dd97d3a042808dbe391b5337e6b87205f4b3db670c640776414cf /bin/sh
+/ # cat /etc/hosts
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
+fe00::0	ip6-localnet
+ff00::0	ip6-mcastprefix
+ff02::1	ip6-allnodes
+ff02::2	ip6-allrouters
+172.17.0.2	aadb29a5716d
+10.10.0.14 cgl.test.com       //设置成功了
+```
 
