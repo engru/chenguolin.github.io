@@ -30,7 +30,7 @@ fe00::0	ip6-localnet
 ff00::0	ip6-mcastprefix
 ff02::1	ip6-allnodes
 ff02::2	ip6-allrouters
-10.10.0.14	cgl.test.com        //发现设置成功了
+10.10.0.14	cgl.test.com        //设置成功了
 172.17.0.2	243fa854d215
 ```
 
@@ -50,7 +50,7 @@ ff02::1	ip6-allnodes
 ff02::2	ip6-allrouters
 172.17.0.2	21ab34d0fe34
 
-/ # echo "10.10.0.14 cgl.test.com" >> /etc/hosts         //写
+/ # echo "10.10.0.14 cgl.test.com" >> /etc/hosts         //写入容器内/etc/hosts文件
 
 / # cat /etc/hosts
 127.0.0.1	localhost
@@ -60,9 +60,9 @@ ff00::0	ip6-mcastprefix
 ff02::1	ip6-allnodes
 ff02::2	ip6-allrouters
 172.17.0.2	21ab34d0fe34
-10.10.0.14 cgl.test.com
+10.10.0.14 cgl.test.com      //设置成功了
 ```
 
-
+## ③ 
 
 
