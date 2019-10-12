@@ -70,7 +70,7 @@ Dockerfile 内容如下
 ```
 FROM alpine:3.5
 
-COPY modify_hosts.sh /www/cgl/modify_hosts.sh
+COPY run.sh /www/cgl/run.sh
 RUN chmod 775 /www/cgl/run.sh
 
 # run the script that starts container
