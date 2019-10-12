@@ -90,6 +90,7 @@ sleep 36000
 
 1. 镜像构建: docker build -t cgl-test-hosts:v0.0.2 .
 2. 运行容器并查看是否设置成功
+
 ```
 $ docker run -itd cgl-test-hosts:v0.0.2
   aadb29a5716dd97d3a042808dbe391b5337e6b87205f4b3db670c640776414cf
