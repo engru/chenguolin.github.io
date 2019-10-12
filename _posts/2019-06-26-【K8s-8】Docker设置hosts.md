@@ -85,7 +85,8 @@ run.sh 脚本内容如下
 echo "10.10.0.14 cgl.test.com" >> /etc/hosts
 
 ## start application
-sleep 36000
+## sleep 3600只是举例
+sleep 3600
 ```
 
 1. 镜像构建: docker build -t cgl-test-hosts:v0.0.2 .
