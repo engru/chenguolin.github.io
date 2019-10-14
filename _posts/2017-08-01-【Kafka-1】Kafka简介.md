@@ -59,6 +59,12 @@ Kafka 客户端和服务端之间的通信是建立在简单的、高效的、�
 # 四. Producers
 Producer 负责决定将数据发送到 Topic 的哪个 Partition 上，这可以通过简单的循环方式来平衡负载，或则可以根据某些语义来决定分区（例如基于数据中一些关键字）。
 
+Producer在初始化的时候可以设置 request.required.acks 参数，用于设置写消息机制
+
+1. `request.required.acks=0`: 表示 Producer 不等待来自broker同步完成确认，就继续发送下一批消息。这个配置能够提供最低的延迟，但当服务器发生故障时某些数据会丢失，如 replica leader挂掉了但 Producer 并不知情，发出去的信息 broker 可能就收不到。
+2. `request.required.acks=1`: 表示 Producer 在 replica leader 已成功收到的数据并得到确认后，才会发送下一批消息。一般情况下使用当前机制即可保证数据不丢，但是某些场景下例如 replica leader 还未同步给 replica flower 副本就挂掉了，这个时候数据就有可能丢失了。
+3. `request.required.acks=-1`: 表示 Producer 在所有 replica follower 副本都确认接收到数据后，才会发送下一批消息。这个机制可以保证只要有一个 replica 副本存活，那么数据就不丢。
+
 # 五. Consumers
 1. Consumer 使用一个 Group name来标识自己的身份，每条被发送到一个 Topic 的消息都将被分发到属于同一个 group 的 Consumer 的一个实例中。  
 2. Group name 相同的 Consumer 属于一个组，一个 Topic 的一条消息会被这个组中的一个 Consumer实例消费。
