@@ -194,6 +194,9 @@ tags:         #标签
    + `–limit-rate`: 下载限速
    + `-o`: 指定日志文件
    + `-c`: 断点续传
+6. curl命令
+   + GET请求: `curl -H 'Content-Type:application/json' -H "Cookie:xxxx"  "http://xxx/..."`
+   + POST请求: `curl -H 'Content-Type:application/json' -H "Cookie:xxxx" -d '{....}' "http://xxx/..."`
    
 # 十四. 文件
 1. 查看两个文件间的差别: `$diff file1 file2`
